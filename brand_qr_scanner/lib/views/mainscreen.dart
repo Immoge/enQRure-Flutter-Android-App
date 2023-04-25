@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:brand_qr_scanner/views/registerproductscreen.dart';
 import 'package:brand_qr_scanner/views/profilescreen.dart';
 import '../models/user.dart';
+import 'homescreen.dart';
 
 class MainScreen extends StatefulWidget {
   final User user;
@@ -20,9 +21,9 @@ class _MainScreenState extends State<MainScreen> {
   void initState() {
     super.initState();
     tabchildren = [
-      MainScreen(user: widget.user),
+      HomeScreen(),
       RegisterProductScreen(),
-      ProfileScreen(),
+      ProfileScreen(user : widget.user),
     ];
   }
 

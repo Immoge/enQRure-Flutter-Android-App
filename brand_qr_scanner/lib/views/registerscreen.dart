@@ -329,28 +329,27 @@ class _RegisterScreenState extends State<RegisterScreen> {
     }
   }
 
-  Future<void> _cropImage() async {
-    File? croppedFile = (await ImageCropper().cropImage(
-      sourcePath: _image!.path,
-      aspectRatioPresets: [
-        CropAspectRatioPreset.square,
-        CropAspectRatioPreset.ratio3x2,
-        CropAspectRatioPreset.original,
-        CropAspectRatioPreset.ratio4x3,
-        CropAspectRatioPreset.ratio16x9
-      ],
-      // androidUiSettings: AndroidUiSettings(
-      //     toolbarTitle: 'Cropper',
-      //     toolbarColor: Colors.cyan,
-      //     toolbarWidgetColor: Colors.white,
-      //     initAspectRatio: CropAspectRatioPreset.original,
-      //     lockAspectRatio: false),
-      // iosUiSettings: IOSUiSettings(
-      //   minimumAspectRatio: 1.0,
-      // )
-    )) as File?;
+Future<void> _cropImage() async {
+    CroppedFile? croppedFile = await ImageCropper().cropImage(
+        sourcePath: _image!.path,
+        aspectRatioPresets: [
+          CropAspectRatioPreset.square,
+          CropAspectRatioPreset.ratio3x2,
+          CropAspectRatioPreset.original,
+          CropAspectRatioPreset.ratio4x3,
+          CropAspectRatioPreset.ratio16x9
+        ],
+        // androidUiSettings: AndroidUiSettings(
+        //     toolbarTitle: 'Cropper',
+        //     toolbarColor: Colors.cyan,
+        //     toolbarWidgetColor: Colors.white,
+        //     initAspectRatio: CropAspectRatioPreset.original,
+        //     lockAspectRatio: false),
+        // iosUiSettings: IOSUiSettings(
+        //   minimumAspectRatio: 1.0,
+        );
     if (croppedFile != null) {
-      _image = croppedFile;
+      File _image = File (croppedFile.path);
       setState(() {});
     }
   }

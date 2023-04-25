@@ -8,7 +8,7 @@
             "name": "brand_qr_scanner",
             "request": "launch",
             "type": "dart",
-            "program": "lib/views/main.dart"
+            "program": "lib/main.dart"
         },
         {
             "name": "brand_qr_scanner (profile mode)",

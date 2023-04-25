@@ -54,9 +54,8 @@ class _MySplashScreenState extends State<MySplashScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               Padding(
-                padding: const EdgeInsets.all(64.0),
-                child: Image.asset('assets/images/project 1_app logo.png'),
-              ),
+                  padding: const EdgeInsets.all(64.0),
+                  child: Image.asset('assets/images/project 1_app logo.png')),
               const CircularProgressIndicator(),
               const Text("Version 0.1",
                   style: TextStyle(
