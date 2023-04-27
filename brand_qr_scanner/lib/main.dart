@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:brand_qr_scanner/views/homescreen.dart';
 import 'package:flutter/material.dart';
 import 'package:brand_qr_scanner/views/loginscreen.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -13,14 +14,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'J Scanner',
+      title: 'enQRure',
       theme: ThemeData(
         primarySwatch: Colors.cyan,
         textTheme: GoogleFonts.poppinsTextTheme(
           Theme.of(context).textTheme,
         ),
       ),
-      home: const MySplashScreen(title: 'J Scanner'),
+      home: const MySplashScreen(title: 'enQRure'),
     );
   }
 }
@@ -39,8 +40,8 @@ class _MySplashScreenState extends State<MySplashScreen> {
     super.initState();
     Timer(
         const Duration(seconds: 3),
-        () => Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (content) => LoginScreen())));
+        () => Navigator.pushReplacement(context,
+            MaterialPageRoute(builder: (content) => const LoginScreen())));
   }
 
   @override
@@ -51,15 +52,14 @@ class _MySplashScreenState extends State<MySplashScreen> {
       body: Center(
         child: SafeArea(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Padding(
                   padding: const EdgeInsets.all(64.0),
-                  child: Image.asset('assets/images/project 1_app logo.png')),
-              const CircularProgressIndicator(),
-              const Text("Version 0.1",
+                  child: Image.asset('assets/images/enQRsure logo.png')),
+              const Text("Version 1.0",
                   style: TextStyle(
-                    fontSize: 16,
+                    fontSize: 25,
                     fontWeight: FontWeight.bold,
                   )),
             ],

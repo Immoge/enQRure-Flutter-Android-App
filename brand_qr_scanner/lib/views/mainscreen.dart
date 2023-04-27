@@ -23,7 +23,7 @@ class _MainScreenState extends State<MainScreen> {
     tabchildren = [
       HomeScreen(),
       RegisterProductScreen(),
-      ProfileScreen(user : widget.user),
+      ProfileScreen(user: widget.user),
     ];
   }
 

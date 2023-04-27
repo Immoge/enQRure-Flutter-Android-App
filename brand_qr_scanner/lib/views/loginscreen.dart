@@ -23,7 +23,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
   bool _isChecked = false;
   var screenHeight, screenWidth, cardwitdh;
-  var pathAsset = "assets/images/project 1_app logo.png";
+  var pathAsset = "assets/images/enQRsure logo.png";
   @override
   void initState() {
     super.initState();
@@ -121,13 +121,17 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                             MaterialButton(
                               shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(5.0)),
+                                  borderRadius: BorderRadius.circular(10.0)),
                               minWidth: 115,
                               height: 50,
                               elevation: 10,
                               onPressed: _loginUser,
-                              color: Theme.of(context).colorScheme.primary,
-                              child: const Text('Login'),
+                              color: Colors.blue[700],
+                              child: const Text('Login',
+                              style: TextStyle(
+                                fontSize:18,
+                                fontWeight:FontWeight.bold
+                              ),),
                             ),
                           ],
                         ),
