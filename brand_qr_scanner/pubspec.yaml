@@ -34,6 +34,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_svg: ^2.0.5
+  flutter_walkthrough_screen: ^2.0.2
   fluttertoast: ^8.1.2
   google_fonts: ^4.0.2
   http: ^0.13.5

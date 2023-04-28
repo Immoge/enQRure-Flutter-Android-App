@@ -1,3 +1,5 @@
+import 'package:brand_qr_scanner/views/historyscreen.dart';
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:brand_qr_scanner/views/registerproductscreen.dart';
 import 'package:brand_qr_scanner/views/profilescreen.dart';
@@ -23,6 +25,7 @@ class _MainScreenState extends State<MainScreen> {
     tabchildren = [
       HomeScreen(),
       RegisterProductScreen(),
+      HistoryScreen(),
       ProfileScreen(user: widget.user),
     ];
   }
@@ -31,27 +34,34 @@ class _MainScreenState extends State<MainScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: tabchildren[_currentIndex],
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        onTap: onTabTapped,
-        currentIndex: _currentIndex,
-        items: const [
-          BottomNavigationBarItem(
-              icon: Icon(
-                Icons.house_rounded,
-              ),
-              label: "Main"),
-          BottomNavigationBarItem(
-              icon: Icon(
-                Icons.qr_code_scanner,
-              ),
-              label: "Scan"),
-          BottomNavigationBarItem(
-              icon: Icon(
-                Icons.person,
-              ),
-              label: "Profile"),
-        ],
+      bottomNavigationBar: 
+        CurvedNavigationBar(
+          backgroundColor: Colors.white,
+          color: Colors.lightBlue,
+          animationDuration: Duration(milliseconds: 300),
+          onTap: onTabTapped,
+          index: _currentIndex,
+          items: [
+            Icon(
+              Icons.house_rounded,
+              color: Colors.white,
+              size: 35,
+            ),
+            Icon(
+              Icons.qr_code_scanner,
+              color: Colors.white,
+              size:35,
+            ),
+            Icon(
+              Icons.history,
+              color: Colors.white,
+              size:35),
+            Icon(
+              Icons.person,
+              color: Colors.white,
+              size:35,
+            ),
+          ],
       ),
     );
   }
@@ -65,7 +75,10 @@ class _MainScreenState extends State<MainScreen> {
       if (_currentIndex == 1) {
         maintitle = "Scan";
       }
-      if (_currentIndex == 2) {
+       if (_currentIndex == 2) {
+        maintitle = "History";
+      }
+      if (_currentIndex == 3) {
         maintitle = "Profile";
       }
     });

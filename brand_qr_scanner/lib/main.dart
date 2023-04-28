@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:brand_qr_scanner/views/homescreen.dart';
+import 'package:brand_qr_scanner/views/landingscreen.dart';
 import 'package:flutter/material.dart';
-import 'package:brand_qr_scanner/views/loginscreen.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 void main() {
@@ -16,8 +16,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'enQRure',
       theme: ThemeData(
-        primarySwatch: Colors.cyan,
-        textTheme: GoogleFonts.poppinsTextTheme(
+        primarySwatch: Colors.lightBlue,
+        textTheme: GoogleFonts.robotoTextTheme(
           Theme.of(context).textTheme,
         ),
       ),
@@ -41,7 +41,7 @@ class _MySplashScreenState extends State<MySplashScreen> {
     Timer(
         const Duration(seconds: 3),
         () => Navigator.pushReplacement(context,
-            MaterialPageRoute(builder: (content) => const LoginScreen())));
+            MaterialPageRoute(builder: (content) => const LandingScreen())));
   }
 
   @override
