@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:brand_qr_scanner/views/homescreen.dart';
+import 'package:brand_qr_scanner/views/buyerhomescreen.dart';
 import 'package:brand_qr_scanner/views/landingscreen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';

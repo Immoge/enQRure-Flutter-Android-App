@@ -27,13 +27,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
   late double screenHeight, screenWidth, resWidth;
   var _image;
   var val = 50;
-
+//
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
   final TextEditingController _addressController = TextEditingController();
   final TextEditingController _oldpasswordController = TextEditingController();
   final TextEditingController _newpasswordController = TextEditingController();
-
+//
   Random random = Random();
 
   @override
@@ -74,8 +74,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             flex: 4,
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
+                              //
                               child: GestureDetector(
-                                onTap: () => {_updateImageDialog()},
+                                onTap: () => {_updateImageDialog()},//
                                 child: ClipOval(
                                   child: Image.network(
                                     CONSTANTS.server +
@@ -368,8 +369,9 @@ Future<void> _cropImage() async {
         //   minimumAspectRatio: 1.0,
         );
     if (croppedFile != null) {
-      File _image = File (croppedFile.path);
-      setState(() {});
+      File imageFile = File(croppedFile.path);
+      _image = imageFile;
+      _updateProfileImage(_image);
     }
   }
 

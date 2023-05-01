@@ -1,10 +1,10 @@
-import 'package:brand_qr_scanner/views/historyscreen.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:brand_qr_scanner/views/registerproductscreen.dart';
 import 'package:brand_qr_scanner/views/profilescreen.dart';
 import '../models/user.dart';
-import 'homescreen.dart';
+import 'Buyer/buyerprofilescreen.dart';
+import 'buyerhomescreen.dart';
 
 class MainScreen extends StatefulWidget {
   final User user;
@@ -23,10 +23,9 @@ class _MainScreenState extends State<MainScreen> {
   void initState() {
     super.initState();
     tabchildren = [
-      HomeScreen(),
-      RegisterProductScreen(),
-      HistoryScreen(),
-      ProfileScreen(user: widget.user),
+      const BuyerHomeScreen(),
+      const RegisterProductScreen(),
+      BuyerProfileScreen(user: widget.user),
     ];
   }
 
@@ -41,7 +40,7 @@ class _MainScreenState extends State<MainScreen> {
           animationDuration: Duration(milliseconds: 300),
           onTap: onTabTapped,
           index: _currentIndex,
-          items: [
+          items: const [
             Icon(
               Icons.house_rounded,
               color: Colors.white,
@@ -52,10 +51,6 @@ class _MainScreenState extends State<MainScreen> {
               color: Colors.white,
               size:35,
             ),
-            Icon(
-              Icons.history,
-              color: Colors.white,
-              size:35),
             Icon(
               Icons.person,
               color: Colors.white,
@@ -75,10 +70,7 @@ class _MainScreenState extends State<MainScreen> {
       if (_currentIndex == 1) {
         maintitle = "Scan";
       }
-       if (_currentIndex == 2) {
-        maintitle = "History";
-      }
-      if (_currentIndex == 3) {
+      if (_currentIndex == 2) {
         maintitle = "Profile";
       }
     });

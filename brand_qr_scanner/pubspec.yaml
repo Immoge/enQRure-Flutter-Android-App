@@ -36,10 +36,13 @@ dependencies:
   flutter_svg: ^2.0.5
   flutter_walkthrough_screen: ^2.0.2
   fluttertoast: ^8.1.2
+  get: ^4.6.5
   google_fonts: ^4.0.2
   http: ^0.13.5
   image_cropper: ^3.0.1
   image_picker: ^0.8.6+1
+  intl: ^0.18.1
+  line_awesome_flutter: ^2.0.0
   ndialog: ^4.3.0
   path_provider: ^2.0.12
   qr_code_scanner: ^1.0.1

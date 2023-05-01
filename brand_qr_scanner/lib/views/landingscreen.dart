@@ -1,4 +1,4 @@
-import 'package:brand_qr_scanner/views/homescreen.dart';
+import 'package:brand_qr_scanner/views/Buyer/buyerprofilescreen.dart';
 import 'package:brand_qr_scanner/views/mainscreen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -70,20 +70,20 @@ class _LandingScreenState extends State<LandingScreen> {
                 Row(
                   children: [
                     const Spacer(),
-                    SizedBox(
-                        height: 60,
-                        width: 65,
-                        child: ElevatedButton(
-                            onPressed: () {
-                              _goHome();
-                            },
-                            style: ElevatedButton.styleFrom(
-                                shape: const CircleBorder()),
-                            child: const Icon(
-                              Icons.arrow_circle_right_outlined,
-                              color: Colors.white,
-                              size: 35,
-                            ))),
+                    MaterialButton(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.0)),
+                      minWidth: 100,
+                      height: 50,
+                      elevation: 10,
+                      onPressed: _goHome,
+                      color: Colors.blue[700],
+                      child: const Icon(
+                        Icons.arrow_forward,
+                        color: Colors.white,
+                        size: 35,
+                      ),
+                    ),
                   ],
                 ),
               ],
@@ -97,10 +97,11 @@ class _LandingScreenState extends State<LandingScreen> {
   void _goHome() {
     User user = User(
       id: "0",
-      email: "unregistered",
-      name: "unregistered",
+      email: "guest@immoge.com",
+      name: "Guest",
+      password: "na",
       address: "na",
-      phone: "0123456789",
+      phone: "na",
       regdate: "0",
     );
     Navigator.push(
@@ -122,12 +123,13 @@ class DotIndicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return AnimatedContainer(
+      duration: const Duration(milliseconds: 300),
       width: isActive ? 10 : 4,
       height: isActive ? 10 : 4,
-      decoration:  const BoxDecoration(
+      decoration: const BoxDecoration(
           color: Colors.grey,
-          borderRadius:  BorderRadius.all(Radius.circular(12))),
+          borderRadius: BorderRadius.all(Radius.circular(12))),
     );
   }
 }
@@ -143,15 +145,18 @@ final List<Onboard> landingScreenData = [
   Onboard(
       image: "assets/images/landing page images/Landing Page 1.png",
       title: "Secure & Efficient",
-      description: "Verifying the genuineness of the product through a secure & simple process."),
+      description:
+          "Verifying the genuineness of the product through a secure & simple process."),
   Onboard(
       image: "assets/images/landing page images/Landing Page 2.png",
       title: "Protect Our Right",
-      description: "Here you'll will experience a new authentication process and safeguard our right"),
+      description:
+          "Here you'll will experience a new authentication process and safeguard our right"),
   Onboard(
       image: "assets/images/landing page images/Landing Page 3.png",
       title: "Elimate Counterfeit",
-      description: "Safeguarding against counterfeit products is not just a matter of business, but a responsibility towards consumers and society as a whole."),
+      description:
+          "Safeguarding against counterfeit products is not just a matter of business, but a responsibility towards consumers and society as a whole."),
 ];
 
 class OnboardContent extends StatelessWidget {
@@ -178,7 +183,7 @@ class OnboardContent extends StatelessWidget {
         Text(title,
             textAlign: TextAlign.center,
             style: GoogleFonts.concertOne(
-                fontSize: 25, fontWeight: FontWeight.bold)),
+            fontSize: 25, fontWeight: FontWeight.bold)),
         const SizedBox(height: 16),
         Text(description,
             textAlign: TextAlign.center,

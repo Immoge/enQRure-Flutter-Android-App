@@ -10,7 +10,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:image_cropper/image_cropper.dart';
 
 class RegisterScreen extends StatefulWidget {
-  RegisterScreen({Key? key}) : super(key: key);
+  const RegisterScreen({Key? key}) : super(key: key);
 
   @override
   State<RegisterScreen> createState() => _RegisterScreenState();
@@ -23,6 +23,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   var _image;
   bool passVisible = true;
   bool passVisible2 = true;
+
   final TextEditingController nameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController password1Controller = TextEditingController();
@@ -137,6 +138,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   borderRadius: BorderRadius.circular(5.0))),
                           validator: (value) {
                             if (value == null || value.isEmpty) {
+                              return "Please enter phone number";
+                            }
+                            if (value.length < 10) {
                               return "Please enter valid phone number";
                             }
                             return null;
@@ -154,7 +158,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   borderRadius: BorderRadius.circular(5.0))),
                           validator: (value) {
                             if (value == null || value.isEmpty) {
-                              return "Please enter valid address";
+                              return "Please enter home address";
+                            }
+                            if (value.length < 15) {
+                              return "Please enter valid home address";
                             }
                             return null;
                           },
@@ -205,7 +212,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   borderRadius: BorderRadius.circular(5.0)),
                               suffixIcon: IconButton(
                                 icon: Icon(
-                                  passVisible
+                                  passVisible2
                                       ? Icons.visibility_off
                                       : Icons.visibility,
                                 ),
@@ -329,27 +336,27 @@ class _RegisterScreenState extends State<RegisterScreen> {
     }
   }
 
-Future<void> _cropImage() async {
+  Future<void> _cropImage() async {
     CroppedFile? croppedFile = await ImageCropper().cropImage(
-        sourcePath: _image!.path,
-        aspectRatioPresets: [
-          CropAspectRatioPreset.square,
-          CropAspectRatioPreset.ratio3x2,
-          CropAspectRatioPreset.original,
-          CropAspectRatioPreset.ratio4x3,
-          CropAspectRatioPreset.ratio16x9
-        ],
-        // androidUiSettings: AndroidUiSettings(
-        //     toolbarTitle: 'Cropper',
-        //     toolbarColor: Colors.cyan,
-        //     toolbarWidgetColor: Colors.white,
-        //     initAspectRatio: CropAspectRatioPreset.original,
-        //     lockAspectRatio: false),
-        // iosUiSettings: IOSUiSettings(
-        //   minimumAspectRatio: 1.0,
-        );
+      sourcePath: _image!.path,
+      aspectRatioPresets: [
+        CropAspectRatioPreset.square,
+        CropAspectRatioPreset.ratio3x2,
+        CropAspectRatioPreset.original,
+        CropAspectRatioPreset.ratio4x3,
+        CropAspectRatioPreset.ratio16x9
+      ],
+      // androidUiSettings: AndroidUiSettings(
+      //     toolbarTitle: 'Cropper',
+      //     toolbarColor: Colors.cyan,
+      //     toolbarWidgetColor: Colors.white,
+      //     initAspectRatio: CropAspectRatioPreset.original,
+      //     lockAspectRatio: false),
+      // iosUiSettings: IOSUiSettings(
+      //   minimumAspectRatio: 1.0,
+    );
     if (croppedFile != null) {
-      File _image = File (croppedFile.path);
+      File _image = File(croppedFile.path);
       setState(() {});
     }
   }
