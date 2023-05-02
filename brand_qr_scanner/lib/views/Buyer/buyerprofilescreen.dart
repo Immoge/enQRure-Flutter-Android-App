@@ -48,12 +48,13 @@ class _BuyerProfileScreenState extends State<BuyerProfileScreen> {
       backgroundColor: Colors.white.withAlpha(200),
       appBar: AppBar(
         centerTitle: true,
-        backgroundColor: Colors.blue,
+        backgroundColor: Color(0xFF54B5FF),
         elevation: 1,
         title: Text("Profile",
             textAlign: TextAlign.center,
             style: GoogleFonts.openSans(
-                fontSize: 25, fontWeight: FontWeight.bold)),
+                fontSize: 25, 
+                fontWeight: FontWeight.bold,)),
       ),
       body: SingleChildScrollView(
           padding: const EdgeInsets.all(32),
@@ -89,7 +90,7 @@ class _BuyerProfileScreenState extends State<BuyerProfileScreen> {
                           builder: (context) =>
                               BuyerEditProfileScreen(user: widget.user))),
                   style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.lightBlue,
+                      backgroundColor: Color(0xFF54B5FF),
                       side: BorderSide.none,
                       shape: const StadiumBorder()),
                   child: Text("Edit Profile",
@@ -199,7 +200,7 @@ class _BuyerProfileScreenState extends State<BuyerProfileScreen> {
               child: Text(
                 "Yes",
                 style: GoogleFonts.montserrat(
-                    color: Colors.lightBlue,
+                    color: Color(0xFF54B5FF),
                     fontSize: 15,
                     fontWeight: FontWeight.bold),
               ),
@@ -221,7 +222,7 @@ class _BuyerProfileScreenState extends State<BuyerProfileScreen> {
               child: Text(
                 "No",
                 style: GoogleFonts.montserrat(
-                    color: Colors.lightBlue,
+                    color: Color(0xFF54B5FF),
                     fontSize: 15,
                     fontWeight: FontWeight.bold),
               ),
@@ -401,7 +402,7 @@ class ProfileMenuWidget extends StatelessWidget {
         height: 40,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(100),
-          color: Colors.lightBlue.shade300,
+          color: Color(0xFF54B5FF),
         ),
         child: Icon(icon, color: Colors.black),
       ),

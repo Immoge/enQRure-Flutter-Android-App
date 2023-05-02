@@ -47,12 +47,14 @@ class _BuyerEditProfileScreenState extends State<BuyerEditProfileScreen> {
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          backgroundColor: Colors.blue,
+          backgroundColor: Color(0xFF54B5FF),
           elevation: 1,
           title: Text("Edit Profile",
               textAlign: TextAlign.center,
               style: GoogleFonts.openSans(
-                  fontSize: 25, fontWeight: FontWeight.bold)),
+                fontSize: 25,
+                fontWeight: FontWeight.bold,
+              )),
         ),
         body: SingleChildScrollView(
             padding: const EdgeInsets.all(32),
@@ -79,7 +81,7 @@ class _BuyerEditProfileScreenState extends State<BuyerEditProfileScreen> {
                           height: 35,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(100),
-                            color: Colors.lightBlue,
+                            color: Color(0xFF54B5FF),
                           ),
                           child: GestureDetector(
                             onTap: () => {_updateImageDialog()},
@@ -210,17 +212,18 @@ class _BuyerEditProfileScreenState extends State<BuyerEditProfileScreen> {
                   width: double.infinity,
                   height: 50,
                   child: ElevatedButton(
-                    onPressed: () 
-                      async{
+                    onPressed: () async {
                       _updateProfile();
                     },
                     style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.lightBlue,
+                        backgroundColor: Color(0xFF54B5FF),
                         side: BorderSide.none,
                         shape: const StadiumBorder()),
                     child: Text("Edit Profile",
                         style: GoogleFonts.montserrat(
-                            fontSize: 18, fontWeight: FontWeight.bold)),
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black)),
                   )),
               const SizedBox(height: 20),
             ])));
@@ -314,7 +317,8 @@ class _BuyerEditProfileScreenState extends State<BuyerEditProfileScreen> {
     ProgressDialog pd = ProgressDialog(context: context);
     pd.show(msg: 'Uploading...', max: 100);
     http.post(
-        Uri.parse(CONSTANTS.server + "/qrscanner/php/updateprofilepicture.php/"),
+        Uri.parse(
+            CONSTANTS.server + "/qrscanner/php/updateprofilepicture.php/"),
         body: {
           "userid": widget.user.id,
           "image": base64Image,

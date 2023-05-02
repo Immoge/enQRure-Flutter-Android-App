@@ -36,7 +36,7 @@ class _MainScreenState extends State<MainScreen> {
       bottomNavigationBar: 
         CurvedNavigationBar(
           backgroundColor: Colors.white,
-          color: Colors.lightBlue,
+          color: Color(0xFF54B5FF),
           animationDuration: Duration(milliseconds: 300),
           onTap: onTabTapped,
           index: _currentIndex,

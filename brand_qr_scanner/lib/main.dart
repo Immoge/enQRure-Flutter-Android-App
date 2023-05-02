@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'enQRure',
       theme: ThemeData(
-        primarySwatch: Colors.lightBlue,
+        primaryColor: Color(0xFF54B5FF),
         textTheme: GoogleFonts.robotoTextTheme(
           Theme.of(context).textTheme,
         ),

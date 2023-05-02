@@ -77,7 +77,7 @@ class _LandingScreenState extends State<LandingScreen> {
                       height: 50,
                       elevation: 10,
                       onPressed: _goHome,
-                      color: Colors.blue[700],
+                      color: Color(0xFF54B5FF),
                       child: const Icon(
                         Icons.arrow_forward,
                         color: Colors.white,

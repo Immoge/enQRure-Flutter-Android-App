@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+
+import '../models/homescreenelement.dart';
 
 class BuyerHomeScreen extends StatefulWidget {
   const BuyerHomeScreen({Key? key}) : super(key: key);
 
   @override
- _BuyerHomeScreenState createState() => _BuyerHomeScreenState();
+  _BuyerHomeScreenState createState() => _BuyerHomeScreenState();
 }
 
 class _BuyerHomeScreenState extends State<BuyerHomeScreen> {
-    @override
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
@@ -20,19 +23,22 @@ class _BuyerHomeScreenState extends State<BuyerHomeScreen> {
               Padding(
                 padding: const EdgeInsets.all(20),
                 child: Text(
-                  "",
-                  style: Theme.of(context).textTheme.headlineMedium!.copyWith(
-                      color: Colors.black, fontWeight: FontWeight.w600),
+                  "Newsletters",
+                  style: GoogleFonts.montserrat(
+                      fontSize: 30,
+                      color: Colors.black,
+                      fontWeight: FontWeight.w700),
                 ),
               ),
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Row(
                   children: [
-                    ...courses
-                        .map((course) => Padding(
+                    ...bigNewsletters
+                        .map((homeScreenElement) => Padding(
                               padding: const EdgeInsets.only(left: 20),
-                              child: CourseCard(course: course),
+                              child: HomeScreenCard(
+                                  homeScreenElement: homeScreenElement),
                             ))
                         .toList(),
                   ],
@@ -42,17 +48,18 @@ class _BuyerHomeScreenState extends State<BuyerHomeScreen> {
                 padding: const EdgeInsets.all(20),
                 child: Text(
                   "Recent",
-                  style: Theme.of(context)
-                      .textTheme
-                      .headlineSmall!
-                      .copyWith(fontWeight: FontWeight.w600),
+                  style: GoogleFonts.montserrat(
+                      fontSize: 25,
+                      color: Colors.black,
+                      fontWeight: FontWeight.w700),
                 ),
               ),
-              ...recentCourses.map(
-                (course) => Padding(
+              ...recentNewsLetter.map(
+                (homeScreenElement) => Padding(
                   padding:
                       const EdgeInsets.only(left: 20, right: 20, bottom: 20),
-                  child: SecondaryCourseCard(course: course),
+                  child: SecondaryHomeScreenCard(
+                      homeScreenElement: homeScreenElement),
                 ),
               ),
             ],
@@ -63,20 +70,20 @@ class _BuyerHomeScreenState extends State<BuyerHomeScreen> {
   }
 }
 
-class SecondaryCourseCard extends StatelessWidget {
-  const SecondaryCourseCard({
+class SecondaryHomeScreenCard extends StatelessWidget {
+  const SecondaryHomeScreenCard({
     Key? key,
-    required this.course,
+    required this.homeScreenElement,
   }) : super(key: key);
 
-  final Course course;
+  final HomeScreenElement homeScreenElement;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 24, vertical: 20),
       decoration: BoxDecoration(
-        color: course.bgColor,
+        color: homeScreenElement.bgColor,
         borderRadius: BorderRadius.all(Radius.circular(20)),
       ),
       child: Row(
@@ -85,39 +92,50 @@ class SecondaryCourseCard extends StatelessWidget {
             child: Column(
               children: [
                 Text(
-                  course.title,
-                  style: Theme.of(context).textTheme.headlineSmall!.copyWith(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w600,
-                      ),
+                  homeScreenElement.title,
+                  textAlign: TextAlign.center,
+                  style: GoogleFonts.openSans(
+                    fontSize: 25,
+                    color: Colors.black,
+                    fontWeight: FontWeight.w700,
+                    
+                  ),
                 ),
                 Text(
-                  "Watch video - 15 mins",
-                  style: TextStyle(color: Colors.white60, fontSize: 16),
-                )
+                  homeScreenElement.description,
+                  textAlign: TextAlign.left,
+                  style: GoogleFonts.openSans(
+                    fontSize: 16,
+                    color: Colors.grey.shade700,
+                    fontWeight: FontWeight.w700,
+                )),
               ],
             ),
           ),
-          SizedBox(
-            height: 40,
+          const SizedBox(
+            height: 50,
             child: VerticalDivider(
-              color: Colors.white70,
+              color: Colors.black,
             ),
           ),
-          SizedBox(width: 8),
-          SvgPicture.asset(course.iconSrc)
+          const SizedBox(width: 2),
+          Image.asset(
+            homeScreenElement.iconSrc,
+            height: 50,
+          ),
         ],
       ),
     );
   }
 }
-class CourseCard extends StatelessWidget {
-  const CourseCard({
+
+class HomeScreenCard extends StatelessWidget {
+  const HomeScreenCard({
     Key? key,
-    required this.course,
+    required this.homeScreenElement,
   }) : super(key: key);
 
-  final Course course;
+  final HomeScreenElement homeScreenElement;
 
   @override
   Widget build(BuildContext context) {
@@ -126,7 +144,7 @@ class CourseCard extends StatelessWidget {
       height: 280,
       width: 260,
       decoration: BoxDecoration(
-        color: course.bgColor,
+        color: homeScreenElement.bgColor,
         borderRadius: const BorderRadius.all(Radius.circular(20)),
       ),
       child: Row(
@@ -137,20 +155,27 @@ class CourseCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  course.title,
-                  style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                      color: Colors.white, fontWeight: FontWeight.w600),
+                  homeScreenElement.title,
+                  style: GoogleFonts.concertOne(
+                      fontSize: 25,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black),
                 ),
+                const SizedBox(height: 10),
                 Padding(
                   padding: const EdgeInsets.only(top: 12, bottom: 8),
                   child: Text(
-                    course.description,
-                    style: const TextStyle(color: Colors.white70),
+                    homeScreenElement.description,
+                    style: GoogleFonts.oswald(
+                        fontSize: 15,
+                        color: Colors.grey.shade700,
+                        fontWeight: FontWeight.bold),
                   ),
                 ),
-                const Text(
-                  "61 SECTIONS - 11 HOURS",
-                  style: TextStyle(color: Colors.white54),
+                const SizedBox(height: 10),
+                Text(
+                  homeScreenElement.smalldescription,
+                  style: TextStyle(color: Colors.grey.shade700),
                 ),
                 const Spacer(),
                 Row(
@@ -158,18 +183,13 @@ class CourseCard extends StatelessWidget {
                     3,
                     (index) => Transform.translate(
                       offset: Offset((-10 * index).toDouble(), 0),
-                      child: CircleAvatar(
-                        radius: 20,
-                        backgroundImage: AssetImage(
-                            "assets/avaters/Avatar ${index + 1}.jpg"),
-                      ),
                     ),
                   ),
                 )
               ],
             ),
           ),
-          SvgPicture.asset(course.iconSrc)
+          Image.asset(homeScreenElement.iconSrc, height: 50)
         ],
       ),
     );
