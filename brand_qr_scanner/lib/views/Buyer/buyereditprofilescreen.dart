@@ -150,7 +150,6 @@ class _BuyerEditProfileScreenState extends State<BuyerEditProfileScreen> {
                       },
                     )),
                 const SizedBox(height: 10),
-                const SizedBox(height: 10),
                 Padding(
                     padding: const EdgeInsets.fromLTRB(0, 5, 0, 5),
                     child: TextFormField(
@@ -350,6 +349,7 @@ class _BuyerEditProfileScreenState extends State<BuyerEditProfileScreen> {
     String _email = _emailController.text;
     String _phone = _phoneController.text;
     String _address = _addressController.text;
+    String _origin = "NULL";
     FocusScope.of(context).requestFocus(FocusNode());
 
     http.post(
@@ -360,6 +360,7 @@ class _BuyerEditProfileScreenState extends State<BuyerEditProfileScreen> {
         "username": _name,
         "userphone": _phone,
         "useraddress": _address,
+        "userorigin": _origin,
       },
     ).then((response) async {
       var data = jsonDecode(response.body);

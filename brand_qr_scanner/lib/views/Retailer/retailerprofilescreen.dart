@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:brand_qr_scanner/views/Admin/admineditprofilescreen.dart';
 import 'package:brand_qr_scanner/views/Buyer/buyerhomescreen.dart';
+import 'package:brand_qr_scanner/views/Manufacturer/manufacturereditprofilescreen.dart';
 import 'package:brand_qr_scanner/views/mainscreen.dart';
 import 'package:brand_qr_scanner/views/profilescreen.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -14,15 +15,15 @@ import '../../constants.dart';
 import '../../models/user.dart';
 import '../loginscreen.dart';
 
-class AdminProfileScreen extends StatefulWidget {
+class RetailerProfileScreen extends StatefulWidget {
   final User user;
-  const AdminProfileScreen({Key? key, required this.user}) : super(key: key);
+  const RetailerProfileScreen({Key? key, required this.user}) : super(key: key);
 
   @override
-  State<AdminProfileScreen> createState() => _AdminProfileScreenState();
+  State<RetailerProfileScreen> createState() => _RetailerProfileScreenState();
 }
 
-class _AdminProfileScreenState extends State<AdminProfileScreen> {
+class _RetailerProfileScreenState extends State<RetailerProfileScreen> {
   late Color? color;
   late double screenHeight, screenWidth, resWidth;
   final TextEditingController _oldpasswordController = TextEditingController();
@@ -49,14 +50,13 @@ class _AdminProfileScreenState extends State<AdminProfileScreen> {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         centerTitle: true,
-        backgroundColor: Color(0xFFFF882E),
+        backgroundColor: Color(0xFFFFD400),
         elevation: 1,
         title: Text("Profile",
             textAlign: TextAlign.center,
             style: GoogleFonts.openSans(
-              fontSize: 25,
-              fontWeight: FontWeight.w500,
-            )),
+                fontSize: 25, 
+                fontWeight: FontWeight.w500,)),
       ),
       body: SingleChildScrollView(
           padding: const EdgeInsets.all(32),
@@ -76,12 +76,12 @@ class _AdminProfileScreenState extends State<AdminProfileScreen> {
             ),
             const SizedBox(height: 10),
             Text(widget.user.name.toString(),
-                textAlign: TextAlign.center,
+            textAlign: TextAlign.center,
                 style: GoogleFonts.montserrat(
                     fontSize: 25, fontWeight: FontWeight.bold)),
             const SizedBox(height: 10),
             Text(widget.user.email.toString(),
-                textAlign: TextAlign.center,
+             textAlign: TextAlign.center,
                 style: GoogleFonts.montserrat(fontSize: 15)),
             const SizedBox(height: 20),
             SizedBox(
@@ -92,9 +92,9 @@ class _AdminProfileScreenState extends State<AdminProfileScreen> {
                       context,
                       MaterialPageRoute(
                           builder: (context) =>
-                              AdminEditProfileScreen(user: widget.user))),
+                              ManufacturerEditProfileScreen(user: widget.user))),
                   style: ElevatedButton.styleFrom(
-                      backgroundColor: Color(0xFFFF882E),
+                      backgroundColor: Color(0xFFFFD400),
                       side: BorderSide.none,
                       shape: const StadiumBorder()),
                   child: Text("Edit Profile",
@@ -148,7 +148,7 @@ class _AdminProfileScreenState extends State<AdminProfileScreen> {
               child: Text(
                 "Yes",
                 style: GoogleFonts.montserrat(
-                    color: Color(0xFFFF882E),
+                    color: Color(0xFFFFD400),
                     fontSize: 15,
                     fontWeight: FontWeight.bold),
               ),
@@ -157,14 +157,15 @@ class _AdminProfileScreenState extends State<AdminProfileScreen> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (BuildContext context) => LoginScreen()));
+                        builder: (BuildContext context) =>
+                             LoginScreen()));
               },
             ),
             TextButton(
               child: Text(
                 "No",
                 style: GoogleFonts.montserrat(
-                    color: Color(0xFFFF882E),
+                    color: Color(0xFFFFD400),
                     fontSize: 15,
                     fontWeight: FontWeight.bold),
               ),
@@ -179,7 +180,7 @@ class _AdminProfileScreenState extends State<AdminProfileScreen> {
   }
 
   void _logoutDialog() {
-    User user = User(
+       User user = User(
       id: "0",
       email: "guest@immoge.com",
       name: "Guest",
@@ -206,7 +207,7 @@ class _AdminProfileScreenState extends State<AdminProfileScreen> {
               child: Text(
                 "Yes",
                 style: GoogleFonts.montserrat(
-                    color: Color(0xFFFF882E),
+                    color: Color(0xFFFFD400),
                     fontSize: 15,
                     fontWeight: FontWeight.bold),
               ),
@@ -228,7 +229,7 @@ class _AdminProfileScreenState extends State<AdminProfileScreen> {
               child: Text(
                 "No",
                 style: GoogleFonts.montserrat(
-                    color: Color(0xFFFF882E),
+                    color: Color(0xFFFFD400),
                     fontSize: 15,
                     fontWeight: FontWeight.bold),
               ),
@@ -318,7 +319,7 @@ class _AdminProfileScreenState extends State<AdminProfileScreen> {
               child: Text(
                 "Yes",
                 style: GoogleFonts.montserrat(
-                    color: Color(0xFFFF882E),
+                    color: Color(0xFFFFD400),
                     fontSize: 15,
                     fontWeight: FontWeight.bold),
               ),
@@ -331,7 +332,7 @@ class _AdminProfileScreenState extends State<AdminProfileScreen> {
               child: Text(
                 "No",
                 style: GoogleFonts.montserrat(
-                    color: Color(0xFFFF882E),
+                    color: Color(0xFFFFD400),
                     fontSize: 15,
                     fontWeight: FontWeight.bold),
               ),
@@ -408,7 +409,7 @@ class ProfileMenuWidget extends StatelessWidget {
         height: 40,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(100),
-          color: Color(0xFFFF882E),
+          color: Color(0xFFFFD400),
         ),
         child: Icon(icon, color: Colors.black),
       ),
@@ -421,7 +422,7 @@ class ProfileMenuWidget extends StatelessWidget {
               height: 30,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(100),
-                color: Colors.orange.withOpacity(0.1),
+                color: Colors.yellow.withOpacity(0.4),
               ),
               child: const Icon(LineAwesomeIcons.angle_right,
                   size: 18, color: Colors.black))

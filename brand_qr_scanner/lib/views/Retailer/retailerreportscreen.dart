@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class ManufacturerHomeScreen extends StatefulWidget {
-  const ManufacturerHomeScreen({super.key});
+class RetailerReportScreen extends StatefulWidget {
+  const RetailerReportScreen({super.key});
 
   @override
-  State<ManufacturerHomeScreen> createState() => _ManufacturerHomeScreenState();
+  State<RetailerReportScreen> createState() => _RetailerReportScreenState();
 }
 
-class _ManufacturerHomeScreenState extends State<ManufacturerHomeScreen> {
+class _RetailerReportScreenState extends State<RetailerReportScreen> {
   @override
   Widget build(BuildContext context) {
      return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        backgroundColor: Color(0xFF00E736),
-        title: Text("Manufacturer",
+        backgroundColor: Color(0xFFFFD400),
+        title: Text("Retailer",
         textAlign: TextAlign.center,
             style: GoogleFonts.openSans(
                 fontSize: 25, 

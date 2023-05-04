@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:brand_qr_scanner/views/Manufacturer/manufacturermainscreen.dart';
+import 'package:brand_qr_scanner/views/Retailer/retailermainscreen.dart';
 import 'package:brand_qr_scanner/views/mainscreen.dart';
 import 'package:brand_qr_scanner/views/Admin/adminmainscreen.dart';
 import 'package:brand_qr_scanner/views/registerscreen.dart';
@@ -215,7 +217,14 @@ class _LoginScreenState extends State<LoginScreen> {
         } else if (user.roleid == "2") {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => MainScreen(user: user)),
+            MaterialPageRoute(
+                builder: (context) => ManufacturerMainScreen(user: user)),
+          );
+        } else if (user.roleid == "3") {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => RetailerMainScreen(user: user)),
           );
         } else if (user.roleid == "4") {
           Navigator.push(

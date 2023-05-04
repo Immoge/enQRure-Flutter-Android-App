@@ -26,11 +26,172 @@ class _ManufacturerEditProfileScreenState extends State<ManufacturerEditProfileS
   late double screenHeight, screenWidth, resWidth;
   var _image;
   var val = 50;
+  List<String> countryList = [
+    'Afghanistan',
+    'Albania',
+    'Algeria',
+    'Andorra',
+    'Angola',
+    'Argentina',
+    'Armenia',
+    'Australia',
+    'Austria',
+    'Azerbaijan',
+    'Bahamas',
+    'Bahrain',
+    'Bangladesh',
+    'Barbados',
+    'Belarus',
+    'Belgium',
+    'Belize',
+    'Benin',
+    'Bhutan',
+    'Bolivia',
+    'Botswana',
+    'Brazil',
+    'Brunei',
+    'Bulgaria',
+    'Burkina Faso',
+    'Burundi',
+    'Cabo Verde',
+    'Cambodia',
+    'Cameroon',
+    'Canada',
+    'Chad',
+    'Chile',
+    'China',
+    'Colombia',
+    'Comoros',
+    'Costa Rica',
+    'Croatia',
+    'Cuba',
+    'Cyprus',
+    'Czechia',
+    'Denmark',
+    'Djibouti',
+    'Dominica',
+    'Dominican Republic',
+    'Ecuador',
+    'Egypt',
+    'El Salvador',
+    'Equatorial Guinea',
+    'Eritrea',
+    'Estonia',
+    'Eswatini',
+    'Ethiopia',
+    'Fiji',
+    'Finland',
+    'France',
+    'Gabon',
+    'Gambia',
+    'Georgia',
+    'Germany',
+    'Ghana',
+    'Greece',
+    'Grenada',
+    'Guatemala',
+    'Guinea',
+    'Guinea-Bissau',
+    'Guyana',
+    'Haiti',
+    'Honduras',
+    'Hungary',
+    'Iceland',
+    'India',
+    'Indonesia',
+    'Iran',
+    'Iraq',
+    'Ireland',
+    'Israel',
+    'Italy',
+    'Jamaica',
+    'Japan',
+    'Jordan',
+    'Kazakhstan',
+    'Kenya',
+    'Kiribati',
+    'Kosovo',
+    'Kuwait',
+    'Kyrgyzstan',
+    'Laos',
+    'Latvia',
+    'Lebanon',
+    'Lesotho',
+    'Liberia',
+    'Libya',
+    'Liechtenstein',
+    'Lithuania',
+    'Luxembourg',
+    'Madagascar',
+    'Malawi',
+    'Malaysia',
+    'Maldives',
+    'Mali',
+    'Malta',
+    'Marshall Islands',
+    'Mauritania',
+    'Mauritius',
+    'Mexico',
+    'Micronesia',
+    'Moldova',
+    'Monaco',
+    'Mongolia',
+    'Montenegro',
+    'Morocco',
+    'Mozambique',
+    'Myanmar (Burma)',
+    'Namibia',
+    'Nauru',
+    'Nepal',
+    'Netherlands',
+    'New Zealand',
+    'Nicaragua',
+    'Niger',
+    'Nigeria',
+    'North Korea',
+    'Norway',
+    'Oman',
+    'Pakistan',
+    'Palau',
+    'Palestine',
+    'Panama',
+    'Papua New Guinea',
+    'Paraguay',
+    'Peru',
+    'Philippines',
+    'Poland',
+    'Portugal',
+    'Qatar',
+    'Romania',
+    'Russia',
+    'Rwanda',
+    'Saint Lucia',
+    'Samoa',
+    'San Marino',
+    'Saudi Arabia',
+    'Senegal',
+    'Serbia',
+    'Seychelles',
+    'Sierra Leone',
+    'Singapore',
+    'Slovakia',
+    'Slovenia',
+    'Solomon Islands',
+    'Somalia',
+    'South Africa',
+    'South Korea',
+    'South Sudan',
+    'Spain',
+    'Sri Lanka'
+  ];
+  String? selectedItem2 = 'Malaysia';
   TextEditingController _nameController = new TextEditingController();
   TextEditingController _emailController = new TextEditingController();
   TextEditingController _phoneController = new TextEditingController();
   TextEditingController _addressController = new TextEditingController();
+  TextEditingController _countryController = new TextEditingController();
   final _formKey = GlobalKey<FormState>();
+
   Random random = Random();
 
   @override
@@ -40,13 +201,14 @@ class _ManufacturerEditProfileScreenState extends State<ManufacturerEditProfileS
     _emailController.text = widget.user.email.toString();
     _phoneController.text = widget.user.phone.toString();
     _addressController.text = widget.user.address.toString();
+    _countryController.text = widget.user.origin.toString();
   }
 
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          backgroundColor: Color(0xFF00FDA0),
+          backgroundColor: Color(0xFF00E736),
           elevation: 1,
           title: Text("Edit Profile",
               textAlign: TextAlign.center,
@@ -80,7 +242,7 @@ class _ManufacturerEditProfileScreenState extends State<ManufacturerEditProfileS
                           height: 35,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(100),
-                            color: Color(0xFF00FDA0),
+                            color: Color(0xFF00E736),
                           ),
                           child: GestureDetector(
                             onTap: () => {_updateImageDialog()},
@@ -149,7 +311,6 @@ class _ManufacturerEditProfileScreenState extends State<ManufacturerEditProfileS
                       },
                     )),
                 const SizedBox(height: 10),
-                const SizedBox(height: 10),
                 Padding(
                     padding: const EdgeInsets.fromLTRB(0, 5, 0, 5),
                     child: TextFormField(
@@ -205,6 +366,68 @@ class _ManufacturerEditProfileScreenState extends State<ManufacturerEditProfileS
                         return null;
                       },
                     )),
+                Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 5, 0, 5),
+                    child: TextFormField(
+                      controller: _countryController,
+                      decoration: InputDecoration(
+                        labelText: 'Country',
+                        prefixIcon: const Icon(Icons.flag_circle),
+                        enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                             borderSide: const BorderSide(
+                                color: Colors.grey, width: 2.0),
+                      )),
+                      onTap: () async {
+                        FocusScope.of(context).requestFocus(FocusNode());
+                        final String? selectedCountry = await showDialog<String>(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              title: Text(
+                                'Select a Country',
+                                style: GoogleFonts.montserrat(
+                                    fontSize: 20, fontWeight: FontWeight.bold),
+                              ),
+                              content: Padding(
+                                padding: const EdgeInsets.all(6.0),
+                                child: DropdownButtonFormField<String>(
+                                  value: selectedItem2,
+                                  icon:
+                                      const Icon(Icons.arrow_drop_down_circle),
+                                  decoration: InputDecoration(
+                                      labelText: "Country",
+                                      border: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(5.0))),
+                                  onChanged: (String? newValue) {
+                                    setState(() {
+                                      selectedItem2 = newValue!;
+                                    });
+                                    Navigator.of(context).pop(newValue);
+                                  },
+                                  items: countryList.map((String value) {
+                                    return DropdownMenuItem<String>(
+                                      value: value,
+                                      child: Text(value),
+                                    );
+                                  }).toList(),
+                                ),
+                              ),
+                            );
+                          },
+                        );
+                        if (selectedCountry != null) {
+                          _countryController.text = selectedCountry;
+                        }
+                      },
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return "Please select a country";
+                        }
+                        return null;
+                      },
+                    )),
               ])),
               const SizedBox(height: 20),
               SizedBox(
@@ -215,7 +438,7 @@ class _ManufacturerEditProfileScreenState extends State<ManufacturerEditProfileS
                       _updateProfile();
                     },
                     style: ElevatedButton.styleFrom(
-                        backgroundColor: Color(0xFFFF882E),
+                        backgroundColor: Color(0xFF00E736),
                         side: BorderSide.none,
                         shape: const StadiumBorder()),
                     child: Text("Edit Profile",
@@ -349,6 +572,7 @@ class _ManufacturerEditProfileScreenState extends State<ManufacturerEditProfileS
     String _email = _emailController.text;
     String _phone = _phoneController.text;
     String _address = _addressController.text;
+    String _origin = _countryController.text;
     FocusScope.of(context).requestFocus(FocusNode());
 
     http.post(
@@ -359,6 +583,7 @@ class _ManufacturerEditProfileScreenState extends State<ManufacturerEditProfileS
         "username": _name,
         "userphone": _phone,
         "useraddress": _address,
+        "userorigin": _origin,
       },
     ).then((response) async {
       var data = jsonDecode(response.body);

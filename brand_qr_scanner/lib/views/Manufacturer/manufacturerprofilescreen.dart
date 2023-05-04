@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:brand_qr_scanner/views/Admin/admineditprofilescreen.dart';
 import 'package:brand_qr_scanner/views/Buyer/buyerhomescreen.dart';
+import 'package:brand_qr_scanner/views/Manufacturer/manufacturereditprofilescreen.dart';
 import 'package:brand_qr_scanner/views/mainscreen.dart';
 import 'package:brand_qr_scanner/views/profilescreen.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -16,10 +17,12 @@ import '../loginscreen.dart';
 
 class ManufacturerProfileScreen extends StatefulWidget {
   final User user;
-  const ManufacturerProfileScreen({Key? key, required this.user}) : super(key: key);
+  const ManufacturerProfileScreen({Key? key, required this.user})
+      : super(key: key);
 
   @override
-  State<ManufacturerProfileScreen> createState() => _ManufacturerProfileScreenState();
+  State<ManufacturerProfileScreen> createState() =>
+      _ManufacturerProfileScreenState();
 }
 
 class _ManufacturerProfileScreenState extends State<ManufacturerProfileScreen> {
@@ -49,13 +52,14 @@ class _ManufacturerProfileScreenState extends State<ManufacturerProfileScreen> {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         centerTitle: true,
-        backgroundColor: Color(0xFFFF882E),
+        backgroundColor: Color(0xFF00E736),
         elevation: 1,
         title: Text("Profile",
             textAlign: TextAlign.center,
             style: GoogleFonts.openSans(
-                fontSize: 25, 
-                fontWeight: FontWeight.w500,)),
+              fontSize: 25,
+              fontWeight: FontWeight.w500,
+            )),
       ),
       body: SingleChildScrollView(
           padding: const EdgeInsets.all(32),
@@ -75,10 +79,12 @@ class _ManufacturerProfileScreenState extends State<ManufacturerProfileScreen> {
             ),
             const SizedBox(height: 10),
             Text(widget.user.name.toString(),
+                textAlign: TextAlign.center,
                 style: GoogleFonts.montserrat(
                     fontSize: 25, fontWeight: FontWeight.bold)),
             const SizedBox(height: 10),
             Text(widget.user.email.toString(),
+                textAlign: TextAlign.center,
                 style: GoogleFonts.montserrat(fontSize: 15)),
             const SizedBox(height: 20),
             SizedBox(
@@ -88,10 +94,10 @@ class _ManufacturerProfileScreenState extends State<ManufacturerProfileScreen> {
                   onPressed: () => Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) =>
-                              AdminEditProfileScreen(user: widget.user))),
+                          builder: (context) => ManufacturerEditProfileScreen(
+                              user: widget.user))),
                   style: ElevatedButton.styleFrom(
-                      backgroundColor: Color(0xFFFF882E),
+                      backgroundColor: Color(0xFF00E736),
                       side: BorderSide.none,
                       shape: const StadiumBorder()),
                   child: Text("Edit Profile",
@@ -145,7 +151,7 @@ class _ManufacturerProfileScreenState extends State<ManufacturerProfileScreen> {
               child: Text(
                 "Yes",
                 style: GoogleFonts.montserrat(
-                    color: Color(0xFFFF882E),
+                    color: Color(0xFF00E736),
                     fontSize: 15,
                     fontWeight: FontWeight.bold),
               ),
@@ -154,15 +160,14 @@ class _ManufacturerProfileScreenState extends State<ManufacturerProfileScreen> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (BuildContext context) =>
-                             LoginScreen()));
+                        builder: (BuildContext context) => LoginScreen()));
               },
             ),
             TextButton(
               child: Text(
                 "No",
                 style: GoogleFonts.montserrat(
-                    color: Color(0xFFFF882E),
+                    color: Color(0xFF00E736),
                     fontSize: 15,
                     fontWeight: FontWeight.bold),
               ),
@@ -180,11 +185,15 @@ class _ManufacturerProfileScreenState extends State<ManufacturerProfileScreen> {
     User user = User(
       id: "0",
       email: "guest@immoge.com",
-      name: "unregistered",
+      name: "Guest",
+      password: "na",
       address: "na",
-      phone: "0123456789",
+      phone: "na",
+      roleid: "0",
+      origin: "na",
       regdate: "0",
     );
+
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -201,7 +210,7 @@ class _ManufacturerProfileScreenState extends State<ManufacturerProfileScreen> {
               child: Text(
                 "Yes",
                 style: GoogleFonts.montserrat(
-                    color: Color(0xFFFF882E),
+                    color: Color(0xFF00E736),
                     fontSize: 15,
                     fontWeight: FontWeight.bold),
               ),
@@ -223,7 +232,7 @@ class _ManufacturerProfileScreenState extends State<ManufacturerProfileScreen> {
               child: Text(
                 "No",
                 style: GoogleFonts.montserrat(
-                    color: Color(0xFFFF882E),
+                    color: Color(0xFF00E736),
                     fontSize: 15,
                     fontWeight: FontWeight.bold),
               ),
@@ -313,7 +322,7 @@ class _ManufacturerProfileScreenState extends State<ManufacturerProfileScreen> {
               child: Text(
                 "Yes",
                 style: GoogleFonts.montserrat(
-                    color: Color(0xFFFF882E),
+                    color: Color(0xFF00E736),
                     fontSize: 15,
                     fontWeight: FontWeight.bold),
               ),
@@ -326,7 +335,7 @@ class _ManufacturerProfileScreenState extends State<ManufacturerProfileScreen> {
               child: Text(
                 "No",
                 style: GoogleFonts.montserrat(
-                    color: Color(0xFFFF882E),
+                    color: Color(0xFF00E736),
                     fontSize: 15,
                     fontWeight: FontWeight.bold),
               ),
@@ -403,7 +412,7 @@ class ProfileMenuWidget extends StatelessWidget {
         height: 40,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(100),
-          color: Color(0xFFFF882E),
+          color: Color(0xFF00E736),
         ),
         child: Icon(icon, color: Colors.black),
       ),
@@ -416,7 +425,7 @@ class ProfileMenuWidget extends StatelessWidget {
               height: 30,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(100),
-                color: Colors.orange.withOpacity(0.1),
+                color: Colors.green.withOpacity(0.1),
               ),
               child: const Icon(LineAwesomeIcons.angle_right,
                   size: 18, color: Colors.black))

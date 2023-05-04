@@ -1,25 +1,21 @@
-import 'package:brand_qr_scanner/views/Admin/adminaddaccountscreen.dart';
-import 'package:brand_qr_scanner/views/Manufacturer/manufacturerhomescreen.dart';
+
 import 'package:brand_qr_scanner/views/Manufacturer/manufacturerregisterproductscreen.dart';
-import 'package:brand_qr_scanner/views/Manufacturer/manufacturerreportscreen.dart';
+import 'package:brand_qr_scanner/views/Retailer/retailerreportscreen.dart';
+import 'package:brand_qr_scanner/views/Retailer/retailerprofilescreen.dart';
+import 'package:brand_qr_scanner/views/Retailer/retailerregisterproductscreen.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:brand_qr_scanner/views/registerproductscreen.dart';
-import 'package:brand_qr_scanner/views/profilescreen.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import '../loginscreen.dart';
 import '../../models/user.dart';
-import 'manufacturerprofilescreen.dart';
 
-class ManufacturerMainScreen extends StatefulWidget {
+class RetailerMainScreen extends StatefulWidget {
   final User user;
-  const ManufacturerMainScreen({Key? key, required this.user}) : super(key: key);
+  const RetailerMainScreen({Key? key, required this.user}) : super(key: key);
 
   @override
-  State<ManufacturerMainScreen> createState() => _ManufacturerMainScreenState();
+  State<RetailerMainScreen> createState() => _RetailerMainScreenState();
 }
 
-class _ManufacturerMainScreenState extends State<ManufacturerMainScreen> {
+class _RetailerMainScreenState extends State<RetailerMainScreen> {
   late List<Widget> tabchildren;
   int _currentIndex = 0;
   String maintitle = "Profile";
@@ -28,10 +24,9 @@ class _ManufacturerMainScreenState extends State<ManufacturerMainScreen> {
   void initState() {
     super.initState();
     tabchildren = [
-      const ManufacturerHomeScreen(),
-      const ManufacturerRegisterProductScreen(),
-      const ManufacturerReportScreen(),
-      ManufacturerProfileScreen(user: widget.user),
+      const RetailerReportScreen(),
+      const RetailerRegisterProductScreen(),
+      RetailerProfileScreen(user: widget.user),
     ];
   }
 
@@ -42,23 +37,18 @@ class _ManufacturerMainScreenState extends State<ManufacturerMainScreen> {
       bottomNavigationBar: 
         CurvedNavigationBar(
           backgroundColor: Colors.white,
-          color: Color(0xFF00E736),
+          color: Color(0xFFFFD400),
           animationDuration: Duration(milliseconds: 300),
           onTap: onTabTapped,
           index: _currentIndex,
           items: const [
             Icon(
-              Icons.house_rounded,
+              Icons.insert_drive_file_outlined,
               color: Colors.white,
               size: 35,
             ),
             Icon(
               Icons.qr_code_scanner_rounded,
-              color: Colors.white,
-              size:35,
-            ),
-             Icon(
-              Icons.insert_drive_file_outlined,
               color: Colors.white,
               size:35,
             ),
@@ -76,13 +66,10 @@ class _ManufacturerMainScreenState extends State<ManufacturerMainScreen> {
     setState(() {
       _currentIndex = index;
       if (_currentIndex == 0) {
-        maintitle = "Main";
+        maintitle = "Report";
       }
       if (_currentIndex == 1) {
         maintitle = "Register Product";
-      }
-       if (_currentIndex == 2) {
-        maintitle = "Report";
       }
       if (_currentIndex == 3) {
         maintitle = "Profile";

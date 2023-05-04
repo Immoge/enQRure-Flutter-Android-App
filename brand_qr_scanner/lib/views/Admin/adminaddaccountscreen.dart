@@ -531,7 +531,7 @@ class _AdminAddAccountScreenState extends State<AdminAddAccountScreen> {
                             },
                             validator: (value) {
                               if (value == null || value.isEmpty) {
-                                return "Please the role";
+                                return "Please a country";
                               }
                               return null;
                             },

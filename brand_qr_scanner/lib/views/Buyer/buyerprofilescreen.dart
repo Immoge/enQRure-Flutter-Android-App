@@ -53,8 +53,9 @@ class _BuyerProfileScreenState extends State<BuyerProfileScreen> {
         title: Text("Profile",
             textAlign: TextAlign.center,
             style: GoogleFonts.openSans(
-                fontSize: 25, 
-                fontWeight: FontWeight.w500,)),
+              fontSize: 25,
+              fontWeight: FontWeight.w500,
+            )),
       ),
       body: SingleChildScrollView(
           padding: const EdgeInsets.all(32),
@@ -74,10 +75,12 @@ class _BuyerProfileScreenState extends State<BuyerProfileScreen> {
             ),
             const SizedBox(height: 10),
             Text(widget.user.name.toString(),
+                textAlign: TextAlign.center,
                 style: GoogleFonts.montserrat(
                     fontSize: 25, fontWeight: FontWeight.bold)),
             const SizedBox(height: 10),
             Text(widget.user.email.toString(),
+                textAlign: TextAlign.center,
                 style: GoogleFonts.montserrat(fontSize: 15)),
             const SizedBox(height: 20),
             SizedBox(
@@ -153,8 +156,7 @@ class _BuyerProfileScreenState extends State<BuyerProfileScreen> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (BuildContext context) =>
-                             LoginScreen()));
+                        builder: (BuildContext context) => LoginScreen()));
               },
             ),
             TextButton(
@@ -179,9 +181,12 @@ class _BuyerProfileScreenState extends State<BuyerProfileScreen> {
     User user = User(
       id: "0",
       email: "guest@immoge.com",
-      name: "unregistered",
+      name: "Guest",
+      password: "na",
       address: "na",
-      phone: "0123456789",
+      phone: "na",
+      roleid: "0",
+      origin: "na",
       regdate: "0",
     );
     showDialog(

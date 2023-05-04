@@ -12,16 +12,16 @@ import 'package:sn_progress_dialog/progress_dialog.dart';
 import '../../constants.dart';
 import '../../models/user.dart';
 
-class AdminEditProfileScreen extends StatefulWidget {
+class ManufacturerEditProfileScreen extends StatefulWidget {
   final User user;
-  const AdminEditProfileScreen({Key? key, required this.user})
+  const ManufacturerEditProfileScreen({Key? key, required this.user})
       : super(key: key);
 
   @override
-  State<AdminEditProfileScreen> createState() => _AdminEditProfileScreenState();
+  State<ManufacturerEditProfileScreen> createState() => _ManufacturerEditProfileScreenState();
 }
 
-class _AdminEditProfileScreenState extends State<AdminEditProfileScreen> {
+class _ManufacturerEditProfileScreenState extends State<ManufacturerEditProfileScreen> {
   late Color? color;
   late double screenHeight, screenWidth, resWidth;
   var _image;
@@ -208,7 +208,7 @@ class _AdminEditProfileScreenState extends State<AdminEditProfileScreen> {
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          backgroundColor: Color(0xFFFF882E),
+          backgroundColor: Color(0xFFFFD400),
           elevation: 1,
           title: Text("Edit Profile",
               textAlign: TextAlign.center,
@@ -242,7 +242,7 @@ class _AdminEditProfileScreenState extends State<AdminEditProfileScreen> {
                           height: 35,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(100),
-                            color: Color(0xFFFF882E),
+                            color: Color(0xFFFFD400),
                           ),
                           child: GestureDetector(
                             onTap: () => {_updateImageDialog()},
@@ -438,7 +438,7 @@ class _AdminEditProfileScreenState extends State<AdminEditProfileScreen> {
                       _updateProfile();
                     },
                     style: ElevatedButton.styleFrom(
-                        backgroundColor: Color(0xFFFF882E),
+                        backgroundColor: Color(0xFFFFD400),
                         side: BorderSide.none,
                         shape: const StadiumBorder()),
                     child: Text("Edit Profile",
