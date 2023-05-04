@@ -102,6 +102,8 @@ class _LandingScreenState extends State<LandingScreen> {
       password: "na",
       address: "na",
       phone: "na",
+      roleid: "0",
+      origin: "na",
       regdate: "0",
     );
     Navigator.push(

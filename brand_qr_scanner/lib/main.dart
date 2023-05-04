@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:brand_qr_scanner/views/buyerhomescreen.dart';
+import 'package:brand_qr_scanner/views/Buyer/buyerhomescreen.dart';
 import 'package:brand_qr_scanner/views/landingscreen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
       title: 'enQRure',
       theme: ThemeData(
         primaryColor: Color(0xFF54B5FF),
-        textTheme: GoogleFonts.robotoTextTheme(
+        textTheme: GoogleFonts.montserratTextTheme(
           Theme.of(context).textTheme,
         ),
       ),

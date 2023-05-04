@@ -266,7 +266,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (BuildContext context) => const LoginScreen()));
+                        builder: (BuildContext context) =>  LoginScreen()));
               },
             ),
             TextButton(
@@ -733,7 +733,7 @@ Future<void> _cropImage() async {
                     context,
                     MaterialPageRoute(
                         builder: (BuildContext context) =>
-                            const LoginScreen()));
+                             LoginScreen()));
               },
             ),
             TextButton(

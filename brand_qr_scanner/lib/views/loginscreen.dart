@@ -1,16 +1,22 @@
 import 'dart:convert';
 
 import 'package:brand_qr_scanner/views/mainscreen.dart';
+import 'package:brand_qr_scanner/views/Admin/adminmainscreen.dart';
 import 'package:brand_qr_scanner/views/registerscreen.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import '../../models/user.dart';
 import '../constants.dart';
 
+import 'Buyer/buyerhomescreen.dart';
+
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+  const LoginScreen({
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -41,7 +47,12 @@ class _LoginScreenState extends State<LoginScreen> {
     }
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Login"),
+        title: Text("Login",
+            textAlign: TextAlign.left,
+            style: GoogleFonts.openSans(
+              fontSize: 25,
+              fontWeight: FontWeight.w500,
+            )),
       ),
       body: Center(
           child: SingleChildScrollView(
@@ -68,34 +79,52 @@ class _LoginScreenState extends State<LoginScreen> {
                       key: _formKey,
                       child: Column(children: [
                         TextFormField(
-                            controller: _emailEditingController,
-                            keyboardType: TextInputType.emailAddress,
-                            validator: (val) => val!.isEmpty ||
-                                    !val.contains("@") ||
-                                    !val.contains(".")
-                                ? "enter a valid email"
-                                : null,
-                            decoration: const InputDecoration(
-                                labelText: 'Email',
-                                labelStyle: TextStyle(),
-                                icon: Icon(Icons.email),
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(width: 1.0),
-                                ))),
-                        TextFormField(
-                            controller: _passEditingController,
-                            keyboardType: TextInputType.visiblePassword,
-                            obscureText: true,
-                            decoration: const InputDecoration(
-                              labelText: 'Password',
-                              labelStyle: TextStyle(),
-                              icon: Icon(Icons.password),
+                          controller: _emailEditingController,
+                          keyboardType: TextInputType.emailAddress,
+                          validator: (val) => val!.isEmpty ||
+                                  !val.contains("@") ||
+                                  !val.contains(".")
+                              ? "enter a valid email"
+                              : null,
+                          decoration: InputDecoration(
                               focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(width: 1.0),
+                                borderRadius: BorderRadius.circular(10.0),
+                                borderSide: const BorderSide(
+                                    color: Colors.black, width: 2.0),
                               ),
-                            )),
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10.0),
+                                borderSide: const BorderSide(
+                                    color: Colors.grey, width: 2.0),
+                              ),
+                              prefixIcon: const Icon(Icons.email),
+                              labelText: 'Email',
+                              labelStyle: GoogleFonts.montserrat(
+                                  fontSize: 25, fontWeight: FontWeight.bold)),
+                        ),
+                        const SizedBox(height: 15),
+                        TextFormField(
+                          controller: _passEditingController,
+                          keyboardType: TextInputType.visiblePassword,
+                          obscureText: true,
+                          decoration: InputDecoration(
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10.0),
+                                borderSide: const BorderSide(
+                                    color: Colors.black, width: 2.0),
+                              ),
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10.0),
+                                borderSide: const BorderSide(
+                                    color: Colors.grey, width: 2.0),
+                              ),
+                              prefixIcon: const Icon(Icons.password),
+                              labelText: 'Password',
+                              labelStyle: GoogleFonts.montserrat(
+                                  fontSize: 25, fontWeight: FontWeight.bold)),
+                        ),
                         const SizedBox(
-                          height: 8,
+                          height: 15,
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -126,12 +155,12 @@ class _LoginScreenState extends State<LoginScreen> {
                               height: 50,
                               elevation: 10,
                               onPressed: _loginUser,
-                              color: Colors.blue[700],
-                              child: const Text('Login',
-                              style: TextStyle(
-                                fontSize:18,
-                                fontWeight:FontWeight.bold
-                              ),),
+                              color: Colors.blue[500],
+                              child: const Text(
+                                'Login',
+                                style: TextStyle(
+                                    fontSize: 20, fontWeight: FontWeight.bold),
+                              ),
                             ),
                           ],
                         ),
@@ -140,8 +169,9 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       ]),
                     ))),
+            const SizedBox(height: 10),
             GestureDetector(
-              onTap: _goLogin,
+              onTap: _goRegister,
               child: const Text(
                 "No account? Create One",
                 style: TextStyle(
@@ -150,16 +180,6 @@ class _LoginScreenState extends State<LoginScreen> {
                     color: Colors.blue),
               ),
             ),
-            const SizedBox(
-              height: 8,
-            ),
-            GestureDetector(
-              onTap: _goHome,
-              child: const Text("Go back Home", style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.blue)),
-            )
           ],
         ),
       ))),
@@ -186,9 +206,23 @@ class _LoginScreenState extends State<LoginScreen> {
       if (response.statusCode == 200 && jsonResponse['status'] == "success") {
         print(jsonResponse);
         User user = User.fromJson(jsonResponse['data']);
-        print(user.phone);
-        Navigator.push(context,
-            MaterialPageRoute(builder: (content) => MainScreen(user: user)));
+        if (user.roleid == "1") {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => AdminMainScreen(user: user)),
+          );
+        } else if (user.roleid == "2") {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => MainScreen(user: user)),
+          );
+        } else if (user.roleid == "4") {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => MainScreen(user: user)),
+          );
+        }
       } else {
         Fluttertoast.showToast(
             msg: "Login Failed",
@@ -200,24 +234,7 @@ class _LoginScreenState extends State<LoginScreen> {
     });
   }
 
-  void _goHome() {
-    User user = User(
-      id: "0",
-      email: "unregistered",
-      name: "unregistered",
-      address: "na",
-      phone: "0123456789",
-      regdate: "0",
-    );
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (content) => MainScreen(
-                  user: user,
-                )));
-  }
-
-  void _goLogin() {
+  void _goRegister() {
     Navigator.push(
         context, MaterialPageRoute(builder: (content) => RegisterScreen()));
   }

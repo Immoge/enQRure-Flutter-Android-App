@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:brand_qr_scanner/views/Admin/admineditprofilescreen.dart';
 import 'package:brand_qr_scanner/views/Buyer/buyerhomescreen.dart';
 import 'package:brand_qr_scanner/views/mainscreen.dart';
 import 'package:brand_qr_scanner/views/profilescreen.dart';
@@ -12,17 +13,16 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../constants.dart';
 import '../../models/user.dart';
 import '../loginscreen.dart';
-import 'buyereditprofilescreen.dart';
 
-class BuyerProfileScreen extends StatefulWidget {
+class AdminProfileScreen extends StatefulWidget {
   final User user;
-  const BuyerProfileScreen({Key? key, required this.user}) : super(key: key);
+  const AdminProfileScreen({Key? key, required this.user}) : super(key: key);
 
   @override
-  State<BuyerProfileScreen> createState() => _BuyerProfileScreenState();
+  State<AdminProfileScreen> createState() => _AdminProfileScreenState();
 }
 
-class _BuyerProfileScreenState extends State<BuyerProfileScreen> {
+class _AdminProfileScreenState extends State<AdminProfileScreen> {
   late Color? color;
   late double screenHeight, screenWidth, resWidth;
   final TextEditingController _oldpasswordController = TextEditingController();
@@ -47,8 +47,9 @@ class _BuyerProfileScreenState extends State<BuyerProfileScreen> {
     return Scaffold(
       backgroundColor: Colors.white.withAlpha(200),
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         centerTitle: true,
-        backgroundColor: Color(0xFF54B5FF),
+        backgroundColor: Color(0xFFFF882E),
         elevation: 1,
         title: Text("Profile",
             textAlign: TextAlign.center,
@@ -88,9 +89,9 @@ class _BuyerProfileScreenState extends State<BuyerProfileScreen> {
                       context,
                       MaterialPageRoute(
                           builder: (context) =>
-                              BuyerEditProfileScreen(user: widget.user))),
+                              AdminEditProfileScreen(user: widget.user))),
                   style: ElevatedButton.styleFrom(
-                      backgroundColor: Color(0xFF54B5FF),
+                      backgroundColor: Color(0xFFFF882E),
                       side: BorderSide.none,
                       shape: const StadiumBorder()),
                   child: Text("Edit Profile",
@@ -144,7 +145,7 @@ class _BuyerProfileScreenState extends State<BuyerProfileScreen> {
               child: Text(
                 "Yes",
                 style: GoogleFonts.montserrat(
-                    color: Colors.lightBlue,
+                    color: Color(0xFFFF882E),
                     fontSize: 15,
                     fontWeight: FontWeight.bold),
               ),
@@ -161,7 +162,7 @@ class _BuyerProfileScreenState extends State<BuyerProfileScreen> {
               child: Text(
                 "No",
                 style: GoogleFonts.montserrat(
-                    color: Colors.lightBlue,
+                    color: Color(0xFFFF882E),
                     fontSize: 15,
                     fontWeight: FontWeight.bold),
               ),
@@ -200,7 +201,7 @@ class _BuyerProfileScreenState extends State<BuyerProfileScreen> {
               child: Text(
                 "Yes",
                 style: GoogleFonts.montserrat(
-                    color: Color(0xFF54B5FF),
+                    color: Color(0xFFFF882E),
                     fontSize: 15,
                     fontWeight: FontWeight.bold),
               ),
@@ -222,7 +223,7 @@ class _BuyerProfileScreenState extends State<BuyerProfileScreen> {
               child: Text(
                 "No",
                 style: GoogleFonts.montserrat(
-                    color: Color(0xFF54B5FF),
+                    color: Color(0xFFFF882E),
                     fontSize: 15,
                     fontWeight: FontWeight.bold),
               ),
@@ -312,7 +313,7 @@ class _BuyerProfileScreenState extends State<BuyerProfileScreen> {
               child: Text(
                 "Yes",
                 style: GoogleFonts.montserrat(
-                    color: Colors.lightBlue,
+                    color: Color(0xFFFF882E),
                     fontSize: 15,
                     fontWeight: FontWeight.bold),
               ),
@@ -325,7 +326,7 @@ class _BuyerProfileScreenState extends State<BuyerProfileScreen> {
               child: Text(
                 "No",
                 style: GoogleFonts.montserrat(
-                    color: Colors.lightBlue,
+                    color: Color(0xFFFF882E),
                     fontSize: 15,
                     fontWeight: FontWeight.bold),
               ),
@@ -402,7 +403,7 @@ class ProfileMenuWidget extends StatelessWidget {
         height: 40,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(100),
-          color: Color(0xFF54B5FF),
+          color: Color(0xFFFF882E),
         ),
         child: Icon(icon, color: Colors.black),
       ),
@@ -415,7 +416,7 @@ class ProfileMenuWidget extends StatelessWidget {
               height: 30,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(100),
-                color: Colors.lightBlue.withOpacity(0.1),
+                color: Colors.orange.withOpacity(0.1),
               ),
               child: const Icon(LineAwesomeIcons.angle_right,
                   size: 18, color: Colors.black))

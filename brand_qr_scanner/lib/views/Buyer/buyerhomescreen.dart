@@ -1,10 +1,11 @@
+import 'package:brand_qr_scanner/models/user.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../models/homescreenelement.dart';
+import '../../models/homescreenelement.dart';
 
 class BuyerHomeScreen extends StatefulWidget {
-  const BuyerHomeScreen({Key? key}) : super(key: key);
+  const BuyerHomeScreen({Key? key, required User user}) : super(key: key);
 
   @override
   _BuyerHomeScreenState createState() => _BuyerHomeScreenState();

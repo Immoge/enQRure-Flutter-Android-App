@@ -2,9 +2,12 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:brand_qr_scanner/views/registerproductscreen.dart';
 import 'package:brand_qr_scanner/views/profilescreen.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import '../models/user.dart';
+import 'Buyer/buyerhistoryscreen.dart';
 import 'Buyer/buyerprofilescreen.dart';
-import 'buyerhomescreen.dart';
+import 'Buyer/buyerhomescreen.dart';
+import 'loginscreen.dart';
 
 class MainScreen extends StatefulWidget {
   final User user;
@@ -23,8 +26,9 @@ class _MainScreenState extends State<MainScreen> {
   void initState() {
     super.initState();
     tabchildren = [
-      const BuyerHomeScreen(),
+       BuyerHomeScreen(user: widget.user),
       const RegisterProductScreen(),
+      const BuyerHistoryScreen(),
       BuyerProfileScreen(user: widget.user),
     ];
   }
@@ -52,6 +56,11 @@ class _MainScreenState extends State<MainScreen> {
               size:35,
             ),
             Icon(
+              Icons.history,
+              color: Colors.white,
+              size:35,
+            ),
+            Icon(
               Icons.person,
               color: Colors.white,
               size:35,
@@ -62,17 +71,32 @@ class _MainScreenState extends State<MainScreen> {
   }
 
   void onTabTapped(int index) {
-    setState(() {
-      _currentIndex = index;
-      if (_currentIndex == 0) {
-        maintitle = "Main";
-      }
-      if (_currentIndex == 1) {
-        maintitle = "Scan";
-      }
-      if (_currentIndex == 2) {
-        maintitle = "Profile";
-      }
-    });
+    if (widget.user.id == "0" && (index == 2 || index == 3)) {
+      Fluttertoast.showToast(msg: "Please login first");
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => LoginScreen(),
+        ),
+      );
+    } else {
+      setState(() {
+        _currentIndex = index;
+        switch (_currentIndex) {
+          case 0:
+            maintitle = "Home";
+            break;
+          case 1:
+            maintitle = "Register Product";
+            break;
+          case 2:
+            maintitle = "History";
+            break;
+          case 3:
+            maintitle = "Profile";
+            break;
+        }
+      });
+    }
   }
 }
