@@ -41,8 +41,8 @@ class User {
     data['password'] = password;
     data['phone'] = phone;
     data['address'] = address;
-    data['roleid'] = address;
-    data['origin'] = address;
+    data['roleid'] = roleid;
+    data['origin'] = origin;
     data['regdate'] = regdate;
     return data;
   }

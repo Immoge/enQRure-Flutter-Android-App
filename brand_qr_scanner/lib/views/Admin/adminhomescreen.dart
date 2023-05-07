@@ -20,6 +20,8 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
             style: GoogleFonts.openSans(
                 fontSize: 25, 
                 fontWeight: FontWeight.w500,)),
-            ));
+            )          
+            );
   }
 }
+
