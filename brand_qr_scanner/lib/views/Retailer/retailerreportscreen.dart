@@ -14,7 +14,7 @@ class _RetailerReportScreenState extends State<RetailerReportScreen> {
      return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        backgroundColor: Color(0xFFFFD400),
+        backgroundColor: Color(0xFFFFB747),
         title: Text("Retailer",
         textAlign: TextAlign.center,
             style: GoogleFonts.openSans(

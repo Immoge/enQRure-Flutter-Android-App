@@ -14,7 +14,7 @@ class _ManufacturerReportScreenState extends State<ManufacturerReportScreen> {
      return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        backgroundColor: Color(0xFF00E736),
+        backgroundColor: Color(0xFF90E6C3),
         title: Text("Manufacturer Report",
         textAlign: TextAlign.center,
             style: GoogleFonts.openSans(

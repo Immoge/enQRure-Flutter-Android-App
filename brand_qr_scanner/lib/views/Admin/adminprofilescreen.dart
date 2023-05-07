@@ -49,7 +49,7 @@ class _AdminProfileScreenState extends State<AdminProfileScreen> {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         centerTitle: true,
-        backgroundColor: Color(0xFFFF882E),
+        backgroundColor: Color(0xFFFF9EC9),
         elevation: 1,
         title: Text("Profile",
             textAlign: TextAlign.center,
@@ -94,7 +94,7 @@ class _AdminProfileScreenState extends State<AdminProfileScreen> {
                           builder: (context) =>
                               AdminEditProfileScreen(user: widget.user))),
                   style: ElevatedButton.styleFrom(
-                      backgroundColor: Color(0xFFFF882E),
+                      backgroundColor: Color(0xFFFF9EC9),
                       side: BorderSide.none,
                       shape: const StadiumBorder()),
                   child: Text("Edit Profile",
@@ -148,7 +148,7 @@ class _AdminProfileScreenState extends State<AdminProfileScreen> {
               child: Text(
                 "Yes",
                 style: GoogleFonts.montserrat(
-                    color: Color(0xFFFF882E),
+                    color: Color(0xFFFF9EC9),
                     fontSize: 15,
                     fontWeight: FontWeight.bold),
               ),
@@ -164,7 +164,7 @@ class _AdminProfileScreenState extends State<AdminProfileScreen> {
               child: Text(
                 "No",
                 style: GoogleFonts.montserrat(
-                    color: Color(0xFFFF882E),
+                    color: Color(0xFFFF9EC9),
                     fontSize: 15,
                     fontWeight: FontWeight.bold),
               ),
@@ -206,7 +206,7 @@ class _AdminProfileScreenState extends State<AdminProfileScreen> {
               child: Text(
                 "Yes",
                 style: GoogleFonts.montserrat(
-                    color: Color(0xFFFF882E),
+                    color: Color(0xFFFF9EC9),
                     fontSize: 15,
                     fontWeight: FontWeight.bold),
               ),
@@ -228,7 +228,7 @@ class _AdminProfileScreenState extends State<AdminProfileScreen> {
               child: Text(
                 "No",
                 style: GoogleFonts.montserrat(
-                    color: Color(0xFFFF882E),
+                    color: Color(0xFFFF9EC9),
                     fontSize: 15,
                     fontWeight: FontWeight.bold),
               ),
@@ -318,7 +318,7 @@ class _AdminProfileScreenState extends State<AdminProfileScreen> {
               child: Text(
                 "Yes",
                 style: GoogleFonts.montserrat(
-                    color: Color(0xFFFF882E),
+                    color: Color(0xFFFF9EC9),
                     fontSize: 15,
                     fontWeight: FontWeight.bold),
               ),
@@ -331,7 +331,7 @@ class _AdminProfileScreenState extends State<AdminProfileScreen> {
               child: Text(
                 "No",
                 style: GoogleFonts.montserrat(
-                    color: Color(0xFFFF882E),
+                    color: Color(0xFFFF9EC9),
                     fontSize: 15,
                     fontWeight: FontWeight.bold),
               ),
@@ -408,7 +408,7 @@ class ProfileMenuWidget extends StatelessWidget {
         height: 40,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(100),
-          color: Color(0xFFFF882E),
+          color: Color(0xFFFF9EC9),
         ),
         child: Icon(icon, color: Colors.black),
       ),

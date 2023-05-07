@@ -346,7 +346,7 @@ class _BuyerProfileScreenState extends State<BuyerProfileScreen> {
 
   void changePass() {
     try {
-      http.post(Uri.parse(CONSTANTS.server + "/php/updateprofilepicture.php"),
+      http.post(Uri.parse(CONSTANTS.server + "/qrscanner/php/updateprofilepicture.php/"),
           body: {
             "userid": widget.user.id,
             "oldpass": _oldpasswordController.text,

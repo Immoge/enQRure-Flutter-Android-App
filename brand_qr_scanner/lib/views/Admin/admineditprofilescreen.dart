@@ -208,7 +208,7 @@ class _AdminEditProfileScreenState extends State<AdminEditProfileScreen> {
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          backgroundColor: Color(0xFFFF882E),
+          backgroundColor: Color(0xFFFF9EC9),
           elevation: 1,
           title: Text("Edit Profile",
               textAlign: TextAlign.center,
@@ -242,7 +242,7 @@ class _AdminEditProfileScreenState extends State<AdminEditProfileScreen> {
                           height: 35,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(100),
-                            color: Color(0xFFFF882E),
+                            color: Color(0xFFFF9EC9),
                           ),
                           child: GestureDetector(
                             onTap: () => {_updateImageDialog()},
@@ -438,7 +438,7 @@ class _AdminEditProfileScreenState extends State<AdminEditProfileScreen> {
                       _updateProfile();
                     },
                     style: ElevatedButton.styleFrom(
-                        backgroundColor: Color(0xFFFF882E),
+                        backgroundColor: Color(0xFFFF9EC9),
                         side: BorderSide.none,
                         shape: const StadiumBorder()),
                     child: Text("Edit Profile",

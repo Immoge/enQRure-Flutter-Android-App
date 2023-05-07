@@ -37,7 +37,7 @@ class _RetailerMainScreenState extends State<RetailerMainScreen> {
       bottomNavigationBar: 
         CurvedNavigationBar(
           backgroundColor: Colors.white,
-          color: Color(0xFFFFD400),
+          color: Color(0xFFFFB747),
           animationDuration: Duration(milliseconds: 300),
           onTap: onTabTapped,
           index: _currentIndex,

@@ -201,7 +201,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
     String _email = _emailEditingController.text;
     String _pass = _passEditingController.text;
-    http.post(Uri.parse(CONSTANTS.server + "/qrscanner/php/login.php"),
+    http.post(Uri.parse(CONSTANTS.server + "/qrscanner/php/login.php/"),
         body: {"email": _email, "password": _pass}).then((response) {
       print(response.body);
       var jsonResponse = json.decode(response.body);

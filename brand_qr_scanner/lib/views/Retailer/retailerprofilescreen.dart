@@ -50,7 +50,7 @@ class _RetailerProfileScreenState extends State<RetailerProfileScreen> {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         centerTitle: true,
-        backgroundColor: Color(0xFFFFD400),
+        backgroundColor: Color(0xFFFFB747),
         elevation: 1,
         title: Text("Profile",
             textAlign: TextAlign.center,
@@ -94,7 +94,7 @@ class _RetailerProfileScreenState extends State<RetailerProfileScreen> {
                           builder: (context) =>
                               ManufacturerEditProfileScreen(user: widget.user))),
                   style: ElevatedButton.styleFrom(
-                      backgroundColor: Color(0xFFFFD400),
+                      backgroundColor: Color(0xFFFFB747),
                       side: BorderSide.none,
                       shape: const StadiumBorder()),
                   child: Text("Edit Profile",
@@ -148,7 +148,7 @@ class _RetailerProfileScreenState extends State<RetailerProfileScreen> {
               child: Text(
                 "Yes",
                 style: GoogleFonts.montserrat(
-                    color: Color(0xFFFFD400),
+                    color: Color(0xFFFFB747),
                     fontSize: 15,
                     fontWeight: FontWeight.bold),
               ),
@@ -165,7 +165,7 @@ class _RetailerProfileScreenState extends State<RetailerProfileScreen> {
               child: Text(
                 "No",
                 style: GoogleFonts.montserrat(
-                    color: Color(0xFFFFD400),
+                    color: Color(0xFFFFB747),
                     fontSize: 15,
                     fontWeight: FontWeight.bold),
               ),
@@ -207,7 +207,7 @@ class _RetailerProfileScreenState extends State<RetailerProfileScreen> {
               child: Text(
                 "Yes",
                 style: GoogleFonts.montserrat(
-                    color: Color(0xFFFFD400),
+                    color: Color(0xFFFFB747),
                     fontSize: 15,
                     fontWeight: FontWeight.bold),
               ),
@@ -229,7 +229,7 @@ class _RetailerProfileScreenState extends State<RetailerProfileScreen> {
               child: Text(
                 "No",
                 style: GoogleFonts.montserrat(
-                    color: Color(0xFFFFD400),
+                    color: Color(0xFFFFB747),
                     fontSize: 15,
                     fontWeight: FontWeight.bold),
               ),
@@ -319,7 +319,7 @@ class _RetailerProfileScreenState extends State<RetailerProfileScreen> {
               child: Text(
                 "Yes",
                 style: GoogleFonts.montserrat(
-                    color: Color(0xFFFFD400),
+                    color: Color(0xFFFFB747),
                     fontSize: 15,
                     fontWeight: FontWeight.bold),
               ),
@@ -332,7 +332,7 @@ class _RetailerProfileScreenState extends State<RetailerProfileScreen> {
               child: Text(
                 "No",
                 style: GoogleFonts.montserrat(
-                    color: Color(0xFFFFD400),
+                    color: Color(0xFFFFB747),
                     fontSize: 15,
                     fontWeight: FontWeight.bold),
               ),
@@ -409,7 +409,7 @@ class ProfileMenuWidget extends StatelessWidget {
         height: 40,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(100),
-          color: Color(0xFFFFD400),
+          color: Color(0xFFFFB747),
         ),
         child: Icon(icon, color: Colors.black),
       ),

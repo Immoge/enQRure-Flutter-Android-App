@@ -39,7 +39,7 @@ class _AdminMainScreenState extends State<AdminMainScreen> {
       bottomNavigationBar: 
         CurvedNavigationBar(
           backgroundColor: Colors.white,
-          color: Color(0xFFFF882E),
+          color: Color(0xFFFF9EC9),
           animationDuration: Duration(milliseconds: 300),
           onTap: onTabTapped,
           index: _currentIndex,

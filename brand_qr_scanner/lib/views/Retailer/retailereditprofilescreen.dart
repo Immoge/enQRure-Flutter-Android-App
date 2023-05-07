@@ -208,7 +208,7 @@ class _ManufacturerEditProfileScreenState extends State<ManufacturerEditProfileS
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          backgroundColor: Color(0xFFFFD400),
+          backgroundColor: Color(0xFFFFB747),
           elevation: 1,
           title: Text("Edit Profile",
               textAlign: TextAlign.center,
@@ -242,7 +242,7 @@ class _ManufacturerEditProfileScreenState extends State<ManufacturerEditProfileS
                           height: 35,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(100),
-                            color: Color(0xFFFFD400),
+                            color: Color(0xFFFFB747),
                           ),
                           child: GestureDetector(
                             onTap: () => {_updateImageDialog()},
@@ -438,7 +438,7 @@ class _ManufacturerEditProfileScreenState extends State<ManufacturerEditProfileS
                       _updateProfile();
                     },
                     style: ElevatedButton.styleFrom(
-                        backgroundColor: Color(0xFFFFD400),
+                        backgroundColor: Color(0xFFFFB747),
                         side: BorderSide.none,
                         shape: const StadiumBorder()),
                     child: Text("Edit Profile",

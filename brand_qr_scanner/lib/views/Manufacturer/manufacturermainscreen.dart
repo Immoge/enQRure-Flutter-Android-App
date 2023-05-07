@@ -42,7 +42,7 @@ class _ManufacturerMainScreenState extends State<ManufacturerMainScreen> {
       bottomNavigationBar: 
         CurvedNavigationBar(
           backgroundColor: Colors.white,
-          color: Color(0xFF00E736),
+          color: Color(0xFF90E6C3),
           animationDuration: Duration(milliseconds: 300),
           onTap: onTabTapped,
           index: _currentIndex,

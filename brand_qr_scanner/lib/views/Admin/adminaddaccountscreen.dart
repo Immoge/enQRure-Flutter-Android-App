@@ -210,7 +210,7 @@ class _AdminAddAccountScreenState extends State<AdminAddAccountScreen> {
     return Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
-          backgroundColor: Color(0xFFFF882E),
+          backgroundColor: Color(0xFFFF9EC9),
           title: Text("Admin Add Account",
               textAlign: TextAlign.center,
               style: GoogleFonts.openSans(
@@ -547,7 +547,7 @@ class _AdminAddAccountScreenState extends State<AdminAddAccountScreen> {
                               _insertDialog();
                             },
                             style: ElevatedButton.styleFrom(
-                                backgroundColor: Color(0xFFFF882E),
+                                backgroundColor: Color(0xFFFF9EC9),
                                 side: BorderSide.none,
                                 shape: const StadiumBorder()),
                             child: const Text("Add Account",
@@ -655,7 +655,7 @@ class _AdminAddAccountScreenState extends State<AdminAddAccountScreen> {
                 child: Text(
                   "No",
                   style: GoogleFonts.montserrat(
-                      color: Color(0xFFFF882E),
+                      color: Color(0xFFFF9EC9),
                       fontSize: 15,
                       fontWeight: FontWeight.bold),
                 ),
@@ -667,7 +667,7 @@ class _AdminAddAccountScreenState extends State<AdminAddAccountScreen> {
                 child: Text(
                   "Confirm",
                   style: GoogleFonts.montserrat(
-                      color: Color(0xFFFF882E),
+                      color: Color(0xFFFF9EC9),
                       fontSize: 15,
                       fontWeight: FontWeight.bold),
                 ),
