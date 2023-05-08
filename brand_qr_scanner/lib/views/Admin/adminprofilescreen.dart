@@ -421,7 +421,7 @@ class ProfileMenuWidget extends StatelessWidget {
               height: 30,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(100),
-                color: Colors.orange.withOpacity(0.1),
+                color: Colors.pink.withOpacity(0.1),
               ),
               child: const Icon(LineAwesomeIcons.angle_right,
                   size: 18, color: Colors.black))
