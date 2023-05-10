@@ -29,16 +29,19 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   cached_network_image: ^3.2.3
+  crypto: ^3.0.3
   cupertino_icons: ^1.0.2
   curved_navigation_bar: ^1.0.3
   flutter:
     sdk: flutter
+  flutter_barcode_scanner: ^2.0.0
   flutter_svg: ^2.0.5
   flutter_walkthrough_screen: ^2.0.2
   fluttertoast: ^8.1.2
   get: ^4.6.5
   google_fonts: ^4.0.2
   http: ^0.13.5
+  image: ^4.0.17
   image_cropper: ^3.0.1
   image_picker: ^0.8.6+1
   intl: ^0.18.1
@@ -46,6 +49,7 @@ dependencies:
   ndialog: ^4.3.0
   path_provider: ^2.0.12
   qr_code_scanner: ^1.0.1
+  qr_flutter: ^4.0.0
   rive: ^0.10.4
   salomon_bottom_bar: ^3.3.1
   shared_preferences: ^2.0.17

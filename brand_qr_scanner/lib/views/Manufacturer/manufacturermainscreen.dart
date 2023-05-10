@@ -28,7 +28,7 @@ class _ManufacturerMainScreenState extends State<ManufacturerMainScreen> {
   void initState() {
     super.initState();
     tabchildren = [
-      const ManufacturerHomeScreen(),
+      ManufacturerHomeScreen(user: widget.user),
       const ManufacturerRegisterProductScreen(),
       const ManufacturerReportScreen(),
       ManufacturerProfileScreen(user: widget.user),
