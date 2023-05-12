@@ -353,7 +353,7 @@ class _BuyerEditProfileScreenState extends State<BuyerEditProfileScreen> {
     FocusScope.of(context).requestFocus(FocusNode());
 
     http.post(
-      Uri.parse(CONSTANTS.server + "/qrscanner/php/updateprofile.php/"),
+      Uri.parse(CONSTANTS.server + "/enQRsure/php/updateprofile.php/"),
       body: {
         "userid": widget.user.id.toString(),
         "useremail": _email,

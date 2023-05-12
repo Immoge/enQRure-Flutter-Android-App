@@ -329,7 +329,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
     curpage = pageno;
     numofpage ??= 1;
     http.post(
-      Uri.parse(CONSTANTS.server + "/qrscanner/php/loaduser.php"),
+      Uri.parse(CONSTANTS.server + "/enQRsure/php/loaduser.php"),
       body: {
         'pageno': pageno.toString(),
         'search': _search,
@@ -523,7 +523,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
   }
 
   void _deleteUser(int index) {
-    http.post(Uri.parse(CONSTANTS.server + "/qrscanner/php/deleteuser.php"),
+    http.post(Uri.parse(CONSTANTS.server + "/enQRsure/php/deleteuser.php"),
         body: {"userid": userList[index].userId}).then((response) {
       var jsondata = jsonDecode(response.body);
       if (response.statusCode == 200 && jsondata['status'] == 'success') {
@@ -892,7 +892,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
     }
 
     http.post(
-      Uri.parse(CONSTANTS.server + "/qrscanner/php/updateprofile.php/"),
+      Uri.parse(CONSTANTS.server + "/enQRsure/php/updateprofile.php/"),
       body: {
         "userid": userList[index].userId.toString(),
         "useremail": _email,

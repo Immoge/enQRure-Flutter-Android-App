@@ -493,7 +493,7 @@ class _ManufacturerHomeScreenState extends State<ManufacturerHomeScreen> {
     String userid = widget.user.id.toString();
     http.post(
       Uri.parse(CONSTANTS.server +
-          "/qrscanner/php/loadmanufacturerrecordedproduct.php"),
+          "/enQRsure/php/loadmanufacturerrecordedproduct.php"),
       body: {
         'pageno': pageno.toString(),
         'search': _search,
@@ -1116,7 +1116,7 @@ class _ManufacturerHomeScreenState extends State<ManufacturerHomeScreen> {
     FocusScope.of(context).requestFocus(FocusNode());
 
     http.post(
-      Uri.parse(CONSTANTS.server + "/qrscanner/php/updateproduct.php/"),
+      Uri.parse(CONSTANTS.server + "/enQRsure/php/updateproduct.php/"),
       body: {
         "productid": productList[index].productId.toString(),
         "productname": _prname,
@@ -1143,7 +1143,7 @@ class _ManufacturerHomeScreenState extends State<ManufacturerHomeScreen> {
         Navigator.pop(
           context,
         );
-         _loadRecordedProduct(1, "");
+        _loadRecordedProduct(1, "");
         setState(() {});
       } else {
         Fluttertoast.showToast(
@@ -1158,7 +1158,7 @@ class _ManufacturerHomeScreenState extends State<ManufacturerHomeScreen> {
   }
 
   void deleteProduct(int index) {
-    http.post(Uri.parse(CONSTANTS.server + "/qrscanner/php/deleteproduct.php"),
+    http.post(Uri.parse(CONSTANTS.server + "/enQRsure/php/deleteproduct.php"),
         body: {"productid": productList[index].productId}).then((response) {
       var jsondata = jsonDecode(response.body);
       if (response.statusCode == 200 && jsondata['status'] == 'success') {

@@ -18,10 +18,12 @@ class ManufacturerEditProfileScreen extends StatefulWidget {
       : super(key: key);
 
   @override
-  State<ManufacturerEditProfileScreen> createState() => _ManufacturerEditProfileScreenState();
+  State<ManufacturerEditProfileScreen> createState() =>
+      _ManufacturerEditProfileScreenState();
 }
 
-class _ManufacturerEditProfileScreenState extends State<ManufacturerEditProfileScreen> {
+class _ManufacturerEditProfileScreenState
+    extends State<ManufacturerEditProfileScreen> {
   late Color? color;
   late double screenHeight, screenWidth, resWidth;
   var _image;
@@ -371,16 +373,17 @@ class _ManufacturerEditProfileScreenState extends State<ManufacturerEditProfileS
                     child: TextFormField(
                       controller: _countryController,
                       decoration: InputDecoration(
-                        labelText: 'Country',
-                        prefixIcon: const Icon(Icons.flag_circle),
-                        enabledBorder: OutlineInputBorder(
+                          labelText: 'Country',
+                          prefixIcon: const Icon(Icons.flag_circle),
+                          enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10.0),
-                             borderSide: const BorderSide(
+                            borderSide: const BorderSide(
                                 color: Colors.grey, width: 2.0),
-                      )),
+                          )),
                       onTap: () async {
                         FocusScope.of(context).requestFocus(FocusNode());
-                        final String? selectedCountry = await showDialog<String>(
+                        final String? selectedCountry =
+                            await showDialog<String>(
                           context: context,
                           builder: (BuildContext context) {
                             return AlertDialog(
@@ -539,8 +542,7 @@ class _ManufacturerEditProfileScreenState extends State<ManufacturerEditProfileS
     ProgressDialog pd = ProgressDialog(context: context);
     pd.show(msg: 'Uploading...', max: 100);
     http.post(
-        Uri.parse(
-            CONSTANTS.server + "/qrscanner/php/updateprofilepicture.php/"),
+        Uri.parse(CONSTANTS.server + "/enQRsure/php/updateprofilepicture.php/"),
         body: {
           "userid": widget.user.id,
           "image": base64Image,
@@ -576,7 +578,7 @@ class _ManufacturerEditProfileScreenState extends State<ManufacturerEditProfileS
     FocusScope.of(context).requestFocus(FocusNode());
 
     http.post(
-      Uri.parse(CONSTANTS.server + "/qrscanner/php/updateprofile.php/"),
+      Uri.parse(CONSTANTS.server + "/enQRsure/php/updateprofile.php/"),
       body: {
         "userid": widget.user.id.toString(),
         "useremail": _email,

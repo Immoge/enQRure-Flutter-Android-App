@@ -76,7 +76,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               padding: const EdgeInsets.all(8.0),
                               //
                               child: GestureDetector(
-                                onTap: () => {_updateImageDialog()},//
+                                onTap: () => {_updateImageDialog()}, //
                                 child: ClipOval(
                                   child: Image.network(
                                     CONSTANTS.server +
@@ -89,8 +89,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   ),
                                 ),
                               ),
-                            )
-                            ),
+                            )),
                         Expanded(
                             flex: 6,
                             child: Padding(
@@ -220,8 +219,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (BuildContext context) =>
-                            RegisterScreen()));
+                        builder: (BuildContext context) => RegisterScreen()));
               },
             ),
             TextButton(
@@ -266,7 +264,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (BuildContext context) =>  LoginScreen()));
+                        builder: (BuildContext context) => LoginScreen()));
               },
             ),
             TextButton(
@@ -349,25 +347,25 @@ class _ProfileScreenState extends State<ProfileScreen> {
     }
   }
 
-Future<void> _cropImage() async {
+  Future<void> _cropImage() async {
     CroppedFile? croppedFile = await ImageCropper().cropImage(
-        sourcePath: _image!.path,
-        aspectRatioPresets: [
-          CropAspectRatioPreset.square,
-          CropAspectRatioPreset.ratio3x2,
-          CropAspectRatioPreset.original,
-          CropAspectRatioPreset.ratio4x3,
-          CropAspectRatioPreset.ratio16x9
-        ],
-        // androidUiSettings: AndroidUiSettings(
-        //     toolbarTitle: 'Cropper',
-        //     toolbarColor: Colors.cyan,
-        //     toolbarWidgetColor: Colors.white,
-        //     initAspectRatio: CropAspectRatioPreset.original,
-        //     lockAspectRatio: false),
-        // iosUiSettings: IOSUiSettings(
-        //   minimumAspectRatio: 1.0,
-        );
+      sourcePath: _image!.path,
+      aspectRatioPresets: [
+        CropAspectRatioPreset.square,
+        CropAspectRatioPreset.ratio3x2,
+        CropAspectRatioPreset.original,
+        CropAspectRatioPreset.ratio4x3,
+        CropAspectRatioPreset.ratio16x9
+      ],
+      // androidUiSettings: AndroidUiSettings(
+      //     toolbarTitle: 'Cropper',
+      //     toolbarColor: Colors.cyan,
+      //     toolbarWidgetColor: Colors.white,
+      //     initAspectRatio: CropAspectRatioPreset.original,
+      //     lockAspectRatio: false),
+      // iosUiSettings: IOSUiSettings(
+      //   minimumAspectRatio: 1.0,
+    );
     if (croppedFile != null) {
       File imageFile = File(croppedFile.path);
       _image = imageFile;
@@ -379,8 +377,7 @@ Future<void> _cropImage() async {
     String base64Image = base64Encode(image!.readAsBytesSync());
     ProgressDialog pd = ProgressDialog(context: context);
     pd.show(msg: 'Uploading...', max: 100);
-    http.post(
-        Uri.parse(CONSTANTS.server + "/qrscanner/php/updateprofile.php"),
+    http.post(Uri.parse(CONSTANTS.server + "/enQRsure/php/updateprofile.php"),
         body: {
           "email": widget.user.email,
           "image": base64Image,
@@ -468,8 +465,7 @@ Future<void> _cropImage() async {
   void _updateName(String newname) {
     ProgressDialog pd = ProgressDialog(context: context);
     pd.show(msg: 'Updating...', max: 100);
-    http.post(
-        Uri.parse(CONSTANTS.server + "/qrscanner/php/updateprofile.php"),
+    http.post(Uri.parse(CONSTANTS.server + "/enQRsure/php/updateprofile.php"),
         body: {
           "email": widget.user.email,
           "newname": newname,
@@ -558,8 +554,7 @@ Future<void> _cropImage() async {
   void _updatePhone(String newphone) {
     ProgressDialog pd = ProgressDialog(context: context);
     pd.show(msg: 'Updating...', max: 100);
-    http.post(
-        Uri.parse(CONSTANTS.server + "/qrscanner/php/updateprofile.php"),
+    http.post(Uri.parse(CONSTANTS.server + "/enQRsure/php/updateprofile.php"),
         body: {
           "email": widget.user.email,
           "newphone": newphone,
@@ -732,8 +727,7 @@ Future<void> _cropImage() async {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (BuildContext context) =>
-                             LoginScreen()));
+                        builder: (BuildContext context) => LoginScreen()));
               },
             ),
             TextButton(

@@ -1,4 +1,3 @@
 class CONSTANTS {
-  //static String server = "http://10.31.173.136"; //uum wifi
-  static String server = "http://10.19.235.228"; //uum guest wifi
+  static const String server = "http://www.yuelle.com/Immoge"; //uum guest wifi
 }

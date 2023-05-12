@@ -351,7 +351,9 @@ class _ManufacturerProfileScreenState extends State<ManufacturerProfileScreen> {
 
   void changePass() {
     try {
-      http.post(Uri.parse(CONSTANTS.server + "/php/updateprofilepicture.php"),
+      http.post(
+          Uri.parse(
+              CONSTANTS.server + "/enQRsure/php/updateprofilepicture.php"),
           body: {
             "userid": widget.user.id,
             "oldpass": _oldpasswordController.text,

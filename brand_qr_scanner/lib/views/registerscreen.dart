@@ -415,7 +415,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     FocusScope.of(context).requestFocus(FocusNode());
 
     http.post(
-        Uri.parse(CONSTANTS.server + "/qrscanner/php/registeruser.php/"),
+        Uri.parse(CONSTANTS.server + "/enQRsure/php/registeruser.php/"),
         body: {
           "email": _email,
           "name": _name,

@@ -702,7 +702,8 @@ class _AdminAddAccountScreenState extends State<AdminAddAccountScreen> {
     String base64Image = base64Encode(_image!.readAsBytesSync());
     FocusScope.of(context).requestFocus(FocusNode());
 
-    http.post(Uri.parse(CONSTANTS.server + "/qrscanner/php/registeruser.php/"),
+    http.post(
+        Uri.parse(CONSTANTS.server + "/enQRsure/php/registeruser.php/"),
         body: {
           "email": _email,
           "name": _name,

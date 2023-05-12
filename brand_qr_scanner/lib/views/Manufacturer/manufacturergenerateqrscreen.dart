@@ -718,7 +718,7 @@ class _ManufacturerGenerateQRScreenState
     String prencryptedcode = encryptedCode;
     String manufacturerid = widget.user.id.toString();
     String base64Image = base64Encode(_image!.readAsBytesSync());
-    http.post(Uri.parse(CONSTANTS.server + "/qrscanner/php/addproduct.php/"),
+    http.post(Uri.parse(CONSTANTS.server + "/enQRsure/php/addproduct.php/"),
         body: {
           "prname": prname,
           "prdescription": prdescription,
@@ -844,7 +844,7 @@ class _ManufacturerGenerateQRScreenState
       },
     );
   }
-  
+
   String generateRandomNumber() {
     Random random = Random();
     int min = 10000000; // Minimum 8-digit number
