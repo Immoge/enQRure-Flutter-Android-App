@@ -1,12 +1,14 @@
 import 'dart:io';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
-import 'dart:ui';
-import 'package:image/image.dart' as img;
-import 'package:flutter/services.dart';
 import 'dart:convert';
-
+import 'package:brand_qr_scanner/views/Manufacturer/manufacturermainscreen.dart';
+import 'package:flutter/rendering.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:flutter_downloader/flutter_downloader.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'package:screenshot/screenshot.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'dart:math';
@@ -22,6 +24,7 @@ import 'package:sn_progress_dialog/progress_dialog.dart';
 import 'package:http/http.dart' as http;
 import '../../models/user.dart';
 import '../../constants.dart';
+import 'package:widgets_to_image/widgets_to_image.dart';
 
 class ManufacturerGenerateQRScreen extends StatefulWidget {
   final User user;
@@ -35,10 +38,12 @@ class ManufacturerGenerateQRScreen extends StatefulWidget {
 
 class _ManufacturerGenerateQRScreenState
     extends State<ManufacturerGenerateQRScreen> {
+  WidgetsToImageController widgetcontroller = WidgetsToImageController();
+
   late double screenHeight, screenWidth, ctrwidth;
   String encryptedCode = "";
   String pathAsset = 'assets/images/upload image.png';
-  File? _image1;
+  var _image3;
   var _image;
   final TextEditingController _prnameEditingController =
       TextEditingController();
@@ -648,7 +653,7 @@ class _ManufacturerGenerateQRScreenState
     }
   }
 
-  void _insertDialog() {
+  _insertDialog() async {
     if (_formKey.currentState!.validate() && _image != null) {
       _formKey.currentState!.save();
       showDialog(
@@ -656,19 +661,25 @@ class _ManufacturerGenerateQRScreenState
         builder: (BuildContext context) {
           return AlertDialog(
             shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(20.0))),
-            title: Text("Add new product",
-                style: GoogleFonts.montserrat(
-                    fontSize: 18, fontWeight: FontWeight.bold)),
-            content: const Text("Do u wish to add this product?"),
+              borderRadius: BorderRadius.all(Radius.circular(20.0)),
+            ),
+            title: Text(
+              "Add new product",
+              style: GoogleFonts.montserrat(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            content: const Text("Add This Product?"),
             actions: <Widget>[
               TextButton(
                 child: Text(
                   "No",
                   style: GoogleFonts.montserrat(
-                      color: Color(0xFF90E6C3),
-                      fontSize: 15,
-                      fontWeight: FontWeight.bold),
+                    color: Color(0xFF90E6C3),
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
                 onPressed: () {
                   Navigator.of(context).pop();
@@ -678,13 +689,15 @@ class _ManufacturerGenerateQRScreenState
                 child: Text(
                   "Confirm",
                   style: GoogleFonts.montserrat(
-                      color: Color(0xFF90E6C3),
-                      fontSize: 15,
-                      fontWeight: FontWeight.bold),
+                    color: Color(0xFF90E6C3),
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
                 onPressed: () async {
-                  Navigator.of(context).pop();
-                  _insertProduct();
+                  await _generateEncryptedCode();
+                  await _insertProduct();
+                  _generateQRDialog(encryptedCode);
                 },
               ),
             ],
@@ -694,10 +707,7 @@ class _ManufacturerGenerateQRScreenState
     }
   }
 
-  void _insertProduct() {
-    _generateEncryptedCode();
-    ProgressDialog pd = ProgressDialog(context: context);
-    pd.show(msg: 'Uploading..', max: 100);
+  Future<void> _insertProduct() async {
     String prname = _prnameEditingController.text;
     String prdescription = _prdescriptionEditingController.text;
     String prtype = _prtypeEditingController.text;
@@ -722,7 +732,6 @@ class _ManufacturerGenerateQRScreenState
           "image": base64Image,
         }).then((response) {
       print(response.body);
-      print(prdate);
       var data = jsonDecode(response.body);
       if (response.statusCode == 200 && data['status'] == 'success') {
         Fluttertoast.showToast(
@@ -731,9 +740,6 @@ class _ManufacturerGenerateQRScreenState
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
             fontSize: 16.0);
-        pd.update(value: 100, msg: "Completed");
-        pd.close();
-        Navigator.of(context).pop();
       } else {
         Fluttertoast.showToast(
             msg: data['status'],
@@ -741,13 +747,11 @@ class _ManufacturerGenerateQRScreenState
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
             fontSize: 16.0);
-        pd.update(value: 0, msg: "Failed");
-        pd.close();
       }
     });
   }
 
-  void _generateEncryptedCode() {
+  Future<void> _generateEncryptedCode() async {
     String _prname = _prnameEditingController.text;
     String _prdescription = _prdescriptionEditingController.text;
     String _prtype = _prtypeEditingController.text;
@@ -765,15 +769,82 @@ class _ManufacturerGenerateQRScreenState
     encryptedCode = encryptWithSHA256(randomizationCode);
   }
 
-// void _generateQRCode(String encryptedCode) async {
-//   final qrCode = QrImage(data: encryptedCode);
-//   final qrCodeByteData = await qrCode.toByteData();
-//   final qrCodeBytes = qrCodeByteData.buffer.asUint8List();
-//   final file = File('assets/images/image_1.png');
-//   await file.writeAsBytes(qrCodeBytes);
-//   print('QR code generated and saved as image_1.png');
-// }
-
+  void _generateQRDialog(String encryptedCode) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(20.0)),
+          ),
+          title: Text(
+            "QR code",
+            style: GoogleFonts.openSans(
+              fontSize: 20,
+              fontWeight: FontWeight.w800,
+            ),
+          ),
+          content: SingleChildScrollView(
+            child: WidgetsToImage(
+              controller: widgetcontroller,
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: 200,
+                    width: 200,
+                    child: QrImage(
+                      data: encryptedCode,
+                      version: QrVersions.auto,
+                      size: 200,
+                      gapless: false,
+                      embeddedImage:
+                          AssetImage('assets/images/enQRsure logo.png'),
+                      embeddedImageStyle: QrEmbeddedImageStyle(
+                        size: Size(40, 40),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          actions: [
+            TextButton(
+              child: Text(
+                "Download",
+                style: GoogleFonts.montserrat(
+                  color: Color(0xFF90E6C3),
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              onPressed: () {
+                _downloadQRCode();
+              },
+            ),
+            TextButton(
+              child: Text(
+                "Close",
+                style: GoogleFonts.montserrat(
+                  color: Color(0xFF90E6C3),
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            ManufacturerMainScreen(user: widget.user)));
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+  
   String generateRandomNumber() {
     Random random = Random();
     int min = 10000000; // Minimum 8-digit number
@@ -786,5 +857,24 @@ class _ManufacturerGenerateQRScreenState
     var bytes = utf8.encode(input);
     var digest = sha256.convert(bytes);
     return digest.toString();
+  }
+
+  Future<void> _downloadQRCode() async {
+    var status = await Permission.storage.request();
+    if (status == PermissionStatus.granted) {
+      var image2 = await widgetcontroller.capture();
+      if (image2 != null) {
+        var file =
+            await File("/storage/emulated/0/Download/${DateTime.now()}.png")
+                .create(recursive: true);
+        await file.writeAsBytes(image2);
+        Fluttertoast.showToast(
+            msg: "Download Success",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            fontSize: 16.0);
+      }
+    }
   }
 }

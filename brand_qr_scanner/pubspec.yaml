@@ -35,6 +35,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_barcode_scanner: ^2.0.0
+  flutter_downloader: ^1.10.2
   flutter_svg: ^2.0.5
   flutter_walkthrough_screen: ^2.0.2
   fluttertoast: ^8.1.2
@@ -48,12 +49,17 @@ dependencies:
   line_awesome_flutter: ^2.0.0
   ndialog: ^4.3.0
   path_provider: ^2.0.12
+  permission_handler: ^10.2.0
   qr_code_scanner: ^1.0.1
   qr_flutter: ^4.0.0
   rive: ^0.10.4
   salomon_bottom_bar: ^3.3.1
+  screenshot: ^1.3.0
+  share_plus: ^7.0.0
   shared_preferences: ^2.0.17
   sn_progress_dialog: ^1.1.2
+  widget_to_image: ^2.0.0
+  widgets_to_image: ^0.0.2
 
 dev_dependencies:
   flutter_lints: ^2.0.0

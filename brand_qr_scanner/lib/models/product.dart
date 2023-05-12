@@ -8,7 +8,9 @@ class Product {
   String? productWarranty;
   String? productOrigin;
   String? productEncryptedCode;
+  String? productInsertDate;
   String? manufacturerId;
+  String? manufacturerRegid;
   String? manufacturerRegDate;
   String? retailerId;
   String? retalerRegDate;
@@ -25,7 +27,9 @@ class Product {
     this.productWarranty,
     this.productOrigin,
     this.productEncryptedCode,
+    this.productInsertDate,
     this.manufacturerId,
+    this.manufacturerRegid,
     this.manufacturerRegDate,
     this.retailerId,
     this.retalerRegDate,
@@ -43,7 +47,9 @@ class Product {
     productWarranty = json['product_warranty'];
     productOrigin = json['product_origin'];
     productEncryptedCode = json['product_encryptedcode'];
+    productInsertDate = json['product_insertdate'];
     manufacturerId = json['manufacturer_id'];
+    manufacturerRegid = json['manufacturer_regid'];
     manufacturerRegDate = json['manufacturer_regdate'];
     retailerId = json['retailer_id'];
     retalerRegDate = json['retailer_regdate'];
@@ -62,7 +68,9 @@ class Product {
     data['product_warranty'] = productWarranty;
     data['product_origin'] = productOrigin;
     data['product_encyptedcode'] = productEncryptedCode;
+    data['product_insertdate'] = productInsertDate;
     data['manufacturer_id'] = manufacturerId;
+    data['manufacturer_regid'] = manufacturerRegid;
     data['manufacturer_regdate'] = manufacturerRegDate;
     data['retailer_id'] = retailerId;
     data['retailer_regdate'] = retalerRegDate;
