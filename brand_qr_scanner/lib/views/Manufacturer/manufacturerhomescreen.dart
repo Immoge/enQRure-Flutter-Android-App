@@ -407,7 +407,7 @@ class _ManufacturerHomeScreenState extends State<ManufacturerHomeScreen> {
                                       radius: 28,
                                       backgroundImage: NetworkImage(
                                         CONSTANTS.server +
-                                            "/qrscanner/assets/productimages/" +
+                                            "/enQRsure/assets/productimages/" +
                                             productList[index]
                                                 .productId
                                                 .toString() +
@@ -542,7 +542,7 @@ class _ManufacturerHomeScreenState extends State<ManufacturerHomeScreen> {
               children: [
                 CachedNetworkImage(
                   imageUrl: CONSTANTS.server +
-                      "/qrscanner/assets/productimages/" +
+                      "/enQRsure/assets/productimages/" +
                       productList[index].productId.toString() +
                       '.jpg',
                   fit: BoxFit.cover,
@@ -767,7 +767,7 @@ class _ManufacturerHomeScreenState extends State<ManufacturerHomeScreen> {
                     borderRadius: BorderRadius.circular(100),
                     child: CachedNetworkImage(
                       imageUrl: CONSTANTS.server +
-                          "/qrscanner/assets/productimages/" +
+                          "/enQRsure/assets/productimages/" +
                           productList[index].productId.toString() +
                           '.jpg',
                       fit: BoxFit.cover,

@@ -80,7 +80,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 child: ClipOval(
                                   child: Image.network(
                                     CONSTANTS.server +
-                                        '/qrscanner/assets/profiles/${widget.user.id}.jpg' +
+                                        '/enQRsure/assets/profiles/${widget.user.id}.jpg' +
                                         "?v=$val",
                                     errorBuilder: (context, error, stackTrace) {
                                       return const Icon(Icons.broken_image,

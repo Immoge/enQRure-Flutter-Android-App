@@ -273,7 +273,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                           radius: 28,
                           backgroundImage: NetworkImage(
                             CONSTANTS.server +
-                                "/qrscanner/assets/profilesimages/" +
+                                "/enQRsure/assets/profilesimages/" +
                                 userList[index].userId.toString() +
                                 '.jpg',
                           ),
@@ -386,7 +386,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
               children: [
                 CachedNetworkImage(
                   imageUrl: CONSTANTS.server +
-                      "/qrscanner/assets/profilesimages/" +
+                      "/enQRsure/assets/profilesimages/" +
                       userList[index].userId.toString() +
                       '.jpg',
                   fit: BoxFit.cover,
@@ -589,7 +589,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                     borderRadius: BorderRadius.circular(100),
                     child: CachedNetworkImage(
                       imageUrl: CONSTANTS.server +
-                          "/qrscanner/assets/profilesimages/" +
+                          "/enQRsure/assets/profilesimages/" +
                           userList[index].userId.toString() +
                           '.jpg',
                       fit: BoxFit.cover,

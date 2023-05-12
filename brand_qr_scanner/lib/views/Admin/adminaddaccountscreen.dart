@@ -247,7 +247,7 @@ class _AdminAddAccountScreenState extends State<AdminAddAccountScreen> {
                         child: GestureDetector(
                             onTap: () => {_takePictureDialog()},
                             child: SizedBox(
-                                height: screenHeight / 4,
+                                height: screenHeight / 3,
                                 width: screenWidth,
                                 child: _image == null
                                     ? Image.asset(pathAsset)

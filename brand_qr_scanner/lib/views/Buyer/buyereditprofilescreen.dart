@@ -68,7 +68,7 @@ class _BuyerEditProfileScreenState extends State<BuyerEditProfileScreen> {
                           borderRadius: BorderRadius.circular(100),
                           child: Image.network(
                               CONSTANTS.server +
-                                  '/qrscanner/assets/profilesimages/${widget.user.id}.jpg' +
+                                  '/enQRsure/assets/profilesimages/${widget.user.id}.jpg' +
                                   "?v=$val",
                               errorBuilder: (context, error, stackTrace) {
                             return const Icon(Icons.broken_image, size: 128);
@@ -317,7 +317,7 @@ class _BuyerEditProfileScreenState extends State<BuyerEditProfileScreen> {
     pd.show(msg: 'Uploading...', max: 100);
     http.post(
         Uri.parse(
-            CONSTANTS.server + "/qrscanner/php/updateprofilepicture.php/"),
+            CONSTANTS.server + "/enQRsure/php/updateprofilepicture.php/"),
         body: {
           "userid": widget.user.id,
           "image": base64Image,

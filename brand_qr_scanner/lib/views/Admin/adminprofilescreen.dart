@@ -68,7 +68,7 @@ class _AdminProfileScreenState extends State<AdminProfileScreen> {
                   borderRadius: BorderRadius.circular(100),
                   child: Image.network(
                       CONSTANTS.server +
-                          '/qrscanner/assets/profilesimages/${widget.user.id}.jpg' +
+                          '/enQRsure/assets/profilesimages/${widget.user.id}.jpg' +
                           "?v=$val",
                       errorBuilder: (context, error, stackTrace) {
                     return const Icon(Icons.broken_image, size: 128);

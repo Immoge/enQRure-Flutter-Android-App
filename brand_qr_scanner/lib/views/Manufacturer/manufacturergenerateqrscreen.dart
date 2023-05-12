@@ -281,7 +281,7 @@ class _ManufacturerGenerateQRScreenState
               child: GestureDetector(
                   onTap: () => {_takePictureDialog()},
                   child: SizedBox(
-                      height: screenHeight / 2.5,
+                      height: screenHeight / 3,
                       width: screenWidth,
                       child: _image == null
                           ? Image.asset(pathAsset)
