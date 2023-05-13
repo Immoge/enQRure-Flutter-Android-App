@@ -23,6 +23,7 @@ class BuyerProfileScreen extends StatefulWidget {
 }
 
 class _BuyerProfileScreenState extends State<BuyerProfileScreen> {
+  final _formKey = GlobalKey<FormState>();
   late Color? color;
   late double screenHeight, screenWidth, resWidth;
   final TextEditingController _oldpasswordController = TextEditingController();
@@ -252,9 +253,9 @@ class _BuyerProfileScreenState extends State<BuyerProfileScreen> {
           title: Text("Change Password?",
               style: GoogleFonts.montserrat(
                   fontSize: 20, fontWeight: FontWeight.bold)),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
+          content: Form(
+            key: _formKey,
+            child: Column(mainAxisSize: MainAxisSize.min, children: [
               TextFormField(
                 obscureText: true,
                 controller: _oldpasswordController,
@@ -310,14 +311,14 @@ class _BuyerProfileScreenState extends State<BuyerProfileScreen> {
                   return null;
                 },
               ),
-            ],
+            ]),
           ),
           actions: <Widget>[
             TextButton(
               child: Text(
                 "Yes",
                 style: GoogleFonts.montserrat(
-                    color: Colors.lightBlue,
+                    color: Color(0xFFFF9EC9),
                     fontSize: 15,
                     fontWeight: FontWeight.bold),
               ),
@@ -330,7 +331,7 @@ class _BuyerProfileScreenState extends State<BuyerProfileScreen> {
               child: Text(
                 "No",
                 style: GoogleFonts.montserrat(
-                    color: Colors.lightBlue,
+                    color: Color(0xFFFF9EC9),
                     fontSize: 15,
                     fontWeight: FontWeight.bold),
               ),

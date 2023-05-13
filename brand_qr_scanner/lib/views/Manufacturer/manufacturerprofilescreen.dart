@@ -26,6 +26,7 @@ class ManufacturerProfileScreen extends StatefulWidget {
 }
 
 class _ManufacturerProfileScreenState extends State<ManufacturerProfileScreen> {
+  final _formKey = GlobalKey<FormState>();
   late Color? color;
   late double screenHeight, screenWidth, resWidth;
   final TextEditingController _oldpasswordController = TextEditingController();
@@ -257,9 +258,9 @@ class _ManufacturerProfileScreenState extends State<ManufacturerProfileScreen> {
           title: Text("Change Password?",
               style: GoogleFonts.montserrat(
                   fontSize: 20, fontWeight: FontWeight.bold)),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
+          content: Form(
+            key: _formKey,
+            child: Column(mainAxisSize: MainAxisSize.min, children: [
               TextFormField(
                 obscureText: true,
                 controller: _oldpasswordController,
@@ -315,7 +316,7 @@ class _ManufacturerProfileScreenState extends State<ManufacturerProfileScreen> {
                   return null;
                 },
               ),
-            ],
+            ]),
           ),
           actions: <Widget>[
             TextButton(

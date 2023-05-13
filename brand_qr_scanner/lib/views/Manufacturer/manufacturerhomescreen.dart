@@ -28,6 +28,7 @@ class ManufacturerHomeScreen extends StatefulWidget {
 }
 
 class _ManufacturerHomeScreenState extends State<ManufacturerHomeScreen> {
+   final _formKey = GlobalKey<FormState>();
   WidgetsToImageController widgetcontroller = WidgetsToImageController();
   var color;
   String selectedItem1 = 'Electronics';
@@ -781,6 +782,7 @@ class _ManufacturerHomeScreenState extends State<ManufacturerHomeScreen> {
                 ),
                 const SizedBox(height: 20),
                 Form(
+                   key: _formKey,
                     child: Column(children: [
                   TextFormField(
                     controller: _prnameEditingController,

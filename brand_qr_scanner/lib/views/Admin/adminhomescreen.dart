@@ -19,6 +19,7 @@ class AdminHomeScreen extends StatefulWidget {
 }
 
 class _AdminHomeScreenState extends State<AdminHomeScreen> {
+   final _formKey = GlobalKey<FormState>();
   List<DisplayedUser> userList = <DisplayedUser>[];
   late double screenHeight, screenWidth, resWidth;
   final df = DateFormat('dd/MM/yyyy');
@@ -603,6 +604,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                 ),
                 const SizedBox(height: 20),
                 Form(
+                     key: _formKey,
                     child: Column(children: [
                   TextFormField(
                     controller: _nameController,

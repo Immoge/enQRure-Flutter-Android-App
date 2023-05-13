@@ -253,6 +253,7 @@ class _AdminEditProfileScreenState extends State<AdminEditProfileScreen> {
               ),
               const SizedBox(height: 50),
               Form(
+                key: _formKey,
                   child: Column(children: [
                 Padding(
                     padding: const EdgeInsets.fromLTRB(0, 5, 0, 5),

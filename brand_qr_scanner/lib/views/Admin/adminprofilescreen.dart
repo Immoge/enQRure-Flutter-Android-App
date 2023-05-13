@@ -24,6 +24,7 @@ class AdminProfileScreen extends StatefulWidget {
 
 class _AdminProfileScreenState extends State<AdminProfileScreen> {
   late Color? color;
+  final _formKey = GlobalKey<FormState>();
   late double screenHeight, screenWidth, resWidth;
   final TextEditingController _oldpasswordController = TextEditingController();
   final TextEditingController _newpasswordController = TextEditingController();
@@ -252,9 +253,9 @@ class _AdminProfileScreenState extends State<AdminProfileScreen> {
           title: Text("Change Password?",
               style: GoogleFonts.montserrat(
                   fontSize: 20, fontWeight: FontWeight.bold)),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
+          content: Form(
+            key: _formKey,
+            child: Column(mainAxisSize: MainAxisSize.min, children: [
               TextFormField(
                 obscureText: true,
                 controller: _oldpasswordController,
@@ -310,7 +311,7 @@ class _AdminProfileScreenState extends State<AdminProfileScreen> {
                   return null;
                 },
               ),
-            ],
+            ]),
           ),
           actions: <Widget>[
             TextButton(
