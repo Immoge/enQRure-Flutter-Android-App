@@ -30,7 +30,6 @@ class _RetailerProfileScreenState extends State<RetailerProfileScreen> {
   final TextEditingController _newpasswordController = TextEditingController();
   var _image;
   var val = 50;
-  final _formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
@@ -255,9 +254,9 @@ class _RetailerProfileScreenState extends State<RetailerProfileScreen> {
           title: Text("Change Password?",
               style: GoogleFonts.montserrat(
                   fontSize: 20, fontWeight: FontWeight.bold)),
-          content: Form(
-            key: _formKey,
-            child: Column(mainAxisSize: MainAxisSize.min, children: [
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
               TextFormField(
                 obscureText: true,
                 controller: _oldpasswordController,
@@ -313,7 +312,7 @@ class _RetailerProfileScreenState extends State<RetailerProfileScreen> {
                   return null;
                 },
               ),
-            ]),
+            ],
           ),
           actions: <Widget>[
             TextButton(

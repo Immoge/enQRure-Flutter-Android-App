@@ -323,8 +323,10 @@ class _AdminProfileScreenState extends State<AdminProfileScreen> {
                     fontWeight: FontWeight.bold),
               ),
               onPressed: () {
-                Navigator.of(context).pop();
-                changePass();
+                if (_formKey.currentState!.validate()) {
+                  Navigator.of(context).pop();
+                  changePass();
+                }
               },
             ),
             TextButton(

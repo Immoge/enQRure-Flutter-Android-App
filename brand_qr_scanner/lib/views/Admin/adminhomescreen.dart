@@ -19,7 +19,7 @@ class AdminHomeScreen extends StatefulWidget {
 }
 
 class _AdminHomeScreenState extends State<AdminHomeScreen> {
-   final _formKey = GlobalKey<FormState>();
+  final _formKey = GlobalKey<FormState>();
   List<DisplayedUser> userList = <DisplayedUser>[];
   late double screenHeight, screenWidth, resWidth;
   final df = DateFormat('dd/MM/yyyy');
@@ -604,240 +604,248 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                 ),
                 const SizedBox(height: 20),
                 Form(
-                     key: _formKey,
+                    key: _formKey,
                     child: Column(children: [
-                  TextFormField(
-                    controller: _nameController,
-                    decoration: InputDecoration(
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                          borderSide:
-                              const BorderSide(color: Colors.black, width: 2.0),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                          borderSide:
-                              const BorderSide(color: Colors.grey, width: 2.0),
-                        ),
-                        prefixIcon: const Icon(LineAwesomeIcons.user_tie),
-                        labelText: "Full Name"),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter your name';
-                      }
-                      return null;
-                    },
-                  ),
-                  const SizedBox(height: 10),
-                  TextFormField(
-                    controller: _emailController,
-                    decoration: InputDecoration(
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                          borderSide:
-                              const BorderSide(color: Colors.black, width: 2.0),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                          borderSide:
-                              const BorderSide(color: Colors.grey, width: 2.0),
-                        ),
-                        prefixIcon: const Icon(LineAwesomeIcons.envelope),
-                        labelText: "E-mail"),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return "Please enter valid email address";
-                      }
-                      bool nameValid = RegExp(
-                              r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                          .hasMatch(value);
+                      TextFormField(
+                        controller: _nameController,
+                        decoration: InputDecoration(
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                              borderSide: const BorderSide(
+                                  color: Colors.black, width: 2.0),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                              borderSide: const BorderSide(
+                                  color: Colors.grey, width: 2.0),
+                            ),
+                            prefixIcon: const Icon(LineAwesomeIcons.user_tie),
+                            labelText: "Full Name"),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter your name';
+                          }
+                          return null;
+                        },
+                      ),
+                      const SizedBox(height: 10),
+                      TextFormField(
+                        controller: _emailController,
+                        decoration: InputDecoration(
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                              borderSide: const BorderSide(
+                                  color: Colors.black, width: 2.0),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                              borderSide: const BorderSide(
+                                  color: Colors.grey, width: 2.0),
+                            ),
+                            prefixIcon: const Icon(LineAwesomeIcons.envelope),
+                            labelText: "E-mail"),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return "Please enter valid email address";
+                          }
+                          bool nameValid = RegExp(
+                                  r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                              .hasMatch(value);
 
-                      if (!nameValid) {
-                        return "Please enter valid email address";
-                      }
-                      return null;
-                    },
-                  ),
-                  const SizedBox(height: 10),
-                  TextFormField(
-                    controller: _phoneController,
-                    decoration: InputDecoration(
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                          borderSide:
-                              const BorderSide(color: Colors.black, width: 2.0),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                          borderSide:
-                              const BorderSide(color: Colors.grey, width: 2.0),
-                        ),
-                        prefixIcon: const Icon(LineAwesomeIcons.phone_square),
-                        labelText: "Phone No"),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return "Please enter phone number";
-                      }
-                      if (value.length < 10) {
-                        return "Please enter valid phone number";
-                      }
-                      return null;
-                    },
-                  ),
-                  const SizedBox(height: 10),
-                  TextFormField(
-                    controller: _addressController,
-                    decoration: InputDecoration(
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                          borderSide:
-                              const BorderSide(color: Colors.black, width: 2.0),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                          borderSide:
-                              const BorderSide(color: Colors.grey, width: 2.0),
-                        ),
-                        prefixIcon: const Icon(LineAwesomeIcons.map_marked),
-                        labelText: "Home Address"),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return "Please enter home address";
-                      }
-                      if (value.length < 15) {
-                        return "Please enter valid home address";
-                      }
-                      return null;
-                    },
-                  ),
-                  const SizedBox(height: 10),
-                  TextFormField(
-                    controller: _countryController,
-                    decoration: InputDecoration(
-                        labelText: 'Country',
-                        prefixIcon: const Icon(Icons.flag_circle),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                          borderSide:
-                              const BorderSide(color: Colors.grey, width: 2.0),
-                        )),
-                    onTap: () async {
-                      FocusScope.of(context).requestFocus(FocusNode());
-                      final String? selectedCountry = await showDialog<String>(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return AlertDialog(
-                            title: Text(
-                              'Select a Country',
-                              style: GoogleFonts.montserrat(
-                                  fontSize: 20, fontWeight: FontWeight.bold),
-                            ),
-                            content: Padding(
-                              padding: const EdgeInsets.all(6.0),
-                              child: DropdownButtonFormField<String>(
-                                value: selectedItem2,
-                                icon: const Icon(Icons.arrow_drop_down_circle),
-                                decoration: InputDecoration(
-                                    labelText: "Country",
-                                    border: OutlineInputBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(5.0))),
-                                onChanged: (String? newValue) {
-                                  setState(() {
-                                    selectedItem2 = newValue!;
-                                  });
-                                  Navigator.of(context).pop(newValue);
-                                },
-                                items: countryList.map((String value) {
-                                  return DropdownMenuItem<String>(
-                                    value: value,
-                                    child: Text(value),
-                                  );
-                                }).toList(),
-                              ),
-                            ),
-                          );
+                          if (!nameValid) {
+                            return "Please enter valid email address";
+                          }
+                          return null;
                         },
-                      );
-                      if (selectedCountry != null) {
-                        _countryController.text = selectedCountry;
-                      }
-                    },
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return "Please select a country";
-                      }
-                      return null;
-                    },
-                  ),
-                  const SizedBox(height: 10),
-                  TextFormField(
-                    controller: _roleController,
-                    decoration: InputDecoration(
-                        labelText: 'Role',
-                        prefixIcon: const Icon(LineAwesomeIcons.user_tag),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                          borderSide:
-                              const BorderSide(color: Colors.grey, width: 2.0),
-                        )),
-                    onTap: () async {
-                      FocusScope.of(context).requestFocus(FocusNode());
-                      final String? selectedRole = await showDialog<String>(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return AlertDialog(
-                            title: Text(
-                              'Select a Role',
-                              style: GoogleFonts.montserrat(
-                                  fontSize: 20, fontWeight: FontWeight.bold),
+                      ),
+                      const SizedBox(height: 10),
+                      TextFormField(
+                        controller: _phoneController,
+                        decoration: InputDecoration(
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                              borderSide: const BorderSide(
+                                  color: Colors.black, width: 2.0),
                             ),
-                            content: Padding(
-                              padding: const EdgeInsets.all(6.0),
-                              child: DropdownButtonFormField<String>(
-                                value: selectedItem1,
-                                icon: const Icon(Icons.arrow_drop_down_circle),
-                                decoration: InputDecoration(
-                                    labelText: "Role",
-                                    border: OutlineInputBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(5.0))),
-                                onChanged: (String? newValue2) {
-                                  setState(() {
-                                    selectedItem1 = newValue2!;
-                                  });
-                                  Navigator.of(context).pop(newValue2);
-                                },
-                                items: roleList.map((String value) {
-                                  return DropdownMenuItem<String>(
-                                    value: value,
-                                    child: Text(value),
-                                  );
-                                }).toList(),
-                              ),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                              borderSide: const BorderSide(
+                                  color: Colors.grey, width: 2.0),
                             ),
-                          );
+                            prefixIcon:
+                                const Icon(LineAwesomeIcons.phone_square),
+                            labelText: "Phone No"),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return "Please enter phone number";
+                          }
+                          if (value.length < 10) {
+                            return "Please enter valid phone number";
+                          }
+                          return null;
                         },
-                      );
-                      if (selectedRole != null) {
-                        _roleController.text = selectedRole;
-                      }
-                    },
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return "Please select a role";
-                      }
-                      return null;
-                    },
-                  ),
-                ])),
+                      ),
+                      const SizedBox(height: 10),
+                      TextFormField(
+                        controller: _addressController,
+                        decoration: InputDecoration(
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                              borderSide: const BorderSide(
+                                  color: Colors.black, width: 2.0),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                              borderSide: const BorderSide(
+                                  color: Colors.grey, width: 2.0),
+                            ),
+                            prefixIcon: const Icon(LineAwesomeIcons.map_marked),
+                            labelText: "Home Address"),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return "Please enter home address";
+                          }
+                          if (value.length < 15) {
+                            return "Please enter valid home address";
+                          }
+                          return null;
+                        },
+                      ),
+                      const SizedBox(height: 10),
+                      TextFormField(
+                        controller: _countryController,
+                        decoration: InputDecoration(
+                            labelText: 'Country',
+                            prefixIcon: const Icon(Icons.flag_circle),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                              borderSide: const BorderSide(
+                                  color: Colors.grey, width: 2.0),
+                            )),
+                        onTap: () async {
+                          FocusScope.of(context).requestFocus(FocusNode());
+                          final String? selectedCountry =
+                              await showDialog<String>(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                title: Text(
+                                  'Select a Country',
+                                  style: GoogleFonts.montserrat(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                content: Padding(
+                                  padding: const EdgeInsets.all(6.0),
+                                  child: DropdownButtonFormField<String>(
+                                    value: selectedItem2,
+                                    icon: const Icon(
+                                        Icons.arrow_drop_down_circle),
+                                    decoration: InputDecoration(
+                                        labelText: "Country",
+                                        border: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(5.0))),
+                                    onChanged: (String? newValue) {
+                                      setState(() {
+                                        selectedItem2 = newValue!;
+                                      });
+                                      Navigator.of(context).pop(newValue);
+                                    },
+                                    items: countryList.map((String value) {
+                                      return DropdownMenuItem<String>(
+                                        value: value,
+                                        child: Text(value),
+                                      );
+                                    }).toList(),
+                                  ),
+                                ),
+                              );
+                            },
+                          );
+                          if (selectedCountry != null) {
+                            _countryController.text = selectedCountry;
+                          }
+                        },
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return "Please select a country";
+                          }
+                          return null;
+                        },
+                      ),
+                      const SizedBox(height: 10),
+                      TextFormField(
+                        controller: _roleController,
+                        decoration: InputDecoration(
+                            labelText: 'Role',
+                            prefixIcon: const Icon(LineAwesomeIcons.user_tag),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                              borderSide: const BorderSide(
+                                  color: Colors.grey, width: 2.0),
+                            )),
+                        onTap: () async {
+                          FocusScope.of(context).requestFocus(FocusNode());
+                          final String? selectedRole = await showDialog<String>(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                title: Text(
+                                  'Select a Role',
+                                  style: GoogleFonts.montserrat(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                content: Padding(
+                                  padding: const EdgeInsets.all(6.0),
+                                  child: DropdownButtonFormField<String>(
+                                    value: selectedItem1,
+                                    icon: const Icon(
+                                        Icons.arrow_drop_down_circle),
+                                    decoration: InputDecoration(
+                                        labelText: "Role",
+                                        border: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(5.0))),
+                                    onChanged: (String? newValue2) {
+                                      setState(() {
+                                        selectedItem1 = newValue2!;
+                                      });
+                                      Navigator.of(context).pop(newValue2);
+                                    },
+                                    items: roleList.map((String value) {
+                                      return DropdownMenuItem<String>(
+                                        value: value,
+                                        child: Text(value),
+                                      );
+                                    }).toList(),
+                                  ),
+                                ),
+                              );
+                            },
+                          );
+                          if (selectedRole != null) {
+                            _roleController.text = selectedRole;
+                          }
+                        },
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return "Please select a role";
+                          }
+                          return null;
+                        },
+                      ),
+                    ])),
                 const SizedBox(height: 20),
                 SizedBox(
                     width: double.infinity,
                     height: 50,
                     child: ElevatedButton(
                       onPressed: () async {
-                        _updateProfile(index);
+                        if (_formKey.currentState!.validate()) {
+                          _updateProfile(index);
+                        }
                       },
                       style: ElevatedButton.styleFrom(
                           backgroundColor: Color(0xFFFF9EC9),

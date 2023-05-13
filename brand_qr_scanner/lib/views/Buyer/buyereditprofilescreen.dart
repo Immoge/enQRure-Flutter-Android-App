@@ -92,121 +92,123 @@ class _BuyerEditProfileScreenState extends State<BuyerEditProfileScreen> {
               ),
               const SizedBox(height: 50),
               Form(
-                   key: _formKey,
+                  key: _formKey,
                   child: Column(children: [
-                Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 5, 0, 5),
-                    child: TextFormField(
-                      controller: _nameController,
-                      decoration: InputDecoration(
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10.0),
-                            borderSide: const BorderSide(
-                                color: Colors.black, width: 2.0),
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10.0),
-                            borderSide: const BorderSide(
-                                color: Colors.grey, width: 2.0),
-                          ),
-                          prefixIcon: const Icon(LineAwesomeIcons.user_tie),
-                          labelText: "Full Name"),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter your name';
-                        }
-                        return null;
-                      },
-                    )),
-                const SizedBox(height: 10),
-                Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 5, 0, 5),
-                    child: TextFormField(
-                      controller: _emailController,
-                      decoration: InputDecoration(
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10.0),
-                            borderSide: const BorderSide(
-                                color: Colors.black, width: 2.0),
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10.0),
-                            borderSide: const BorderSide(
-                                color: Colors.grey, width: 2.0),
-                          ),
-                          prefixIcon: const Icon(LineAwesomeIcons.envelope),
-                          labelText: "E-mail"),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return "Please enter valid email address";
-                        }
-                        bool nameValid = RegExp(
-                                r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                            .hasMatch(value);
+                    Padding(
+                        padding: const EdgeInsets.fromLTRB(0, 5, 0, 5),
+                        child: TextFormField(
+                          controller: _nameController,
+                          decoration: InputDecoration(
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10.0),
+                                borderSide: const BorderSide(
+                                    color: Colors.black, width: 2.0),
+                              ),
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10.0),
+                                borderSide: const BorderSide(
+                                    color: Colors.grey, width: 2.0),
+                              ),
+                              prefixIcon: const Icon(LineAwesomeIcons.user_tie),
+                              labelText: "Full Name"),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter your name';
+                            }
+                            return null;
+                          },
+                        )),
+                    const SizedBox(height: 10),
+                    Padding(
+                        padding: const EdgeInsets.fromLTRB(0, 5, 0, 5),
+                        child: TextFormField(
+                          controller: _emailController,
+                          decoration: InputDecoration(
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10.0),
+                                borderSide: const BorderSide(
+                                    color: Colors.black, width: 2.0),
+                              ),
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10.0),
+                                borderSide: const BorderSide(
+                                    color: Colors.grey, width: 2.0),
+                              ),
+                              prefixIcon: const Icon(LineAwesomeIcons.envelope),
+                              labelText: "E-mail"),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return "Please enter valid email address";
+                            }
+                            bool nameValid = RegExp(
+                                    r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                                .hasMatch(value);
 
-                        if (!nameValid) {
-                          return "Please enter valid email address";
-                        }
-                        return null;
-                      },
-                    )),
-                const SizedBox(height: 10),
-                Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 5, 0, 5),
-                    child: TextFormField(
-                      controller: _phoneController,
-                      decoration: InputDecoration(
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10.0),
-                            borderSide: const BorderSide(
-                                color: Colors.black, width: 2.0),
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10.0),
-                            borderSide: const BorderSide(
-                                color: Colors.grey, width: 2.0),
-                          ),
-                          prefixIcon: const Icon(LineAwesomeIcons.phone_square),
-                          labelText: "Phone No"),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return "Please enter phone number";
-                        }
-                        if (value.length < 10) {
-                          return "Please enter valid phone number";
-                        }
-                        return null;
-                      },
-                    )),
-                const SizedBox(height: 10),
-                Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 5, 0, 5),
-                    child: TextFormField(
-                      controller: _addressController,
-                      decoration: InputDecoration(
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10.0),
-                            borderSide: const BorderSide(
-                                color: Colors.black, width: 2.0),
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10.0),
-                            borderSide: const BorderSide(
-                                color: Colors.grey, width: 2.0),
-                          ),
-                          prefixIcon: const Icon(LineAwesomeIcons.map_marked),
-                          labelText: "Home Address"),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return "Please enter home address";
-                        }
-                        if (value.length < 15) {
-                          return "Please enter valid home address";
-                        }
-                        return null;
-                      },
-                    )),
-              ])),
+                            if (!nameValid) {
+                              return "Please enter valid email address";
+                            }
+                            return null;
+                          },
+                        )),
+                    const SizedBox(height: 10),
+                    Padding(
+                        padding: const EdgeInsets.fromLTRB(0, 5, 0, 5),
+                        child: TextFormField(
+                          controller: _phoneController,
+                          decoration: InputDecoration(
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10.0),
+                                borderSide: const BorderSide(
+                                    color: Colors.black, width: 2.0),
+                              ),
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10.0),
+                                borderSide: const BorderSide(
+                                    color: Colors.grey, width: 2.0),
+                              ),
+                              prefixIcon:
+                                  const Icon(LineAwesomeIcons.phone_square),
+                              labelText: "Phone No"),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return "Please enter phone number";
+                            }
+                            if (value.length < 10) {
+                              return "Please enter valid phone number";
+                            }
+                            return null;
+                          },
+                        )),
+                    const SizedBox(height: 10),
+                    Padding(
+                        padding: const EdgeInsets.fromLTRB(0, 5, 0, 5),
+                        child: TextFormField(
+                          controller: _addressController,
+                          decoration: InputDecoration(
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10.0),
+                                borderSide: const BorderSide(
+                                    color: Colors.black, width: 2.0),
+                              ),
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10.0),
+                                borderSide: const BorderSide(
+                                    color: Colors.grey, width: 2.0),
+                              ),
+                              prefixIcon:
+                                  const Icon(LineAwesomeIcons.map_marked),
+                              labelText: "Home Address"),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return "Please enter home address";
+                            }
+                            if (value.length < 15) {
+                              return "Please enter valid home address";
+                            }
+                            return null;
+                          },
+                        )),
+                  ])),
               const SizedBox(height: 20),
               SizedBox(
                   width: double.infinity,
@@ -317,8 +319,7 @@ class _BuyerEditProfileScreenState extends State<BuyerEditProfileScreen> {
     ProgressDialog pd = ProgressDialog(context: context);
     pd.show(msg: 'Uploading...', max: 100);
     http.post(
-        Uri.parse(
-            CONSTANTS.server + "/enQRsure/php/updateprofilepicture.php/"),
+        Uri.parse(CONSTANTS.server + "/enQRsure/php/updateprofilepicture.php/"),
         body: {
           "userid": widget.user.id,
           "image": base64Image,

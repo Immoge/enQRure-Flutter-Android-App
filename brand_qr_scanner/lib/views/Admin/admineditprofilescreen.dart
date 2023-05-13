@@ -437,6 +437,7 @@ class _AdminEditProfileScreenState extends State<AdminEditProfileScreen> {
                   height: 50,
                   child: ElevatedButton(
                     onPressed: () async {
+                      if (_formKey.currentState!.validate())
                       _updateProfile();
                     },
                     style: ElevatedButton.styleFrom(

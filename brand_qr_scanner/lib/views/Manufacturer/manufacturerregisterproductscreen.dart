@@ -10,6 +10,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:http/http.dart' as http;
+import 'package:rive/rive.dart';
 
 class ManufacturerRegisterProductScreen extends StatefulWidget {
   const ManufacturerRegisterProductScreen({
@@ -30,6 +31,16 @@ class _ManufacturerRegisterProductScreenState
   Timer? timer;
   final qrKey = GlobalKey(debugLabel: 'QR');
   QRViewController? controller;
+  late SMITrigger check;
+  late SMITrigger error;
+  late SMITrigger reset;
+
+  StateMachineController getRiveController(Artboard artboard) {
+    StateMachineController? controller2 =
+        StateMachineController.fromArtboard(artboard, "State Machine 1");
+    artboard.addController(controller2!);
+    return controller2;
+  }
 
   @override
   void dispose() {
@@ -65,6 +76,16 @@ class _ManufacturerRegisterProductScreenState
           buildQrView(context),
           Positioned(bottom: 30, child: buildResult()),
           Positioned(top: 10, child: buildControlButtons()),
+          Positioned.fill(
+              child: RiveAnimation.asset(
+            "assets/RiveAssets/check.riv",
+            onInit: (artboard) {
+              StateMachineController controller = getRiveController(artboard);
+              check = controller.findSMI("Check") as SMITrigger;
+              error = controller.findSMI("Error") as SMITrigger;
+              reset = controller.findSMI("Reset") as SMITrigger;
+            },
+          ))
         ],
       )),
     );
@@ -277,8 +298,7 @@ class _ManufacturerRegisterProductScreenState
                             width: screenWidth,
                             height: 50,
                             child: ElevatedButton(
-                              onPressed: () {
-                              },
+                              onPressed: () {},
                               style: ElevatedButton.styleFrom(
                                   backgroundColor: Color(0xFF77CE80),
                                   side: BorderSide.none,
@@ -334,30 +354,30 @@ class _ManufacturerRegisterProductScreenState
     }
   }
 
-   _loginProductInfo() async {
-  http.post(
-    Uri.parse(CONSTANTS.server + "/enQRsure/php/loadregisterproduct.php/"),
-    body: {
-      "encryptedcode": barcode.toString(),
-    },
-  ).then((response) {
-    print(response.body);
-    var jsonResponse = json.decode(response.body);
-    if (response.statusCode == 200 && jsonResponse['status'] == "success") {
-      print(jsonResponse);
-      Product product = Product.fromJson(jsonResponse['data']);
-      _loadProductDialog(product); 
-    } else {
-      print(jsonResponse);
-      Fluttertoast.showToast(
-        msg: "Invalid QR Code!",
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.BOTTOM,
-        timeInSecForIosWeb: 1,
-        fontSize: 14.0,
-      );
-      controller!.resumeCamera();
-    }
-  });
-}
+  _loginProductInfo() async {
+    http.post(
+      Uri.parse(CONSTANTS.server + "/enQRsure/php/loadregisterproduct.php/"),
+      body: {
+        "encryptedcode": barcode.toString(),
+      },
+    ).then((response) {
+      print(response.body);
+      var jsonResponse = json.decode(response.body);
+      if (response.statusCode == 200 && jsonResponse['status'] == "success") {
+        print(jsonResponse);
+        Product product = Product.fromJson(jsonResponse['data']);
+        _loadProductDialog(product);
+      } else {
+        print(jsonResponse);
+        Fluttertoast.showToast(
+          msg: "Invalid QR Code!",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          fontSize: 14.0,
+        );
+        controller!.resumeCamera();
+      }
+    });
+  }
 }

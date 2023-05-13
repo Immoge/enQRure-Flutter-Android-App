@@ -255,191 +255,196 @@ class _ManufacturerEditProfileScreenState
               ),
               const SizedBox(height: 50),
               Form(
-                key: _formKey,
+                  key: _formKey,
                   child: Column(children: [
-                Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 5, 0, 5),
-                    child: TextFormField(
-                      controller: _nameController,
-                      decoration: InputDecoration(
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10.0),
-                            borderSide: const BorderSide(
-                                color: Colors.black, width: 2.0),
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10.0),
-                            borderSide: const BorderSide(
-                                color: Colors.grey, width: 2.0),
-                          ),
-                          prefixIcon: const Icon(LineAwesomeIcons.user_tie),
-                          labelText: "Full Name"),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter your name';
-                        }
-                        return null;
-                      },
-                    )),
-                const SizedBox(height: 10),
-                Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 5, 0, 5),
-                    child: TextFormField(
-                      controller: _emailController,
-                      decoration: InputDecoration(
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10.0),
-                            borderSide: const BorderSide(
-                                color: Colors.black, width: 2.0),
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10.0),
-                            borderSide: const BorderSide(
-                                color: Colors.grey, width: 2.0),
-                          ),
-                          prefixIcon: const Icon(LineAwesomeIcons.envelope),
-                          labelText: "E-mail"),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return "Please enter valid email address";
-                        }
-                        bool nameValid = RegExp(
-                                r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                            .hasMatch(value);
-
-                        if (!nameValid) {
-                          return "Please enter valid email address";
-                        }
-                        return null;
-                      },
-                    )),
-                const SizedBox(height: 10),
-                Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 5, 0, 5),
-                    child: TextFormField(
-                      controller: _phoneController,
-                      decoration: InputDecoration(
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10.0),
-                            borderSide: const BorderSide(
-                                color: Colors.black, width: 2.0),
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10.0),
-                            borderSide: const BorderSide(
-                                color: Colors.grey, width: 2.0),
-                          ),
-                          prefixIcon: const Icon(LineAwesomeIcons.phone_square),
-                          labelText: "Phone No"),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return "Please enter phone number";
-                        }
-                        if (value.length < 10) {
-                          return "Please enter valid phone number";
-                        }
-                        return null;
-                      },
-                    )),
-                const SizedBox(height: 10),
-                Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 5, 0, 5),
-                    child: TextFormField(
-                      controller: _addressController,
-                      decoration: InputDecoration(
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10.0),
-                            borderSide: const BorderSide(
-                                color: Colors.black, width: 2.0),
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10.0),
-                            borderSide: const BorderSide(
-                                color: Colors.grey, width: 2.0),
-                          ),
-                          prefixIcon: const Icon(LineAwesomeIcons.map_marked),
-                          labelText: "Home Address"),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return "Please enter home address";
-                        }
-                        if (value.length < 15) {
-                          return "Please enter valid home address";
-                        }
-                        return null;
-                      },
-                    )),
-                Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 5, 0, 5),
-                    child: TextFormField(
-                      controller: _countryController,
-                      decoration: InputDecoration(
-                          labelText: 'Country',
-                          prefixIcon: const Icon(Icons.flag_circle),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10.0),
-                            borderSide: const BorderSide(
-                                color: Colors.grey, width: 2.0),
-                          )),
-                      onTap: () async {
-                        FocusScope.of(context).requestFocus(FocusNode());
-                        final String? selectedCountry =
-                            await showDialog<String>(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return AlertDialog(
-                              title: Text(
-                                'Select a Country',
-                                style: GoogleFonts.montserrat(
-                                    fontSize: 20, fontWeight: FontWeight.bold),
+                    Padding(
+                        padding: const EdgeInsets.fromLTRB(0, 5, 0, 5),
+                        child: TextFormField(
+                          controller: _nameController,
+                          decoration: InputDecoration(
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10.0),
+                                borderSide: const BorderSide(
+                                    color: Colors.black, width: 2.0),
                               ),
-                              content: Padding(
-                                padding: const EdgeInsets.all(6.0),
-                                child: DropdownButtonFormField<String>(
-                                  value: selectedItem2,
-                                  icon:
-                                      const Icon(Icons.arrow_drop_down_circle),
-                                  decoration: InputDecoration(
-                                      labelText: "Country",
-                                      border: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(5.0))),
-                                  onChanged: (String? newValue) {
-                                    setState(() {
-                                      selectedItem2 = newValue!;
-                                    });
-                                    Navigator.of(context).pop(newValue);
-                                  },
-                                  items: countryList.map((String value) {
-                                    return DropdownMenuItem<String>(
-                                      value: value,
-                                      child: Text(value),
-                                    );
-                                  }).toList(),
-                                ),
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10.0),
+                                borderSide: const BorderSide(
+                                    color: Colors.grey, width: 2.0),
                               ),
-                            );
+                              prefixIcon: const Icon(LineAwesomeIcons.user_tie),
+                              labelText: "Full Name"),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter your name';
+                            }
+                            return null;
                           },
-                        );
-                        if (selectedCountry != null) {
-                          _countryController.text = selectedCountry;
-                        }
-                      },
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return "Please select a country";
-                        }
-                        return null;
-                      },
-                    )),
-              ])),
+                        )),
+                    const SizedBox(height: 10),
+                    Padding(
+                        padding: const EdgeInsets.fromLTRB(0, 5, 0, 5),
+                        child: TextFormField(
+                          controller: _emailController,
+                          decoration: InputDecoration(
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10.0),
+                                borderSide: const BorderSide(
+                                    color: Colors.black, width: 2.0),
+                              ),
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10.0),
+                                borderSide: const BorderSide(
+                                    color: Colors.grey, width: 2.0),
+                              ),
+                              prefixIcon: const Icon(LineAwesomeIcons.envelope),
+                              labelText: "E-mail"),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return "Please enter valid email address";
+                            }
+                            bool nameValid = RegExp(
+                                    r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                                .hasMatch(value);
+
+                            if (!nameValid) {
+                              return "Please enter valid email address";
+                            }
+                            return null;
+                          },
+                        )),
+                    const SizedBox(height: 10),
+                    Padding(
+                        padding: const EdgeInsets.fromLTRB(0, 5, 0, 5),
+                        child: TextFormField(
+                          controller: _phoneController,
+                          decoration: InputDecoration(
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10.0),
+                                borderSide: const BorderSide(
+                                    color: Colors.black, width: 2.0),
+                              ),
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10.0),
+                                borderSide: const BorderSide(
+                                    color: Colors.grey, width: 2.0),
+                              ),
+                              prefixIcon:
+                                  const Icon(LineAwesomeIcons.phone_square),
+                              labelText: "Phone No"),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return "Please enter phone number";
+                            }
+                            if (value.length < 10) {
+                              return "Please enter valid phone number";
+                            }
+                            return null;
+                          },
+                        )),
+                    const SizedBox(height: 10),
+                    Padding(
+                        padding: const EdgeInsets.fromLTRB(0, 5, 0, 5),
+                        child: TextFormField(
+                          controller: _addressController,
+                          decoration: InputDecoration(
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10.0),
+                                borderSide: const BorderSide(
+                                    color: Colors.black, width: 2.0),
+                              ),
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10.0),
+                                borderSide: const BorderSide(
+                                    color: Colors.grey, width: 2.0),
+                              ),
+                              prefixIcon:
+                                  const Icon(LineAwesomeIcons.map_marked),
+                              labelText: "Home Address"),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return "Please enter home address";
+                            }
+                            if (value.length < 15) {
+                              return "Please enter valid home address";
+                            }
+                            return null;
+                          },
+                        )),
+                    Padding(
+                        padding: const EdgeInsets.fromLTRB(0, 5, 0, 5),
+                        child: TextFormField(
+                          controller: _countryController,
+                          decoration: InputDecoration(
+                              labelText: 'Country',
+                              prefixIcon: const Icon(Icons.flag_circle),
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10.0),
+                                borderSide: const BorderSide(
+                                    color: Colors.grey, width: 2.0),
+                              )),
+                          onTap: () async {
+                            FocusScope.of(context).requestFocus(FocusNode());
+                            final String? selectedCountry =
+                                await showDialog<String>(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  title: Text(
+                                    'Select a Country',
+                                    style: GoogleFonts.montserrat(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  content: Padding(
+                                    padding: const EdgeInsets.all(6.0),
+                                    child: DropdownButtonFormField<String>(
+                                      value: selectedItem2,
+                                      icon: const Icon(
+                                          Icons.arrow_drop_down_circle),
+                                      decoration: InputDecoration(
+                                          labelText: "Country",
+                                          border: OutlineInputBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(5.0))),
+                                      onChanged: (String? newValue) {
+                                        setState(() {
+                                          selectedItem2 = newValue!;
+                                        });
+                                        Navigator.of(context).pop(newValue);
+                                      },
+                                      items: countryList.map((String value) {
+                                        return DropdownMenuItem<String>(
+                                          value: value,
+                                          child: Text(value),
+                                        );
+                                      }).toList(),
+                                    ),
+                                  ),
+                                );
+                              },
+                            );
+                            if (selectedCountry != null) {
+                              _countryController.text = selectedCountry;
+                            }
+                          },
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return "Please select a country";
+                            }
+                            return null;
+                          },
+                        )),
+                  ])),
               const SizedBox(height: 20),
               SizedBox(
                   width: double.infinity,
                   height: 50,
                   child: ElevatedButton(
                     onPressed: () async {
-                      _updateProfile();
+                      if (_formKey.currentState!.validate()) {
+                        _updateProfile();
+                      }
                     },
                     style: ElevatedButton.styleFrom(
                         backgroundColor: Color(0xFFFFB747),
