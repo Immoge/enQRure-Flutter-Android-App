@@ -861,19 +861,23 @@ class _ManufacturerGenerateQRScreenState
 
   Future<void> _downloadQRCode() async {
     var status = await Permission.storage.request();
-    if (status == PermissionStatus.granted) {
-      var image2 = await widgetcontroller.capture();
-      if (image2 != null) {
-        var file =
-            await File("/storage/emulated/0/Download/${DateTime.now()}.png")
-                .create(recursive: true);
-        await file.writeAsBytes(image2);
-        Fluttertoast.showToast(
+    if (await Permission.manageExternalStorage.request().isGranted) {
+      if (status == PermissionStatus.granted) {
+        var image2 = await widgetcontroller.capture();
+        if (image2 != null) {
+          var directory = await getExternalStorageDirectory();
+          var path = '${directory!.path}/${DateTime.now()}.png';
+          var file = await File(path).create(recursive: true);
+          await file.writeAsBytes(image2);
+          print(path);
+          Fluttertoast.showToast(
             msg: "Download Success",
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
-            fontSize: 16.0);
+            fontSize: 16.0,
+          );
+        }
       }
     }
   }

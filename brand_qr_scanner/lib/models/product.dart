@@ -12,10 +12,13 @@ class Product {
   String? manufacturerId;
   String? manufacturerRegid;
   String? manufacturerRegDate;
+  String? manufacturerName;
   String? retailerId;
-  String? retalerRegDate;
+  String? retailerRegDate;
+  String? retailerName;
   String? buyerId;
   String? buyerRegDate;
+  String? buyerName;
 
   Product({
     this.productId,
@@ -31,10 +34,13 @@ class Product {
     this.manufacturerId,
     this.manufacturerRegid,
     this.manufacturerRegDate,
+    this.manufacturerName,
     this.retailerId,
-    this.retalerRegDate,
+    this.retailerRegDate,
+    this.retailerName,
     this.buyerId,
     this.buyerRegDate,
+    this.buyerName,
   });
 
   Product.fromJson(Map<String, dynamic> json) {
@@ -51,10 +57,13 @@ class Product {
     manufacturerId = json['manufacturer_id'];
     manufacturerRegid = json['manufacturer_regid'];
     manufacturerRegDate = json['manufacturer_regdate'];
+    manufacturerName = json['manufacturer_name'];
     retailerId = json['retailer_id'];
-    retalerRegDate = json['retailer_regdate'];
+    retailerRegDate = json['retailer_regdate'];
+    retailerName = json['retailer_Name'];
     buyerId = json['buyer_id'];
     buyerRegDate = json['buyer_regdate'];
+    buyerName = json['buyer_Name'];
   }
 
   Map<String, dynamic> toJson() {
@@ -73,7 +82,7 @@ class Product {
     data['manufacturer_regid'] = manufacturerRegid;
     data['manufacturer_regdate'] = manufacturerRegDate;
     data['retailer_id'] = retailerId;
-    data['retailer_regdate'] = retalerRegDate;
+    data['retailer_regdate'] = retailerRegDate;
     data['buyer_id'] = buyerId;
     data['buyer_regdate'] = buyerRegDate;
     return data;

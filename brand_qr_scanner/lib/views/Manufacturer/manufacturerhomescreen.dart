@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:io';
-
 import 'package:brand_qr_scanner/models/product.dart';
 import 'package:brand_qr_scanner/models/user.dart';
 import 'package:brand_qr_scanner/views/Manufacturer/manufacturergenerateqrscreen.dart';
@@ -12,6 +11,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:widgets_to_image/widgets_to_image.dart';
@@ -736,7 +736,7 @@ class _ManufacturerHomeScreenState extends State<ManufacturerHomeScreen> {
         productList[index].productDescription.toString();
     _prtypeEditingController.text = productList[index].productType.toString();
     _prbarcodeEditingController.text =
-        productList[index].productWarranty.toString();
+        productList[index].productBarcode.toString();
     _prdateEditingController.text = productList[index].productDate.toString();
     _prwarrantyEditingController.text =
         productList[index].productWarranty.toString();
@@ -1088,19 +1088,23 @@ class _ManufacturerHomeScreenState extends State<ManufacturerHomeScreen> {
 
   Future<void> _downloadQRCode() async {
     var status = await Permission.storage.request();
-    if (status == PermissionStatus.granted) {
-      var image2 = await widgetcontroller.capture();
-      if (image2 != null) {
-        var file =
-            await File("/storage/emulated/0/Download/${DateTime.now()}.png")
-                .create(recursive: true);
-        await file.writeAsBytes(image2);
-        Fluttertoast.showToast(
+    if (await Permission.manageExternalStorage.request().isGranted) {
+      if (status == PermissionStatus.granted) {
+        var image2 = await widgetcontroller.capture();
+        if (image2 != null) {
+          var directory = await getExternalStorageDirectory();
+          var path = '${directory!.path}/${DateTime.now()}.png';
+          var file = await File(path).create(recursive: true);
+          await file.writeAsBytes(image2);
+          print(path);
+          Fluttertoast.showToast(
             msg: "Download Success",
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
-            fontSize: 16.0);
+            fontSize: 16.0,
+          );
+        }
       }
     }
   }

@@ -27,7 +27,6 @@ class _AdminProfileScreenState extends State<AdminProfileScreen> {
   late double screenHeight, screenWidth, resWidth;
   final TextEditingController _oldpasswordController = TextEditingController();
   final TextEditingController _newpasswordController = TextEditingController();
-  var _image;
   var val = 50;
 
   @override

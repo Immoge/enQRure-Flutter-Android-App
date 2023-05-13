@@ -1,11 +1,8 @@
 import 'dart:convert';
 import 'dart:io';
-
 import 'package:brand_qr_scanner/constants.dart';
 import 'package:brand_qr_scanner/models/user.dart';
-import 'package:brand_qr_scanner/views/Admin/adminhomescreen.dart';
 import 'package:brand_qr_scanner/views/Admin/adminmainscreen.dart';
-import 'package:brand_qr_scanner/views/loginscreen.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';

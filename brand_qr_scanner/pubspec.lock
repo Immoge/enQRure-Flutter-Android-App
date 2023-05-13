@@ -81,6 +81,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.17.0"
+  context_storage:
+    dependency: "direct main"
+    description:
+      name: context_storage
+      sha256: "213425c7dab5e92e1189c70fd47b36934607b10d0f80875756590b9b59f09017"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.0+1"
   convert:
     dependency: transitive
     description:
