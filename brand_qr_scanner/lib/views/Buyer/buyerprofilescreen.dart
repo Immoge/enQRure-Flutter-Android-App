@@ -1,8 +1,8 @@
 import 'dart:convert';
 
-import 'package:brand_qr_scanner/views/Buyer/buyerhomescreen.dart';
-import 'package:brand_qr_scanner/views/mainscreen.dart';
-import 'package:brand_qr_scanner/views/profilescreen.dart';
+import 'package:enQRsure/views/Buyer/buyerhomescreen.dart';
+import 'package:enQRsure/views/mainscreen.dart';
+import 'package:enQRsure/views/profilescreen.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';

@@ -1,14 +1,14 @@
-import 'package:brand_qr_scanner/views/Admin/adminaddaccountscreen.dart';
-import 'package:brand_qr_scanner/views/Manufacturer/manufacturerhomescreen.dart';
-import 'package:brand_qr_scanner/views/Manufacturer/manufacturerregisterproductscreen.dart';
-import 'package:brand_qr_scanner/views/Manufacturer/manufacturerreportscreen.dart';
+import 'package:enQRsure/views/Admin/adminaddaccountscreen.dart';
+import 'package:enQRsure/views/Manufacturer/manufacturerhomescreen.dart';
+import 'package:enQRsure/views/Manufacturer/manufacturerregisterproductscreen.dart';
+import 'package:enQRsure/views/Manufacturer/manufacturerreportscreen.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:brand_qr_scanner/views/registerproductscreen.dart';
-import 'package:brand_qr_scanner/views/profilescreen.dart';
+import 'package:enQRsure/views/registerproductscreen.dart';
+import 'package:enQRsure/views/profilescreen.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import '../loginscreen.dart';
-import '../../models/user.dart';
+import 'package:enQRsure/models/user.dart';
 import 'manufacturerprofilescreen.dart';
 
 class ManufacturerMainScreen extends StatefulWidget {
@@ -29,7 +29,7 @@ class _ManufacturerMainScreenState extends State<ManufacturerMainScreen> {
     super.initState();
     tabchildren = [
       ManufacturerHomeScreen(user: widget.user),
-      const ManufacturerRegisterProductScreen(),
+       ManufacturerRegisterProductScreen(user: widget.user),
       const ManufacturerReportScreen(),
       ManufacturerProfileScreen(user: widget.user),
     ];

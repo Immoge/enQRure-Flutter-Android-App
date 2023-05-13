@@ -1,8 +1,10 @@
 import 'dart:convert';
 import 'dart:io';
 import 'dart:async';
-import 'package:brand_qr_scanner/constants.dart';
-import 'package:brand_qr_scanner/models/product.dart';
+import 'package:enQRsure/constants.dart';
+import 'package:enQRsure/models/product.dart';
+import 'package:enQRsure/models/user.dart';
+import 'package:enQRsure/views/Manufacturer/manufacturermainscreen.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -10,12 +12,11 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:http/http.dart' as http;
-import 'package:rive/rive.dart';
 
 class ManufacturerRegisterProductScreen extends StatefulWidget {
-  const ManufacturerRegisterProductScreen({
-    Key? key,
-  }) : super(key: key);
+  final User user;
+  const ManufacturerRegisterProductScreen({Key? key, required this.user})
+      : super(key: key);
 
   @override
   State<StatefulWidget> createState() =>
@@ -24,6 +25,7 @@ class ManufacturerRegisterProductScreen extends StatefulWidget {
 
 class _ManufacturerRegisterProductScreenState
     extends State<ManufacturerRegisterProductScreen> {
+  DateTime datetime = DateTime.now();
   final df = DateFormat('dd/MM/yyyy');
   Product product = Product();
   late double screenHeight, screenWidth, resWidth;
@@ -31,16 +33,6 @@ class _ManufacturerRegisterProductScreenState
   Timer? timer;
   final qrKey = GlobalKey(debugLabel: 'QR');
   QRViewController? controller;
-  late SMITrigger check;
-  late SMITrigger error;
-  late SMITrigger reset;
-
-  StateMachineController getRiveController(Artboard artboard) {
-    StateMachineController? controller2 =
-        StateMachineController.fromArtboard(artboard, "State Machine 1");
-    artboard.addController(controller2!);
-    return controller2;
-  }
 
   @override
   void dispose() {
@@ -76,16 +68,6 @@ class _ManufacturerRegisterProductScreenState
           buildQrView(context),
           Positioned(bottom: 30, child: buildResult()),
           Positioned(top: 10, child: buildControlButtons()),
-          Positioned.fill(
-              child: RiveAnimation.asset(
-            "assets/RiveAssets/check.riv",
-            onInit: (artboard) {
-              StateMachineController controller = getRiveController(artboard);
-              check = controller.findSMI("Check") as SMITrigger;
-              error = controller.findSMI("Error") as SMITrigger;
-              reset = controller.findSMI("Reset") as SMITrigger;
-            },
-          ))
         ],
       )),
     );
@@ -172,13 +154,7 @@ class _ManufacturerRegisterProductScreenState
       setState(() {
         this.barcode = barcode.code;
       });
-      await _loginProductInfo();
-      timer?.cancel();
-      timer = Timer(Duration(seconds: 3), () {
-        setState(() {
-          this.barcode = null;
-        });
-      });
+      await _loadProductInfo();
     });
   }
 
@@ -283,12 +259,12 @@ class _ManufacturerRegisterProductScreenState
                             style: GoogleFonts.montserrat(
                                 fontSize: 16, color: Colors.black)),
                         const SizedBox(height: 10),
-                        Text("Registration Date:",
+                        Text("Manufacturer:",
                             style: GoogleFonts.montserrat(
                                 fontSize: 16,
                                 fontWeight: FontWeight.bold,
                                 color: Colors.black)),
-                        Text(product.productInsertDate.toString(),
+                        Text(product.manufacturerName?.toString() ?? 'N/A',
                             style: GoogleFonts.montserrat(
                                 fontSize: 16, color: Colors.black)),
                         const SizedBox(height: 10),
@@ -298,33 +274,14 @@ class _ManufacturerRegisterProductScreenState
                             width: screenWidth,
                             height: 50,
                             child: ElevatedButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                registerProduct(product);
+                              },
                               style: ElevatedButton.styleFrom(
                                   backgroundColor: Color(0xFF77CE80),
                                   side: BorderSide.none,
                                   shape: const StadiumBorder()),
-                              child: const Text("Edit Product",
-                                  style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold)),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(height: 10),
-                        Container(
-                          alignment: Alignment.center,
-                          child: SizedBox(
-                            width: screenWidth,
-                            height: 50,
-                            child: ElevatedButton(
-                              onPressed: () {
-                                ;
-                              },
-                              style: ElevatedButton.styleFrom(
-                                  backgroundColor: Color(0xFFF5595D),
-                                  side: BorderSide.none,
-                                  shape: const StadiumBorder()),
-                              child: const Text("Delete Product",
+                              child: const Text("Register Product",
                                   style: TextStyle(
                                       fontSize: 20,
                                       fontWeight: FontWeight.bold)),
@@ -344,7 +301,13 @@ class _ManufacturerRegisterProductScreenState
                         fontWeight: FontWeight.bold),
                   ),
                   onPressed: () {
-                    Navigator.of(context).pop();
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (BuildContext context) =>
+                            ManufacturerMainScreen(user: widget.user),
+                      ),
+                    );
                     controller!.resumeCamera();
                   },
                 ),
@@ -354,7 +317,7 @@ class _ManufacturerRegisterProductScreenState
     }
   }
 
-  _loginProductInfo() async {
+  _loadProductInfo() async {
     http.post(
       Uri.parse(CONSTANTS.server + "/enQRsure/php/loadregisterproduct.php/"),
       body: {
@@ -379,5 +342,72 @@ class _ManufacturerRegisterProductScreenState
         controller!.resumeCamera();
       }
     });
+  }
+
+  void registerProduct(Product product) {
+    if (product.manufacturerRegid.toString() == '0') {
+      String manufacturerregdate =
+          df.format(DateTime.parse(datetime.toString()));
+      FocusScope.of(context).requestFocus(FocusNode());
+      http.post(
+        Uri.parse(CONSTANTS.server +
+            "/enQRsure/php/manufacturerregisterproduct.php/"),
+        body: {
+          "userid": widget.user.id.toString(),
+          "manufacturerregdate": manufacturerregdate,
+          "encryptedcode": barcode.toString(),
+        },
+      ).then((response) async {
+        var data = jsonDecode(response.body);
+        if (response.statusCode == 200 && data['status'] == 'success') {
+          Fluttertoast.showToast(
+            msg: "Register Product Successfully",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            fontSize: 14.0,
+          );
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (BuildContext context) =>
+                  ManufacturerMainScreen(user: widget.user),
+            ),
+          );
+        } else {
+          Fluttertoast.showToast(
+            msg: "Register Product Unsuccessfully",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            fontSize: 14.0,
+          );
+        }
+      }).catchError((error) {
+        Fluttertoast.showToast(
+          msg: "Error occurred during registration",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          fontSize: 14.0,
+        );
+      });
+    } else {
+      Fluttertoast.showToast(
+        msg: "This Product Is Registered Before",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        fontSize: 14.0,
+      );
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (BuildContext context) =>
+              ManufacturerMainScreen(user: widget.user),
+        ),
+      );
+    }
+    ;
   }
 }

@@ -1,10 +1,10 @@
 import 'dart:convert';
 
-import 'package:brand_qr_scanner/views/Manufacturer/manufacturermainscreen.dart';
-import 'package:brand_qr_scanner/views/Retailer/retailermainscreen.dart';
-import 'package:brand_qr_scanner/views/mainscreen.dart';
-import 'package:brand_qr_scanner/views/Admin/adminmainscreen.dart';
-import 'package:brand_qr_scanner/views/registerscreen.dart';
+import 'package:enQRsure/views/Manufacturer/manufacturermainscreen.dart';
+import 'package:enQRsure/views/Retailer/retailermainscreen.dart';
+import 'package:enQRsure/views/mainscreen.dart';
+import 'package:enQRsure/views/Admin/adminmainscreen.dart';
+import 'package:enQRsure/views/registerscreen.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'dart:io';
-import 'package:brand_qr_scanner/views/loginscreen.dart';
-import 'package:brand_qr_scanner/constants.dart';
+import 'package:enQRsure/views/loginscreen.dart';
+import 'package:enQRsure/constants.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 import 'package:fluttertoast/fluttertoast.dart';

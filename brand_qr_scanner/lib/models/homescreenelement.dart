@@ -19,7 +19,7 @@ List<HomeScreenElement> bigNewsletters = [
       description: "Buy iPhone 14 and iPhone 14 Plus in yellow now. Starting from RM 4,199. ",
       smalldescription: "Enganged to: 1487 users",
       iconSrc: "assets/images/home screen icon/apple icon.png",
-      bgColor: const Color(0xFFBAC5FF)),
+      bgColor: const Color(0xFF90C9FF)),
   HomeScreenElement(
     title: "Adidas",
     description: "Celebrate the feeling of being outdoors with hiking apparel featuring unique prints.",
@@ -32,7 +32,7 @@ List<HomeScreenElement> bigNewsletters = [
     description: "CHANEL is staging a fantastic encounter between the powers of its super fragrances and the everyday heroines for whom they were created.",
     smalldescription: "Enganged to: 2337 users",
     iconSrc: "assets/images/home screen icon/chanel icon.png",
-    bgColor: const Color(0xFFBAC5FF),
+    bgColor: const Color(0xFF90C9FF),
   ),
 ];
 
@@ -43,7 +43,7 @@ List<HomeScreenElement> recentNewsLetter = [
       description: "New ways to brighten Mom’s day",
       smalldescription: "",
       iconSrc: "assets/images/home screen icon/apple icon.png",
-      bgColor: const Color(0xFFBAC5FF)),
+      bgColor: const Color(0xFF90C9FF)),
   HomeScreenElement(
     title: "Adidas",
     description: "adidas TERREX x ©National Geographic collab",
@@ -56,7 +56,7 @@ List<HomeScreenElement> recentNewsLetter = [
     description: "Spring-Summer 2023 Ready-To-Wear",
     smalldescription: "",
     iconSrc: "assets/images/home screen icon/chanel icon.png",
-    bgColor: const Color(0xFFBAC5FF),
+    bgColor: const Color(0xFF90C9FF),
   ),
   HomeScreenElement(
     title: "YSL",

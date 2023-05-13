@@ -1,5 +1,5 @@
-import 'package:brand_qr_scanner/views/loginscreen.dart';
-import 'package:brand_qr_scanner/views/registerscreen.dart';
+import 'package:enQRsure/views/loginscreen.dart';
+import 'package:enQRsure/views/registerscreen.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'dart:io';

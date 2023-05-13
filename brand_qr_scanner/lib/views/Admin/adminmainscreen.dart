@@ -1,9 +1,9 @@
-import 'package:brand_qr_scanner/views/Admin/adminaddaccountscreen.dart';
-import 'package:brand_qr_scanner/views/Admin/adminprofilescreen.dart';
+import 'package:enQRsure/views/Admin/adminaddaccountscreen.dart';
+import 'package:enQRsure/views/Admin/adminprofilescreen.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:brand_qr_scanner/views/registerproductscreen.dart';
-import 'package:brand_qr_scanner/views/profilescreen.dart';
+import 'package:enQRsure/views/registerproductscreen.dart';
+import 'package:enQRsure/views/profilescreen.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import '../loginscreen.dart';
 import '../../models/user.dart';

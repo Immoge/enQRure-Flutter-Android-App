@@ -1,8 +1,8 @@
 
-import 'package:brand_qr_scanner/views/Manufacturer/manufacturerregisterproductscreen.dart';
-import 'package:brand_qr_scanner/views/Retailer/retailerreportscreen.dart';
-import 'package:brand_qr_scanner/views/Retailer/retailerprofilescreen.dart';
-import 'package:brand_qr_scanner/views/Retailer/retailerregisterproductscreen.dart';
+import 'package:enQRsure/views/Manufacturer/manufacturerregisterproductscreen.dart';
+import 'package:enQRsure/views/Retailer/retailerhomescreen.dart';
+import 'package:enQRsure/views/Retailer/retailerprofilescreen.dart';
+import 'package:enQRsure/views/Retailer/retailerregisterproductscreen.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import '../../models/user.dart';
@@ -24,8 +24,8 @@ class _RetailerMainScreenState extends State<RetailerMainScreen> {
   void initState() {
     super.initState();
     tabchildren = [
-      const RetailerReportScreen(),
-      const RetailerRegisterProductScreen(),
+      RetailerHomeScreen(user: widget.user),
+      RetailerRegisterProductScreen(user: widget.user),
       RetailerProfileScreen(user: widget.user),
     ];
   }

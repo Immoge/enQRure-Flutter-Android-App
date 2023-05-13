@@ -1,5 +1,5 @@
-import 'package:brand_qr_scanner/views/Buyer/buyerprofilescreen.dart';
-import 'package:brand_qr_scanner/views/mainscreen.dart';
+import 'package:enQRsure/views/Buyer/buyerprofilescreen.dart';
+import 'package:enQRsure/views/mainscreen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 

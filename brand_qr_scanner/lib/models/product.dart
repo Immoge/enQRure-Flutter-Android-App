@@ -56,14 +56,14 @@ class Product {
     productInsertDate = json['product_insertdate'];
     manufacturerId = json['manufacturer_id'];
     manufacturerRegid = json['manufacturer_regid'];
-    manufacturerRegDate = json['manufacturer_regdate'];
     manufacturerName = json['manufacturer_name'];
+    manufacturerRegDate = json['manufacturer_regdate'];
     retailerId = json['retailer_id'];
     retailerRegDate = json['retailer_regdate'];
-    retailerName = json['retailer_Name'];
+    retailerName = json['retailer_name'];
     buyerId = json['buyer_id'];
     buyerRegDate = json['buyer_regdate'];
-    buyerName = json['buyer_Name'];
+    buyerName = json['buyer_name'];
   }
 
   Map<String, dynamic> toJson() {
@@ -81,10 +81,13 @@ class Product {
     data['manufacturer_id'] = manufacturerId;
     data['manufacturer_regid'] = manufacturerRegid;
     data['manufacturer_regdate'] = manufacturerRegDate;
+    data['manufacturer_name'] = manufacturerName;
     data['retailer_id'] = retailerId;
     data['retailer_regdate'] = retailerRegDate;
+    data['retailer_name'] = retailerName;
     data['buyer_id'] = buyerId;
     data['buyer_regdate'] = buyerRegDate;
+    data['buyer_name'] = buyerName;
     return data;
   }
 }

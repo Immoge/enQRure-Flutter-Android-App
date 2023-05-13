@@ -1,9 +1,9 @@
 import 'dart:convert';
 
-import 'package:brand_qr_scanner/views/Admin/admineditprofilescreen.dart';
-import 'package:brand_qr_scanner/views/Buyer/buyerhomescreen.dart';
-import 'package:brand_qr_scanner/views/mainscreen.dart';
-import 'package:brand_qr_scanner/views/profilescreen.dart';
+import 'package:enQRsure/views/Admin/admineditprofilescreen.dart';
+import 'package:enQRsure/views/Buyer/buyerhomescreen.dart';
+import 'package:enQRsure/views/mainscreen.dart';
+import 'package:enQRsure/views/profilescreen.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
@@ -28,6 +28,7 @@ class _AdminProfileScreenState extends State<AdminProfileScreen> {
   late double screenHeight, screenWidth, resWidth;
   final TextEditingController _oldpasswordController = TextEditingController();
   final TextEditingController _newpasswordController = TextEditingController();
+  var _image;
   var val = 50;
 
   @override

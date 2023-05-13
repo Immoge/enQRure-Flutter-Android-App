@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-import 'package:brand_qr_scanner/constants.dart';
-import 'package:brand_qr_scanner/models/displayeduser.dart';
+import 'package:enQRsure/constants.dart';
+import 'package:enQRsure/models/displayeduser.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';

@@ -1,4 +1,4 @@
-import 'package:brand_qr_scanner/models/user.dart';
+import 'package:enQRsure/models/user.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 

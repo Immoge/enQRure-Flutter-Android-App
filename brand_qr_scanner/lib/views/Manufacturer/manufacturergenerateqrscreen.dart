@@ -2,7 +2,7 @@ import 'dart:io';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
 import 'dart:convert';
-import 'package:brand_qr_scanner/views/Manufacturer/manufacturermainscreen.dart';
+import 'package:enQRsure/views/Manufacturer/manufacturermainscreen.dart';
 import 'package:flutter/rendering.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
@@ -60,6 +60,7 @@ class _ManufacturerGenerateQRScreenState
   final TextEditingController _proriginEditingController =
       TextEditingController();
   final _formKey = GlobalKey<FormState>();
+  final _formKey2 = GlobalKey<FormState>();
   String selectedItem1 = 'Electronics';
   String selectedItem2 = "Malaysia";
   var productType = [
@@ -260,318 +261,336 @@ class _ManufacturerGenerateQRScreenState
       ctrwidth = screenWidth / 1.1;
     }
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Color(0xFF90E6C3),
-        title: Text("Add Product",
-            textAlign: TextAlign.center,
-            style: GoogleFonts.openSans(
-              fontSize: 25,
-              fontWeight: FontWeight.w500,
-            )),
-      ),
-      body: SingleChildScrollView(
-          child: Center(
-              child: SizedBox(
-        width: ctrwidth,
-        child: Form(
-          key: _formKey,
-          child: Column(children: [
-            const SizedBox(height: 10),
-            Card(
-              child: GestureDetector(
-                  onTap: () => {_takePictureDialog()},
-                  child: SizedBox(
-                      height: screenHeight / 3,
-                      width: screenWidth,
-                      child: _image == null
-                          ? Image.asset(pathAsset)
-                          : Image.file(
-                              _image,
-                              fit: BoxFit.cover,
-                            ))),
-            ),
-            const SizedBox(height: 10),
-            Form(
-              key: _formKey,
-                          child: Column(
-              children: [
-              TextFormField(
-                controller: _prnameEditingController,
-                decoration: InputDecoration(
-                    labelText: 'Product Name',
-                    prefixIcon: const Icon(Icons.title),
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(5.0))),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter valid product name';
-                  }
-                  return null;
-                },
-              ),
-             SizedBox(height: 10.0),
-            TextFormField(
-              controller: _prdescriptionEditingController,
-              minLines: 6,
-              keyboardType: TextInputType.multiline,
-              maxLines: 6,
-              decoration: InputDecoration(
-                  labelText: 'Product Description',
-                  alignLabelWithHint: true,
-                  prefixIcon: const Padding(
-                      padding: EdgeInsets.only(bottom: 80),
-                      child: Icon(Icons.description)),
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(5.0))),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter some product description';
-                }
-                return null;
-              },
-            ),
-            const SizedBox(height: 10),
-            SizedBox(
-                width: screenWidth,
-                child: TextFormField(
-                  controller: _prtypeEditingController,
-                  decoration: InputDecoration(
-                    labelText: 'Product Type',
-                    prefixIcon: Icon(LineAwesomeIcons.tags),
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(5.0)),
-                  ),
-                  onTap: () async {
-                    FocusScope.of(context).requestFocus(FocusNode());
-                    final String? selectedProductType =
-                        await showDialog<String>(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                          title: Text(
-                            'Select a Type',
-                            style: GoogleFonts.montserrat(
-                                fontSize: 20, fontWeight: FontWeight.bold),
-                          ),
-                          content: Padding(
-                            padding: const EdgeInsets.all(6.0),
-                            child: DropdownButtonFormField<String>(
-                              value: selectedItem1,
-                              icon: const Icon(Icons.arrow_drop_down_circle),
-                              decoration: InputDecoration(
-                                  labelText: "Product Type",
-                                  border: OutlineInputBorder(
-                                      borderRadius:
-                                          BorderRadius.circular(5.0))),
-                              onChanged: (String? newValue) {
-                                setState(() {
-                                  selectedItem1 = newValue!;
-                                });
-                                Navigator.of(context).pop(newValue);
-                              },
-                              items: productType.map((String value) {
-                                return DropdownMenuItem<String>(
-                                  value: value,
-                                  child: Text(
-                                    value,
-                                    style: GoogleFonts.montserrat(fontSize: 15),
-                                  ),
-                                );
-                              }).toList(),
-                            ),
-                          ),
-                        );
-                      },
-                    );
-                    if (selectedProductType != null) {
-                      _prtypeEditingController.text = selectedProductType;
-                    }
-                  },
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return "Please a product type.";
-                    }
-                    return null;
-                  },
-                )),
-            const SizedBox(height: 10),
-            Row(
-              children: [
-                Expanded(
-                  flex: 1,
-                  child: SizedBox(
-                    width: screenWidth * 0.5,
-                    child: TextFormField(
-                      keyboardType: TextInputType.number,
-                      controller: _prbarcodeEditingController,
-                      maxLength: 12,
-                      decoration: InputDecoration(
-                        labelText: 'Barcode',
-                        suffixIcon: IconButton(
-                          icon: const Icon(LineAwesomeIcons.barcode),
-                          onPressed: () async {
-                            String barcodeScanRes =
-                                await FlutterBarcodeScanner.scanBarcode(
-                                    "#ff6666", "Back", false, ScanMode.DEFAULT);
-                            setState(() {
-                              _prbarcodeEditingController.text = barcodeScanRes;
-                            });
+        appBar: AppBar(
+          backgroundColor: Color(0xFF90E6C3),
+          title: Text("Add Product",
+              textAlign: TextAlign.center,
+              style: GoogleFonts.openSans(
+                fontSize: 25,
+                fontWeight: FontWeight.w500,
+              )),
+        ),
+        body: SingleChildScrollView(
+            child: Center(
+          child: SizedBox(
+              width: ctrwidth,
+              child: Form(
+                  key: _formKey,
+                  child: Column(children: [
+                    const SizedBox(height: 10),
+                    Card(
+                      child: GestureDetector(
+                          onTap: () => {_takePictureDialog()},
+                          child: SizedBox(
+                              height: screenHeight / 3,
+                              width: screenWidth,
+                              child: _image == null
+                                  ? Image.asset(pathAsset)
+                                  : Image.file(
+                                      _image,
+                                      fit: BoxFit.cover,
+                                    ))),
+                    ),
+                    const SizedBox(height: 10),
+                    Form(
+                      key: _formKey2,
+                      child: Column(children: [
+                        TextFormField(
+                          controller: _prnameEditingController,
+                          decoration: InputDecoration(
+                              labelText: 'Product Name',
+                              prefixIcon: const Icon(Icons.title),
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(5.0))),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter valid product name';
+                            }
+                            return null;
                           },
                         ),
-                        counterText: "",
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(5.0),
+                        SizedBox(height: 10.0),
+                        TextFormField(
+                          controller: _prdescriptionEditingController,
+                          minLines: 6,
+                          keyboardType: TextInputType.multiline,
+                          maxLines: 6,
+                          decoration: InputDecoration(
+                              labelText: 'Product Description',
+                              alignLabelWithHint: true,
+                              prefixIcon: const Padding(
+                                  padding: EdgeInsets.only(bottom: 80),
+                                  child: Icon(Icons.description)),
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(5.0))),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter some product description';
+                            }
+                            return null;
+                          },
                         ),
-                      ),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter a valid Barcode';
-                        }
-                        return null;
-                      },
-                    ),
-                  ),
-                ),
-                const SizedBox(width: 5),
-                Expanded(
-                  flex: 1,
-                  child: SizedBox(
-                    width: screenWidth * 0.5,
-                    child: TextFormField(
-                      controller: _prdateEditingController,
-                      decoration: InputDecoration(
-                        prefixIcon: Icon(LineAwesomeIcons.calendar),
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(5.0)),
-                        labelText: 'Manufacture Date',
-                      ),
-                      readOnly: true,
-                      onTap: () async {
-                        DateTime? pickedDate = await showDatePicker(
-                          context: context,
-                          initialDate: DateTime.now(),
-                          firstDate: DateTime(1950),
-                          lastDate: DateTime(2100),
-                        );
-                        if (pickedDate != null) {
-                          String formattedDate =
-                              DateFormat('yyyy-MM-dd').format(pickedDate);
-                          setState(() {
-                            _prdateEditingController.text = formattedDate;
-                          });
-                        }
-                      },
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter manufacture date';
-                        }
-                        return null;
-                      },
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 10),
-            TextFormField(
-              controller: _prwarrantyEditingController,
-              keyboardType:
-                  const TextInputType.numberWithOptions(decimal: false),
-              decoration: InputDecoration(
-                  labelText: 'Warranty Period (Months)',
-                  prefixIcon: Icon(LineAwesomeIcons.check_circle),
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(5.0))),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter valid warranty period';
-                }
-                return null;
-              },
-            ),
-            const SizedBox(height: 10),
-            SizedBox(
-                width: screenWidth,
-                child: TextFormField(
-                  controller: _proriginEditingController,
-                  decoration: InputDecoration(
-                    labelText: 'Origin',
-                    prefixIcon: Icon(LineAwesomeIcons.globe),
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(5.0)),
-                  ),
-                  onTap: () async {
-                    FocusScope.of(context).requestFocus(FocusNode());
-                    final String? selectedProductOrigin =
-                        await showDialog<String>(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                          title: Text(
-                            'Select Product Origin',
-                            style: GoogleFonts.montserrat(
-                                fontSize: 20, fontWeight: FontWeight.bold),
-                          ),
-                          content: Padding(
-                            padding: const EdgeInsets.all(6.0),
-                            child: DropdownButtonFormField<String>(
-                              value: selectedItem2,
-                              icon: const Icon(Icons.arrow_drop_down_circle),
+                        const SizedBox(height: 10),
+                        SizedBox(
+                            width: screenWidth,
+                            child: TextFormField(
+                              controller: _prtypeEditingController,
                               decoration: InputDecoration(
-                                  labelText: "Product Type",
-                                  border: OutlineInputBorder(
-                                      borderRadius:
-                                          BorderRadius.circular(5.0))),
-                              onChanged: (String? newValue) {
-                                setState(() {
-                                  selectedItem2 = newValue!;
-                                });
-                                Navigator.of(context).pop(newValue);
-                              },
-                              items: countryList.map((String value) {
-                                return DropdownMenuItem<String>(
-                                  value: value,
-                                  child: Text(value),
+                                labelText: 'Product Type',
+                                prefixIcon: Icon(LineAwesomeIcons.tags),
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(5.0)),
+                              ),
+                              onTap: () async {
+                                FocusScope.of(context)
+                                    .requestFocus(FocusNode());
+                                final String? selectedProductType =
+                                    await showDialog<String>(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return AlertDialog(
+                                      title: Text(
+                                        'Select a Type',
+                                        style: GoogleFonts.montserrat(
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      content: Padding(
+                                        padding: const EdgeInsets.all(6.0),
+                                        child: DropdownButtonFormField<String>(
+                                          value: selectedItem1,
+                                          icon: const Icon(
+                                              Icons.arrow_drop_down_circle),
+                                          decoration: InputDecoration(
+                                              labelText: "Product Type",
+                                              border: OutlineInputBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          5.0))),
+                                          onChanged: (String? newValue) {
+                                            setState(() {
+                                              selectedItem1 = newValue!;
+                                            });
+                                            Navigator.of(context).pop(newValue);
+                                          },
+                                          items:
+                                              productType.map((String value) {
+                                            return DropdownMenuItem<String>(
+                                              value: value,
+                                              child: Text(
+                                                value,
+                                                style: GoogleFonts.montserrat(
+                                                    fontSize: 15),
+                                              ),
+                                            );
+                                          }).toList(),
+                                        ),
+                                      ),
+                                    );
+                                  },
                                 );
-                              }).toList(),
+                                if (selectedProductType != null) {
+                                  _prtypeEditingController.text =
+                                      selectedProductType;
+                                }
+                              },
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return "Please a product type.";
+                                }
+                                return null;
+                              },
+                            )),
+                        const SizedBox(height: 10),
+                        Row(
+                          children: [
+                            Expanded(
+                              flex: 1,
+                              child: SizedBox(
+                                width: screenWidth * 0.5,
+                                child: TextFormField(
+                                  keyboardType: TextInputType.number,
+                                  controller: _prbarcodeEditingController,
+                                  maxLength: 12,
+                                  decoration: InputDecoration(
+                                    labelText: 'Barcode',
+                                    suffixIcon: IconButton(
+                                      icon:
+                                          const Icon(LineAwesomeIcons.barcode),
+                                      onPressed: () async {
+                                        String barcodeScanRes =
+                                            await FlutterBarcodeScanner
+                                                .scanBarcode("#ff6666", "Back",
+                                                    false, ScanMode.DEFAULT);
+                                        setState(() {
+                                          _prbarcodeEditingController.text =
+                                              barcodeScanRes;
+                                        });
+                                      },
+                                    ),
+                                    counterText: "",
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(5.0),
+                                    ),
+                                  ),
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return 'Please enter a valid Barcode';
+                                    }
+                                    return null;
+                                  },
+                                ),
+                              ),
                             ),
+                            const SizedBox(width: 5),
+                            Expanded(
+                              flex: 1,
+                              child: SizedBox(
+                                width: screenWidth * 0.5,
+                                child: TextFormField(
+                                  controller: _prdateEditingController,
+                                  decoration: InputDecoration(
+                                    prefixIcon: Icon(LineAwesomeIcons.calendar),
+                                    border: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(5.0)),
+                                    labelText: 'Manufacture Date',
+                                  ),
+                                  readOnly: true,
+                                  onTap: () async {
+                                    DateTime? pickedDate = await showDatePicker(
+                                      context: context,
+                                      initialDate: DateTime.now(),
+                                      firstDate: DateTime(1950),
+                                      lastDate: DateTime(2100),
+                                    );
+                                    if (pickedDate != null) {
+                                      String formattedDate =
+                                          DateFormat('yyyy-MM-dd')
+                                              .format(pickedDate);
+                                      setState(() {
+                                        _prdateEditingController.text =
+                                            formattedDate;
+                                      });
+                                    }
+                                  },
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return 'Please enter manufacture date';
+                                    }
+                                    return null;
+                                  },
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 10),
+                        TextFormField(
+                          controller: _prwarrantyEditingController,
+                          keyboardType: const TextInputType.numberWithOptions(
+                              decimal: false),
+                          decoration: InputDecoration(
+                              labelText: 'Warranty Period (Months)',
+                              prefixIcon: Icon(LineAwesomeIcons.check_circle),
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(5.0))),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter valid warranty period';
+                            }
+                            return null;
+                          },
+                        ),
+                        const SizedBox(height: 10),
+                        SizedBox(
+                            width: screenWidth,
+                            child: TextFormField(
+                              controller: _proriginEditingController,
+                              decoration: InputDecoration(
+                                labelText: 'Origin',
+                                prefixIcon: Icon(LineAwesomeIcons.globe),
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(5.0)),
+                              ),
+                              onTap: () async {
+                                FocusScope.of(context)
+                                    .requestFocus(FocusNode());
+                                final String? selectedProductOrigin =
+                                    await showDialog<String>(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return AlertDialog(
+                                      title: Text(
+                                        'Select Product Origin',
+                                        style: GoogleFonts.montserrat(
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      content: Padding(
+                                        padding: const EdgeInsets.all(6.0),
+                                        child: DropdownButtonFormField<String>(
+                                          value: selectedItem2,
+                                          icon: const Icon(
+                                              Icons.arrow_drop_down_circle),
+                                          decoration: InputDecoration(
+                                              labelText: "Product Type",
+                                              border: OutlineInputBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          5.0))),
+                                          onChanged: (String? newValue) {
+                                            setState(() {
+                                              selectedItem2 = newValue!;
+                                            });
+                                            Navigator.of(context).pop(newValue);
+                                          },
+                                          items:
+                                              countryList.map((String value) {
+                                            return DropdownMenuItem<String>(
+                                              value: value,
+                                              child: Text(value),
+                                            );
+                                          }).toList(),
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                );
+                                if (selectedProductOrigin != null) {
+                                  _proriginEditingController.text =
+                                      selectedProductOrigin;
+                                }
+                              },
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return "Please a origin.";
+                                }
+                                return null;
+                              },
+                            )),
+                        const SizedBox(height: 10),
+                        SizedBox(
+                          width: screenWidth,
+                          height: 50,
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                                backgroundColor: Color(0xFF90E6C3),
+                                side: BorderSide.none,
+                                shape: const StadiumBorder()),
+                            child: Text("Add Product",
+                                style: TextStyle(
+                                    fontSize: 20, fontWeight: FontWeight.bold)),
+                            onPressed: () {
+                              _insertDialog();
+                            },
                           ),
-                        );
-                      },
-                    );
-                    if (selectedProductOrigin != null) {
-                      _proriginEditingController.text = selectedProductOrigin;
-                    }
-                  },
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return "Please a origin.";
-                    }
-                    return null;
-                  },
-                )),
-            const SizedBox(height: 10),
-            SizedBox(
-              width: screenWidth,
-              height: 50,
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                    backgroundColor: Color(0xFF90E6C3),
-                    side: BorderSide.none,
-                    shape: const StadiumBorder()),
-                child: Text("Add Product",
-                    style:
-                        TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-                onPressed: () {
-                  _insertDialog();
-                },
-              ),
-            ),
-            const SizedBox(height: 10),
-          ]),
-        ),
-      ]))),
-    )));
+                        ),
+                        const SizedBox(height: 10),
+                      ]),
+                    ),
+                  ]))),
+        )));
   }
 
   _takePictureDialog() {
@@ -865,23 +884,19 @@ class _ManufacturerGenerateQRScreenState
 
   Future<void> _downloadQRCode() async {
     var status = await Permission.storage.request();
-    if (await Permission.manageExternalStorage.request().isGranted) {
-      if (status == PermissionStatus.granted) {
-        var image2 = await widgetcontroller.capture();
-        if (image2 != null) {
-          var directory = await getExternalStorageDirectory();
-          var path = '${directory!.path}/${DateTime.now()}.png';
-          var file = await File(path).create(recursive: true);
-          await file.writeAsBytes(image2);
-          print(path);
-          Fluttertoast.showToast(
+    if (status == PermissionStatus.granted) {
+      var image2 = await widgetcontroller.capture();
+      if (image2 != null) {
+        var file =
+            await File("/storage/emulated/0/Download/${DateTime.now()}.png")
+                .create(recursive: true);
+        await file.writeAsBytes(image2);
+        Fluttertoast.showToast(
             msg: "Download Success",
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
-            fontSize: 16.0,
-          );
-        }
+            fontSize: 16.0);
       }
     }
   }
