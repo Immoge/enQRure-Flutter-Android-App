@@ -30,7 +30,7 @@ class _ManufacturerMainScreenState extends State<ManufacturerMainScreen> {
     tabchildren = [
       ManufacturerHomeScreen(user: widget.user),
        ManufacturerRegisterProductScreen(user: widget.user),
-      const ManufacturerReportScreen(),
+       ManufacturerReportScreen(user: widget.user),
       ManufacturerProfileScreen(user: widget.user),
     ];
   }
