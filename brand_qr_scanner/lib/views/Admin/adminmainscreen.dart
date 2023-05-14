@@ -2,7 +2,7 @@ import 'package:enQRsure/views/Admin/adminaddaccountscreen.dart';
 import 'package:enQRsure/views/Admin/adminprofilescreen.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:enQRsure/views/registerproductscreen.dart';
+import 'package:enQRsure/views/Buyer/buyerregisterproductscreen.dart';
 import 'package:enQRsure/views/profilescreen.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import '../loginscreen.dart';

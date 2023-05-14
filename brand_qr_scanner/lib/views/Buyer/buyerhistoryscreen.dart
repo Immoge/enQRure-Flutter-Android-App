@@ -1,197 +1,394 @@
+import 'dart:convert';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:enQRsure/constants.dart';
+import 'package:enQRsure/models/product.dart';
+import 'package:enQRsure/models/user.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-import '../../models/homescreenelement.dart';
+import 'package:intl/intl.dart';
+import 'package:http/http.dart' as http;
 
 class BuyerHistoryScreen extends StatefulWidget {
-  const BuyerHistoryScreen({Key? key}) : super(key: key);
+  final User user;
+  const BuyerHistoryScreen({Key? key, required this.user}) : super(key: key);
 
   @override
   _BuyerHistoryScreenState createState() => _BuyerHistoryScreenState();
 }
 
 class _BuyerHistoryScreenState extends State<BuyerHistoryScreen> {
+  var _tapPosition;
+  var color;
+  var numofpage, curpage = 1;
+  String titleCenter = "Loading...";
+  String search = "";
+  late double screenHeight, screenWidth, resWidth;
+  List<Product> productList = <Product>[];
+  final df = DateFormat('dd/MM/yyyy');
+  TextEditingController searchController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    _loadRegisteredProduct(1, search);
+  }
+
   @override
   Widget build(BuildContext context) {
+    screenHeight = MediaQuery.of(context).size.height;
+    screenWidth = MediaQuery.of(context).size.width;
+    if (screenWidth <= 600) {
+      resWidth = screenWidth;
+    } else {
+      resWidth = screenWidth * 0.75;
+    }
     return Scaffold(
-      body: SafeArea(
-        bottom: false,
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(20),
-                child: Text(
-                  "Newsletters",
-                  style: GoogleFonts.montserrat(
-                      fontSize: 30,
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        backgroundColor: Color(0xFF54B5FF),
+        title: Text("History",
+            textAlign: TextAlign.center,
+            style: GoogleFonts.openSans(
+              fontSize: 25,
+              fontWeight: FontWeight.w500,
+            )),
+      ),
+      body: productList.isEmpty
+          ? Center(
+              child: Text(
+                titleCenter,
+                style: GoogleFonts.montserrat(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            )
+          : Column(children: [
+              Container(
+                  height: 42,
+                  margin: const EdgeInsets.fromLTRB(16, 16, 16, 16),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: Colors.white,
+                    border: Border.all(
                       color: Colors.black,
-                      fontWeight: FontWeight.w700),
-                ),
-              ),
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: [
-                    ...bigNewsletters
-                        .map((homeScreenElement) => Padding(
-                              padding: const EdgeInsets.only(left: 20),
-                              child: HomeScreenCard(
-                                  homeScreenElement: homeScreenElement),
-                            ))
-                        .toList(),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(20),
-                child: Text(
-                  "Recent",
-                  style: GoogleFonts.montserrat(
-                      fontSize: 25,
-                      color: Colors.black,
-                      fontWeight: FontWeight.w700),
-                ),
-              ),
-              ...recentNewsLetter.map(
-                (homeScreenElement) => Padding(
-                  padding:
-                      const EdgeInsets.only(left: 20, right: 20, bottom: 20),
-                  child: SecondaryHomeScreenCard(
-                      homeScreenElement: homeScreenElement),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class SecondaryHomeScreenCard extends StatelessWidget {
-  const SecondaryHomeScreenCard({
-    Key? key,
-    required this.homeScreenElement,
-  }) : super(key: key);
-
-  final HomeScreenElement homeScreenElement;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 24, vertical: 20),
-      decoration: BoxDecoration(
-        color: homeScreenElement.bgColor,
-        borderRadius: BorderRadius.all(Radius.circular(20)),
-      ),
-      child: Row(
-        children: [
-          Expanded(
-            child: Column(
-              children: [
-                Text(
-                  homeScreenElement.title,
-                  textAlign: TextAlign.center,
-                  style: GoogleFonts.openSans(
-                    fontSize: 25,
-                    color: Colors.black,
-                    fontWeight: FontWeight.w700,
-                    
-                  ),
-                ),
-                Text(
-                  homeScreenElement.description,
-                  textAlign: TextAlign.left,
-                  style: GoogleFonts.openSans(
-                    fontSize: 16,
-                    color: Colors.grey.shade700,
-                    fontWeight: FontWeight.w700,
-                )),
-              ],
-            ),
-          ),
-          const SizedBox(
-            height: 50,
-            child: VerticalDivider(
-              color: Colors.black,
-            ),
-          ),
-          const SizedBox(width: 2),
-          Image.asset(
-            homeScreenElement.iconSrc,
-            height: 50,
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class HomeScreenCard extends StatelessWidget {
-  const HomeScreenCard({
-    Key? key,
-    required this.homeScreenElement,
-  }) : super(key: key);
-
-  final HomeScreenElement homeScreenElement;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
-      height: 280,
-      width: 260,
-      decoration: BoxDecoration(
-        color: homeScreenElement.bgColor,
-        borderRadius: const BorderRadius.all(Radius.circular(20)),
-      ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  homeScreenElement.title,
-                  style: GoogleFonts.concertOne(
-                      fontSize: 25,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black),
-                ),
-                const SizedBox(height: 10),
-                Padding(
-                  padding: const EdgeInsets.only(top: 12, bottom: 8),
-                  child: Text(
-                    homeScreenElement.description,
-                    style: GoogleFonts.oswald(
-                        fontSize: 15,
-                        color: Colors.grey.shade700,
-                        fontWeight: FontWeight.bold),
-                  ),
-                ),
-                const SizedBox(height: 10),
-                Text(
-                  homeScreenElement.smalldescription,
-                  style: TextStyle(color: Colors.grey.shade700),
-                ),
-                const Spacer(),
-                Row(
-                  children: List.generate(
-                    3,
-                    (index) => Transform.translate(
-                      offset: Offset((-10 * index).toDouble(), 0),
+                      width: 2,
                     ),
                   ),
-                )
-              ],
-            ),
-          ),
-          Image.asset(homeScreenElement.iconSrc, height: 50)
-        ],
-      ),
+                  padding: const EdgeInsets.symmetric(horizontal: 8),
+                  child: TextField(
+                    controller: searchController,
+                    decoration: InputDecoration(
+                      suffixIcon: GestureDetector(
+                        child: const Icon(Icons.search, color: Colors.black),
+                        onTap: () {
+                          search = searchController.text;
+                          _loadRegisteredProduct(1, search);
+                        },
+                      ),
+                      hintText: "Search Product Name",
+                      hintStyle: GoogleFonts.montserrat(
+                          fontSize: 16, color: Colors.black),
+                      border: InputBorder.none,
+                    ),
+                  )),
+              Expanded(
+                  child: GridView.count(
+                      crossAxisCount: 2,
+                      childAspectRatio: (1 / 1.5),
+                      children: List.generate(productList.length, (index) {
+                        return InkWell(
+                          splashColor: Colors.cyan,
+                          onTap: () => {loadProductDetails(index)},
+                          onTapDown: _storePosition,
+                          child: Card(
+                              elevation: 5,
+                              shape: RoundedRectangleBorder(
+                                side: BorderSide(color: Colors.black, width: 2),
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: Column(
+                                children: [
+                                  const SizedBox(height: 5),
+                                  Flexible(
+                                    flex: 6,
+                                    child: CachedNetworkImage(
+                                      imageUrl: CONSTANTS.server +
+                                          "/enQRsure/assets/productimages/" +
+                                          productList[index]
+                                              .productId
+                                              .toString() +
+                                          '.jpg',
+                                      height: screenHeight,
+                                      width: resWidth,
+                                      placeholder: (context, url) =>
+                                          const CircularProgressIndicator(),
+                                      errorWidget: (context, url, error) =>
+                                          const Icon(Icons.error),
+                                    ),
+                                  ),
+                                  Text(
+                                    productList[index].productName.toString(),
+                                    textAlign: TextAlign.center,
+                                    style: const TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 2),
+                                  Flexible(
+                                      flex: 4,
+                                      child: Column(
+                                        children: [
+                                          Row(
+                                            children: [
+                                              const SizedBox(width: 15),
+                                              Expanded(
+                                                child: Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      const SizedBox(height: 5),
+                                                      Text(
+                                                        "Type: ${productList[index].productType}",
+                                                        style: GoogleFonts
+                                                            .montserrat(
+                                                                fontSize: 14,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w500),
+                                                        textAlign:
+                                                            TextAlign.left,
+                                                      ),
+                                                      const SizedBox(height: 5),
+                                                      Text(
+                                                        "Warranty: ${productList[index].productWarranty} months",
+                                                        style: GoogleFonts
+                                                            .montserrat(
+                                                                fontSize: 14,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w500),
+                                                        textAlign:
+                                                            TextAlign.left,
+                                                      ),
+                                                      const SizedBox(height: 5),
+                                                      Text(
+                                                        "Registration Date: ${df.format(DateTime.parse(productList[index].buyerRegDate.toString()))}",
+                                                        style: GoogleFonts
+                                                            .montserrat(
+                                                                fontSize: 14,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w500),
+                                                        textAlign:
+                                                            TextAlign.left,
+                                                      ),
+                                                    ]),
+                                              ),
+                                            ],
+                                          )
+                                        ],
+                                      ))
+                                ],
+                              )),
+                        );
+                      }))),
+              SizedBox(
+                height: 40,
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: numofpage,
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (context, index) {
+                    if ((curpage - 1) == index) {
+                      color = Color(0xFF54B5FF);
+                    } else {
+                      color = Colors.black;
+                    }
+                    return SizedBox(
+                      width: 40,
+                      child: TextButton(
+                          onPressed: () =>
+                              {_loadRegisteredProduct(index + 1, "")},
+                          child: Text(
+                            (index + 1).toString(),
+                            style: TextStyle(color: color),
+                          )),
+                    );
+                  },
+                ),
+              ),
+            ]),
     );
+  }
+
+  void _loadRegisteredProduct(int pageno, String _search) {
+    curpage = pageno;
+    numofpage ??= 1;
+    String userid = widget.user.id.toString();
+    http.post(
+      Uri.parse(
+          CONSTANTS.server + "/enQRsure/php/loadbuyerregisteredproduct.php"),
+      body: {
+        'pageno': pageno.toString(),
+        'search': _search,
+        'userid': userid,
+      },
+    ).timeout(
+      const Duration(seconds: 5),
+      onTimeout: () {
+        return http.Response('Error', 408);
+      },
+    ).then((response) {
+      var jsondata = jsonDecode(response.body);
+      if (response.statusCode == 200 && jsondata['status'] == 'success') {
+        var extractdata = jsondata['data'];
+        numofpage = int.parse(jsondata['numofpage']);
+        if (extractdata['products'] != null) {
+          productList = <Product>[];
+          extractdata['products'].forEach((v) {
+            productList.add(Product.fromJson(v));
+          });
+        } else {
+          titleCenter = "No product Available";
+        }
+        setState(() {});
+      }
+    });
+  }
+
+  void loadProductDetails(int index) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(20.0)),
+            ),
+            title: Text(
+              "Product Details",
+              style: GoogleFonts.openSans(
+                fontSize: 20,
+                fontWeight: FontWeight.w800,
+              ),
+            ),
+            content: SingleChildScrollView(
+                child: Column(
+              children: [
+                CachedNetworkImage(
+                  imageUrl: CONSTANTS.server +
+                      "/enQRsure/assets/productimages/" +
+                      productList[index].productId.toString() +
+                      '.jpg',
+                  fit: BoxFit.cover,
+                  width: 200,
+                  placeholder: (context, url) =>
+                      const CircularProgressIndicator(),
+                  errorWidget: (context, url, error) => const Icon(Icons.error),
+                ),
+                const SizedBox(height: 10),
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                  Text("Name: ",
+                      style: GoogleFonts.montserrat(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black)),
+                  Text(productList[index].productName.toString(),
+                      style: GoogleFonts.montserrat(
+                          fontSize: 16, color: Colors.black)),
+                  const SizedBox(height: 10),
+                  Text("Description:",
+                      style: GoogleFonts.montserrat(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black)),
+                  Text(productList[index].productDescription.toString(),
+                      style: GoogleFonts.montserrat(
+                          fontSize: 16, color: Colors.black)),
+                  const SizedBox(height: 10),
+                  Text("Type: ",
+                      style: GoogleFonts.montserrat(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black)),
+                  Text(productList[index].productType.toString(),
+                      style: GoogleFonts.montserrat(
+                          fontSize: 16, color: Colors.black)),
+                  const SizedBox(height: 10),
+                  Text("Barcode:",
+                      style: GoogleFonts.montserrat(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black)),
+                  Text(productList[index].productBarcode.toString(),
+                      style: GoogleFonts.montserrat(
+                          fontSize: 16, color: Colors.black)),
+                  const SizedBox(height: 10),
+                  Text("Manufacture Date:",
+                      style: GoogleFonts.montserrat(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black)),
+                  Text(
+                      df.format(DateTime.parse(
+                          productList[index].productDate.toString())),
+                      style: GoogleFonts.montserrat(
+                          fontSize: 16, color: Colors.black)),
+                  const SizedBox(height: 10),
+                  Text("Warranty:",
+                      style: GoogleFonts.montserrat(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black)),
+                  Text(
+                      productList[index].productWarranty.toString() + " Months",
+                      style: GoogleFonts.montserrat(
+                          fontSize: 16, color: Colors.black)),
+                  const SizedBox(height: 10),
+                  Text("Origin:",
+                      style: GoogleFonts.montserrat(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black)),
+                  Text(productList[index].productOrigin.toString(),
+                      style: GoogleFonts.montserrat(
+                          fontSize: 16, color: Colors.black)),
+                  const SizedBox(height: 10),
+                  Text("Registration Date:",
+                      style: GoogleFonts.montserrat(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black)),
+                  Text(
+                      df.format(DateTime.parse(
+                          productList[index].buyerRegDate.toString())),
+                      style: GoogleFonts.montserrat(
+                          fontSize: 16, color: Colors.black)),
+                  const SizedBox(height: 10),
+                ])
+              ],
+            )),
+            actions: [
+              TextButton(
+                child: Text(
+                  "Close",
+                  style: GoogleFonts.montserrat(
+                      color: Color(0xFF54B5FF),
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold),
+                ),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        });
+  }
+
+  void _storePosition(TapDownDetails details) {
+    _tapPosition = details.globalPosition;
   }
 }

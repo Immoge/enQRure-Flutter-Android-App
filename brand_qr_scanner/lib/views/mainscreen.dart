@@ -1,6 +1,6 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:enQRsure/views/registerproductscreen.dart';
+import 'package:enQRsure/views/Buyer/buyerregisterproductscreen.dart';
 import 'package:enQRsure/views/profilescreen.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import '../models/user.dart';
@@ -26,9 +26,9 @@ class _MainScreenState extends State<MainScreen> {
   void initState() {
     super.initState();
     tabchildren = [
-       BuyerHomeScreen(user: widget.user),
-      const RegisterProductScreen(),
-      const BuyerHistoryScreen(),
+      BuyerHomeScreen(user: widget.user),
+     BuyerRegisterProductScreen(user: widget.user),
+      BuyerHistoryScreen(user: widget.user),
       BuyerProfileScreen(user: widget.user),
     ];
   }

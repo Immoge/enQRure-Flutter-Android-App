@@ -2,7 +2,9 @@ import 'dart:io';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
 import 'dart:convert';
+import 'package:enQRsure/models/product.dart';
 import 'package:enQRsure/views/Manufacturer/manufacturermainscreen.dart';
+import 'package:enQRsure/views/mainscreen.dart';
 import 'package:flutter/rendering.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
@@ -26,59 +28,45 @@ import '../../models/user.dart';
 import '../../constants.dart';
 import 'package:widgets_to_image/widgets_to_image.dart';
 
-class ManufacturerGenerateQRScreen extends StatefulWidget {
+class BuyerCounterfeitProductScreen extends StatefulWidget {
   final User user;
-  const ManufacturerGenerateQRScreen({Key? key, required this.user})
+  final Product product;
+  const BuyerCounterfeitProductScreen(
+      {Key? key, required this.user, required this.product})
       : super(key: key);
 
   @override
-  State<ManufacturerGenerateQRScreen> createState() =>
-      _ManufacturerGenerateQRScreenState();
+  State<BuyerCounterfeitProductScreen> createState() =>
+      _BuyerCounterfeitProductScreenState();
 }
 
-class _ManufacturerGenerateQRScreenState
-    extends State<ManufacturerGenerateQRScreen> {
+class _BuyerCounterfeitProductScreenState
+    extends State<BuyerCounterfeitProductScreen> {
   WidgetsToImageController widgetcontroller = WidgetsToImageController();
 
   late double screenHeight, screenWidth, ctrwidth;
-  String encryptedCode = "";
   String pathAsset = 'assets/images/upload image.png';
   var _image3;
   var _image;
-  final TextEditingController _prnameEditingController =
+  final TextEditingController _cprnameEditingController =
       TextEditingController();
-  final TextEditingController _prdescriptionEditingController =
+  final TextEditingController _cprdescriptionEditingController =
       TextEditingController();
-  final TextEditingController _prtypeEditingController =
+  final TextEditingController _cprplatformEditingController =
       TextEditingController();
-  final TextEditingController _prbarcodeEditingController =
+  final TextEditingController _cproriginEditingController =
       TextEditingController();
-  final TextEditingController _prdateEditingController =
+  final TextEditingController _cprlocationEditingController =
       TextEditingController();
-  final TextEditingController _prwarrantyEditingController =
+  final TextEditingController _cprsellernameEditingController =
       TextEditingController();
-  final TextEditingController _proriginEditingController =
+  final TextEditingController _cprpurchsedateEditingController =
       TextEditingController();
   final _formKey = GlobalKey<FormState>();
   final _formKey2 = GlobalKey<FormState>();
-  String selectedItem1 = 'Electronics';
+  String selectedItem1 = 'Online';
   String selectedItem2 = "Malaysia";
-  var productType = [
-    'Electronics',
-    'Clothing & Fashion',
-    'Home Appliances',
-    'Beauty and Personal Care',
-    'Automotive & Accessories',
-    'Sports & Fitness',
-    'Toys & Games',
-    'Book & Stationery',
-    'Furniture & Home Decor',
-    'Health & Wellness',
-    'Jewelry & Accessories',
-    'Tools & Hardware',
-    'Pet Supplies',
-    'Bag & Accessories'
-  ];
+  var platform = ['Online', 'Offline'];
   var countryList = [
     'Afghanistan',
     'Albania',
@@ -240,13 +228,13 @@ class _ManufacturerGenerateQRScreenState
 
   @override
   void dispose() {
-    _prnameEditingController.dispose();
-    _prdescriptionEditingController.dispose();
-    _prtypeEditingController.dispose();
-    _prbarcodeEditingController.dispose();
-    _prdateEditingController.dispose();
-    _prwarrantyEditingController.dispose();
-    _proriginEditingController.dispose();
+    _cprnameEditingController.dispose();
+    _cprdescriptionEditingController.dispose();
+    _cprplatformEditingController.dispose();
+    _cproriginEditingController.dispose();
+    _cprlocationEditingController.dispose();
+    _cprsellernameEditingController.dispose();
+    _cprpurchsedateEditingController.dispose();
     super.dispose();
   }
 
@@ -262,8 +250,8 @@ class _ManufacturerGenerateQRScreenState
     }
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: Color(0xFF90E6C3),
-          title: Text("Add Product",
+          backgroundColor: Color(0xFF54B5FF),
+          title: Text("Counterfeit Product Report",
               textAlign: TextAlign.center,
               style: GoogleFonts.openSans(
                 fontSize: 25,
@@ -296,7 +284,7 @@ class _ManufacturerGenerateQRScreenState
                       key: _formKey2,
                       child: Column(children: [
                         TextFormField(
-                          controller: _prnameEditingController,
+                          controller: _cprnameEditingController,
                           decoration: InputDecoration(
                               labelText: 'Product Name',
                               prefixIcon: const Icon(Icons.title),
@@ -311,7 +299,7 @@ class _ManufacturerGenerateQRScreenState
                         ),
                         SizedBox(height: 10.0),
                         TextFormField(
-                          controller: _prdescriptionEditingController,
+                          controller: _cprdescriptionEditingController,
                           minLines: 6,
                           keyboardType: TextInputType.multiline,
                           maxLines: 6,
@@ -334,23 +322,24 @@ class _ManufacturerGenerateQRScreenState
                         SizedBox(
                             width: screenWidth,
                             child: TextFormField(
-                              controller: _prtypeEditingController,
+                              controller: _cprplatformEditingController,
                               decoration: InputDecoration(
-                                labelText: 'Product Type',
-                                prefixIcon: Icon(LineAwesomeIcons.tags),
+                                labelText: 'Platform',
+                                prefixIcon:
+                                    const Icon(LineAwesomeIcons.campground),
                                 border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(5.0)),
                               ),
                               onTap: () async {
                                 FocusScope.of(context)
                                     .requestFocus(FocusNode());
-                                final String? selectedProductType =
+                                final String? selectedProductPlatform =
                                     await showDialog<String>(
                                   context: context,
                                   builder: (BuildContext context) {
                                     return AlertDialog(
                                       title: Text(
-                                        'Select a Type',
+                                        'Select a plafrom',
                                         style: GoogleFonts.montserrat(
                                             fontSize: 20,
                                             fontWeight: FontWeight.bold),
@@ -362,7 +351,7 @@ class _ManufacturerGenerateQRScreenState
                                           icon: const Icon(
                                               Icons.arrow_drop_down_circle),
                                           decoration: InputDecoration(
-                                              labelText: "Product Type",
+                                              labelText: "Platform",
                                               border: OutlineInputBorder(
                                                   borderRadius:
                                                       BorderRadius.circular(
@@ -373,8 +362,7 @@ class _ManufacturerGenerateQRScreenState
                                             });
                                             Navigator.of(context).pop(newValue);
                                           },
-                                          items:
-                                              productType.map((String value) {
+                                          items: platform.map((String value) {
                                             return DropdownMenuItem<String>(
                                               value: value,
                                               child: Text(
@@ -389,124 +377,23 @@ class _ManufacturerGenerateQRScreenState
                                     );
                                   },
                                 );
-                                if (selectedProductType != null) {
-                                  _prtypeEditingController.text =
-                                      selectedProductType;
+                                if (selectedProductPlatform != null) {
+                                  _cprplatformEditingController.text =
+                                      selectedProductPlatform;
                                 }
                               },
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
-                                  return "Please a product type.";
+                                  return "Please a platform.";
                                 }
                                 return null;
                               },
                             )),
                         const SizedBox(height: 10),
-                        Row(
-                          children: [
-                            Expanded(
-                              flex: 1,
-                              child: SizedBox(
-                                width: screenWidth * 0.5,
-                                child: TextFormField(
-                                  keyboardType: TextInputType.number,
-                                  controller: _prbarcodeEditingController,
-                                  maxLength: 12,
-                                  decoration: InputDecoration(
-                                    labelText: 'Barcode',
-                                    suffixIcon: IconButton(
-                                      icon:
-                                          const Icon(LineAwesomeIcons.barcode),
-                                      onPressed: () async {
-                                        String barcodeScanRes =
-                                            await FlutterBarcodeScanner
-                                                .scanBarcode("#ff6666", "Back",
-                                                    false, ScanMode.DEFAULT);
-                                        setState(() {
-                                          _prbarcodeEditingController.text =
-                                              barcodeScanRes;
-                                        });
-                                      },
-                                    ),
-                                    counterText: "",
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(5.0),
-                                    ),
-                                  ),
-                                  validator: (value) {
-                                    if (value == null || value.isEmpty) {
-                                      return 'Please enter a valid Barcode';
-                                    }
-                                    return null;
-                                  },
-                                ),
-                              ),
-                            ),
-                            const SizedBox(width: 5),
-                            Expanded(
-                              flex: 1,
-                              child: SizedBox(
-                                width: screenWidth * 0.5,
-                                child: TextFormField(
-                                  controller: _prdateEditingController,
-                                  decoration: InputDecoration(
-                                    prefixIcon: Icon(LineAwesomeIcons.calendar),
-                                    border: OutlineInputBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(5.0)),
-                                    labelText: 'Manufacture Date',
-                                  ),
-                                  readOnly: true,
-                                  onTap: () async {
-                                    DateTime? pickedDate = await showDatePicker(
-                                      context: context,
-                                      initialDate: DateTime.now(),
-                                      firstDate: DateTime(1950),
-                                      lastDate: DateTime(2100),
-                                    );
-                                    if (pickedDate != null) {
-                                      String formattedDate =
-                                          DateFormat('yyyy-MM-dd')
-                                              .format(pickedDate);
-                                      setState(() {
-                                        _prdateEditingController.text =
-                                            formattedDate;
-                                      });
-                                    }
-                                  },
-                                  validator: (value) {
-                                    if (value == null || value.isEmpty) {
-                                      return 'Please enter manufacture date';
-                                    }
-                                    return null;
-                                  },
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 10),
-                        TextFormField(
-                          controller: _prwarrantyEditingController,
-                          keyboardType: const TextInputType.numberWithOptions(
-                              decimal: false),
-                          decoration: InputDecoration(
-                              labelText: 'Warranty Period (Months)',
-                              prefixIcon: Icon(LineAwesomeIcons.check_circle),
-                              border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(5.0))),
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Please enter valid warranty period';
-                            }
-                            return null;
-                          },
-                        ),
-                        const SizedBox(height: 10),
                         SizedBox(
                             width: screenWidth,
                             child: TextFormField(
-                              controller: _proriginEditingController,
+                              controller: _cproriginEditingController,
                               decoration: InputDecoration(
                                 labelText: 'Origin',
                                 prefixIcon: Icon(LineAwesomeIcons.globe),
@@ -558,7 +445,7 @@ class _ManufacturerGenerateQRScreenState
                                   },
                                 );
                                 if (selectedProductOrigin != null) {
-                                  _proriginEditingController.text =
+                                  _cproriginEditingController.text =
                                       selectedProductOrigin;
                                 }
                               },
@@ -570,19 +457,87 @@ class _ManufacturerGenerateQRScreenState
                               },
                             )),
                         const SizedBox(height: 10),
+                        TextFormField(
+                          controller: _cprlocationEditingController,
+                          decoration: InputDecoration(
+                              labelText: 'Purchase Location',
+                              prefixIcon:
+                                  const Icon(LineAwesomeIcons.map_marker),
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(5.0))),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter valid purchase location.';
+                            }
+                            return null;
+                          },
+                        ),
+                        const SizedBox(height: 10),
+                        TextFormField(
+                          controller: _cprsellernameEditingController,
+                          decoration: InputDecoration(
+                              labelText: 'Seller Name',
+                              prefixIcon: const Icon(
+                                  LineAwesomeIcons.person_entering_booth),
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(5.0))),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter valid seller name';
+                            }
+                            return null;
+                          },
+                        ),
+                        const SizedBox(height: 10),
+                        SizedBox(
+                          width: screenWidth,
+                          child: TextFormField(
+                            controller: _cprpurchsedateEditingController,
+                            decoration: InputDecoration(
+                              prefixIcon: Icon(LineAwesomeIcons.calendar),
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(5.0)),
+                              labelText: 'Purchase Date',
+                            ),
+                            readOnly: true,
+                            onTap: () async {
+                              DateTime? pickedDate = await showDatePicker(
+                                context: context,
+                                initialDate: DateTime.now(),
+                                firstDate: DateTime(1950),
+                                lastDate: DateTime(2100),
+                              );
+                              if (pickedDate != null) {
+                                String formattedDate =
+                                    DateFormat('yyyy-MM-dd').format(pickedDate);
+                                setState(() {
+                                  _cprpurchsedateEditingController.text =
+                                      formattedDate;
+                                });
+                              }
+                            },
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please enter purchase date';
+                              }
+                              return null;
+                            },
+                          ),
+                        ),
+                        const SizedBox(height: 10),
                         SizedBox(
                           width: screenWidth,
                           height: 50,
                           child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                                backgroundColor: Color(0xFF90E6C3),
+                                backgroundColor: Color(0xFF54B5FF),
                                 side: BorderSide.none,
                                 shape: const StadiumBorder()),
-                            child: Text("Add Product",
+                            child: Text("Submit Report",
                                 style: TextStyle(
                                     fontSize: 20, fontWeight: FontWeight.bold)),
                             onPressed: () {
-                              _insertDialog();
+                              _submitDialog();
                             },
                           ),
                         ),
@@ -597,7 +552,6 @@ class _ManufacturerGenerateQRScreenState
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        // return object of type Dialog
         return AlertDialog(
             title: const Text(
               "Select from",
@@ -676,7 +630,7 @@ class _ManufacturerGenerateQRScreenState
     }
   }
 
-  _insertDialog() async {
+  _submitDialog() async {
     if (_formKey.currentState!.validate() && _image != null) {
       _formKey.currentState!.save();
       showDialog(
@@ -687,19 +641,19 @@ class _ManufacturerGenerateQRScreenState
               borderRadius: BorderRadius.all(Radius.circular(20.0)),
             ),
             title: Text(
-              "Add new product",
+              "Sumbit Counterfeit Report",
               style: GoogleFonts.montserrat(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
               ),
             ),
-            content: const Text("Add This Product?"),
+            content: const Text("Are u sure to submit this?"),
             actions: <Widget>[
               TextButton(
                 child: Text(
                   "No",
                   style: GoogleFonts.montserrat(
-                    color: Color(0xFF90E6C3),
+                    color: Color(0xFF54B5FF),
                     fontSize: 15,
                     fontWeight: FontWeight.bold,
                   ),
@@ -712,15 +666,13 @@ class _ManufacturerGenerateQRScreenState
                 child: Text(
                   "Confirm",
                   style: GoogleFonts.montserrat(
-                    color: Color(0xFF90E6C3),
+                    color: Color(0xFF54B5FF),
                     fontSize: 15,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                onPressed: () async {
-                  await _generateEncryptedCode();
-                  await _insertProduct();
-                  _generateQRDialog(encryptedCode);
+                onPressed: () {
+                  uploadReport();
                 },
               ),
             ],
@@ -730,39 +682,47 @@ class _ManufacturerGenerateQRScreenState
     }
   }
 
-  Future<void> _insertProduct() async {
-    String prname = _prnameEditingController.text;
-    String prdescription = _prdescriptionEditingController.text;
-    String prtype = _prtypeEditingController.text;
-    String prbarcode = _prbarcodeEditingController.text;
-    String prdate = _prdateEditingController.text;
-    String prwarranty = _prwarrantyEditingController.text;
-    String prorigin = _proriginEditingController.text;
-    String prencryptedcode = encryptedCode;
-    String manufacturerid = widget.user.id.toString();
+  void uploadReport() {
+    String cprname = _cprnameEditingController.text;
+    String cprdescription = _cprdescriptionEditingController.text;
+    String cprplatform = _cprplatformEditingController.text;
+    String cprorgin = _cproriginEditingController.text;
+    String cprlocation = _cprlocationEditingController.text;
+    String cprsellername = _cprsellernameEditingController.text;
+    String cprpurchasedate = _cprpurchsedateEditingController.text;
+    String cprencryptedcode = widget.product.productEncryptedCode.toString();
+    String cprbuyerid = widget.user.id.toString();
     String base64Image = base64Encode(_image!.readAsBytesSync());
-    http.post(Uri.parse(CONSTANTS.server + "/enQRsure/php/addproduct.php/"),
+    http.post(
+        Uri.parse(
+            CONSTANTS.server + "/enQRsure/php/submitcounterfeitreport.php/"),
         body: {
-          "prname": prname,
-          "prdescription": prdescription,
-          "prtype": prtype,
-          "prbarcode": prbarcode,
-          "prdate": prdate,
-          "prwarranty": prwarranty,
-          "prorigin": prorigin,
-          "prencryptedcode": prencryptedcode,
-          "manufacturerid": manufacturerid,
+          "cprname": cprname,
+          "cprdescription": cprdescription,
+          "cprplatform": cprplatform,
+          "cprorgin": cprorgin,
+          "cprlocation": cprlocation,
+          "cprsellername": cprsellername,
+          "cprpurchasedate": cprpurchasedate,
+          "cprencryptedcode": cprencryptedcode,
+          "cprbuyerid": cprbuyerid,
           "image": base64Image,
         }).then((response) {
       print(response.body);
       var data = jsonDecode(response.body);
       if (response.statusCode == 200 && data['status'] == 'success') {
         Fluttertoast.showToast(
-            msg: "Success",
+            msg: "Submitted Succcesfully",
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
             fontSize: 16.0);
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => MainScreen(user: widget.user),
+          ),
+        );
       } else {
         Fluttertoast.showToast(
             msg: data['status'],
@@ -772,132 +732,5 @@ class _ManufacturerGenerateQRScreenState
             fontSize: 16.0);
       }
     });
-  }
-
-  Future<void> _generateEncryptedCode() async {
-    String _prname = _prnameEditingController.text;
-    String _prdescription = _prdescriptionEditingController.text;
-    String _prtype = _prtypeEditingController.text;
-    String _prbarcode = _prbarcodeEditingController.text;
-    String _prdate = _prdateEditingController.text;
-    String _prorigin = _proriginEditingController.text;
-    String securityCode = generateRandomNumber();
-    String randomizationCode = _prname +
-        _prdescription +
-        _prtype +
-        _prbarcode +
-        _prdate +
-        _prorigin +
-        securityCode;
-    encryptedCode = encryptWithSHA256(randomizationCode);
-  }
-
-  void _generateQRDialog(String encryptedCode) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(20.0)),
-          ),
-          title: Text(
-            "QR code",
-            style: GoogleFonts.openSans(
-              fontSize: 20,
-              fontWeight: FontWeight.w800,
-            ),
-          ),
-          content: SingleChildScrollView(
-            child: WidgetsToImage(
-              controller: widgetcontroller,
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: 200,
-                    width: 200,
-                    child: QrImage(
-                      data: encryptedCode,
-                      version: QrVersions.auto,
-                      size: 200,
-                      gapless: false,
-                      embeddedImage:
-                          AssetImage('assets/images/enQRsure logo.png'),
-                      embeddedImageStyle: QrEmbeddedImageStyle(
-                        size: Size(40, 40),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          actions: [
-            TextButton(
-              child: Text(
-                "Download",
-                style: GoogleFonts.montserrat(
-                  color: Color(0xFF90E6C3),
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              onPressed: () {
-                _downloadQRCode();
-              },
-            ),
-            TextButton(
-              child: Text(
-                "Close",
-                style: GoogleFonts.montserrat(
-                  color: Color(0xFF90E6C3),
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) =>
-                            ManufacturerMainScreen(user: widget.user)));
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
-
-  String generateRandomNumber() {
-    Random random = Random();
-    int min = 10000000; // Minimum 8-digit number
-    int max = 99999999; // Maximum 8-digit number
-    int randomNumber = min + random.nextInt(max - min);
-    return randomNumber.toString();
-  }
-
-  String encryptWithSHA256(String input) {
-    var bytes = utf8.encode(input);
-    var digest = sha256.convert(bytes);
-    return digest.toString();
-  }
-
-  Future<void> _downloadQRCode() async {
-    var status = await Permission.storage.request();
-    if (status == PermissionStatus.granted) {
-      var image2 = await widgetcontroller.capture();
-      if (image2 != null) {
-        var file =
-            await File("/storage/emulated/0/Download/${DateTime.now()}.png")
-                .create(recursive: true);
-        await file.writeAsBytes(image2);
-        Fluttertoast.showToast(
-            msg: "Download Success",
-            toastLength: Toast.LENGTH_SHORT,
-            gravity: ToastGravity.BOTTOM,
-            timeInSecForIosWeb: 1,
-            fontSize: 16.0);
-      }
-    }
   }
 }

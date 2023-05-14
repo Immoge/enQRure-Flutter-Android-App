@@ -4,7 +4,7 @@ import 'package:enQRsure/views/Manufacturer/manufacturerregisterproductscreen.da
 import 'package:enQRsure/views/Manufacturer/manufacturerreportscreen.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:enQRsure/views/registerproductscreen.dart';
+import 'package:enQRsure/views/Buyer/buyerregisterproductscreen.dart';
 import 'package:enQRsure/views/profilescreen.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import '../loginscreen.dart';
