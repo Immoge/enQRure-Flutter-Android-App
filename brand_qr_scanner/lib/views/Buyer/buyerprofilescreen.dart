@@ -107,7 +107,14 @@ class _BuyerProfileScreenState extends State<BuyerProfileScreen> {
             ProfileMenuWidget(
               title: "Information",
               icon: LineAwesomeIcons.info,
-              onPress: () {},
+              onPress: () {
+                Fluttertoast.showToast(
+                    msg: widget.user.name.toString(),
+                    toastLength: Toast.LENGTH_SHORT,
+                    gravity: ToastGravity.BOTTOM,
+                    timeInSecForIosWeb: 1,
+                    fontSize: 16.0);
+              },
             ),
             ProfileMenuWidget(
               title: "Change Password",
@@ -206,29 +213,24 @@ class _BuyerProfileScreenState extends State<BuyerProfileScreen> {
               child: Text(
                 "Yes",
                 style: GoogleFonts.montserrat(
-                    color: Color(0xFF54B5FF),
+                    color: Color(0xFFFF9EC9),
                     fontSize: 15,
                     fontWeight: FontWeight.bold),
               ),
               onPressed: () async {
-                Navigator.of(context).pop();
-                SharedPreferences prefs = await SharedPreferences.getInstance();
-                await prefs.setString('email', '');
-                await prefs.setString('pass', '');
-                await prefs.setBool('remember', false);
-                Navigator.pop(context);
                 Navigator.push(
                     context,
                     MaterialPageRoute(
                         builder: (BuildContext context) =>
-                            MainScreen(user: widget.user)));
+                            MainScreen(user: user)));
+                setState(() {});
               },
             ),
             TextButton(
               child: Text(
                 "No",
                 style: GoogleFonts.montserrat(
-                    color: Color(0xFF54B5FF),
+                    color: Color(0xFFFF9EC9),
                     fontSize: 15,
                     fontWeight: FontWeight.bold),
               ),

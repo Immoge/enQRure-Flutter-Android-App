@@ -193,7 +193,6 @@ class _ManufacturerProfileScreenState extends State<ManufacturerProfileScreen> {
       origin: "na",
       regdate: "0",
     );
-
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -210,29 +209,24 @@ class _ManufacturerProfileScreenState extends State<ManufacturerProfileScreen> {
               child: Text(
                 "Yes",
                 style: GoogleFonts.montserrat(
-                    color: Color(0xFF90E6C3),
+                    color: Color(0xFFFF9EC9),
                     fontSize: 15,
                     fontWeight: FontWeight.bold),
               ),
               onPressed: () async {
-                Navigator.of(context).pop();
-                SharedPreferences prefs = await SharedPreferences.getInstance();
-                await prefs.setString('email', '');
-                await prefs.setString('pass', '');
-                await prefs.setBool('remember', false);
-                Navigator.pop(context);
                 Navigator.push(
                     context,
                     MaterialPageRoute(
                         builder: (BuildContext context) =>
-                            MainScreen(user: widget.user)));
+                            MainScreen(user: user)));
+                setState(() {});
               },
             ),
             TextButton(
               child: Text(
                 "No",
                 style: GoogleFonts.montserrat(
-                    color: Color(0xFF90E6C3),
+                    color: Color(0xFFFF9EC9),
                     fontSize: 15,
                     fontWeight: FontWeight.bold),
               ),

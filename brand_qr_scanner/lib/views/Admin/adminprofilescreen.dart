@@ -212,17 +212,12 @@ class _AdminProfileScreenState extends State<AdminProfileScreen> {
                     fontWeight: FontWeight.bold),
               ),
               onPressed: () async {
-                Navigator.of(context).pop();
-                SharedPreferences prefs = await SharedPreferences.getInstance();
-                await prefs.setString('email', '');
-                await prefs.setString('pass', '');
-                await prefs.setBool('remember', false);
-                Navigator.pop(context);
                 Navigator.push(
                     context,
                     MaterialPageRoute(
                         builder: (BuildContext context) =>
-                            MainScreen(user: widget.user)));
+                            MainScreen(user: user)));
+                setState(() {});
               },
             ),
             TextButton(
