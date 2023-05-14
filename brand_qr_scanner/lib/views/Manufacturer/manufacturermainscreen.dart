@@ -1,13 +1,8 @@
-import 'package:enQRsure/views/Admin/adminaddaccountscreen.dart';
 import 'package:enQRsure/views/Manufacturer/manufacturerhomescreen.dart';
 import 'package:enQRsure/views/Manufacturer/manufacturerregisterproductscreen.dart';
 import 'package:enQRsure/views/Manufacturer/manufacturerreportscreen.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:enQRsure/views/Buyer/buyerregisterproductscreen.dart';
-import 'package:enQRsure/views/profilescreen.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import '../loginscreen.dart';
 import 'package:enQRsure/models/user.dart';
 import 'manufacturerprofilescreen.dart';
 
@@ -42,8 +37,8 @@ class _ManufacturerMainScreenState extends State<ManufacturerMainScreen> {
       bottomNavigationBar: 
         CurvedNavigationBar(
           backgroundColor: Colors.white,
-          color: Color(0xFF90E6C3),
-          animationDuration: Duration(milliseconds: 300),
+          color: const Color(0xFF90E6C3),
+          animationDuration: const Duration(milliseconds: 300),
           onTap: onTabTapped,
           index: _currentIndex,
           items: const [

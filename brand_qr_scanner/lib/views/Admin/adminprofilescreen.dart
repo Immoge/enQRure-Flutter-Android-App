@@ -1,15 +1,11 @@
 import 'dart:convert';
-
 import 'package:enQRsure/views/Admin/admineditprofilescreen.dart';
-import 'package:enQRsure/views/Buyer/buyerhomescreen.dart';
 import 'package:enQRsure/views/mainscreen.dart';
-import 'package:enQRsure/views/profilescreen.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import '../../constants.dart';
 import '../../models/user.dart';
 import '../loginscreen.dart';
@@ -28,7 +24,6 @@ class _AdminProfileScreenState extends State<AdminProfileScreen> {
   late double screenHeight, screenWidth, resWidth;
   final TextEditingController _oldpasswordController = TextEditingController();
   final TextEditingController _newpasswordController = TextEditingController();
-  var _image;
   var val = 50;
 
   @override
@@ -50,7 +45,7 @@ class _AdminProfileScreenState extends State<AdminProfileScreen> {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         centerTitle: true,
-        backgroundColor: Color(0xFFFF9EC9),
+        backgroundColor: const Color(0xFFFF9EC9),
         elevation: 1,
         title: Text("Profile",
             textAlign: TextAlign.center,
@@ -95,7 +90,7 @@ class _AdminProfileScreenState extends State<AdminProfileScreen> {
                           builder: (context) =>
                               AdminEditProfileScreen(user: widget.user))),
                   style: ElevatedButton.styleFrom(
-                      backgroundColor: Color(0xFFFF9EC9),
+                      backgroundColor: const Color(0xFFFF9EC9),
                       side: BorderSide.none,
                       shape: const StadiumBorder()),
                   child: Text("Edit Profile",
@@ -149,7 +144,7 @@ class _AdminProfileScreenState extends State<AdminProfileScreen> {
               child: Text(
                 "Yes",
                 style: GoogleFonts.montserrat(
-                    color: Color(0xFFFF9EC9),
+                    color: const Color(0xFFFF9EC9),
                     fontSize: 15,
                     fontWeight: FontWeight.bold),
               ),
@@ -158,14 +153,14 @@ class _AdminProfileScreenState extends State<AdminProfileScreen> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (BuildContext context) => LoginScreen()));
+                        builder: (BuildContext context) => const LoginScreen()));
               },
             ),
             TextButton(
               child: Text(
                 "No",
                 style: GoogleFonts.montserrat(
-                    color: Color(0xFFFF9EC9),
+                    color: const Color(0xFFFF9EC9),
                     fontSize: 15,
                     fontWeight: FontWeight.bold),
               ),
@@ -207,7 +202,7 @@ class _AdminProfileScreenState extends State<AdminProfileScreen> {
               child: Text(
                 "Yes",
                 style: GoogleFonts.montserrat(
-                    color: Color(0xFFFF9EC9),
+                    color: const Color(0xFFFF9EC9),
                     fontSize: 15,
                     fontWeight: FontWeight.bold),
               ),
@@ -224,7 +219,7 @@ class _AdminProfileScreenState extends State<AdminProfileScreen> {
               child: Text(
                 "No",
                 style: GoogleFonts.montserrat(
-                    color: Color(0xFFFF9EC9),
+                    color: const Color(0xFFFF9EC9),
                     fontSize: 15,
                     fontWeight: FontWeight.bold),
               ),
@@ -314,7 +309,7 @@ class _AdminProfileScreenState extends State<AdminProfileScreen> {
               child: Text(
                 "Yes",
                 style: GoogleFonts.montserrat(
-                    color: Color(0xFFFF9EC9),
+                    color: const Color(0xFFFF9EC9),
                     fontSize: 15,
                     fontWeight: FontWeight.bold),
               ),
@@ -329,7 +324,7 @@ class _AdminProfileScreenState extends State<AdminProfileScreen> {
               child: Text(
                 "No",
                 style: GoogleFonts.montserrat(
-                    color: Color(0xFFFF9EC9),
+                    color: const Color(0xFFFF9EC9),
                     fontSize: 15,
                     fontWeight: FontWeight.bold),
               ),
@@ -347,7 +342,7 @@ class _AdminProfileScreenState extends State<AdminProfileScreen> {
     try {
       http.post(
           Uri.parse(
-              CONSTANTS.server + "/enQRsure/php/updateprofilepicture.php"),
+              "${CONSTANTS.server}/enQRsure/php/updateprofilepicture.php"),
           body: {
             "userid": widget.user.id,
             "oldpass": _oldpasswordController.text,
@@ -372,7 +367,6 @@ class _AdminProfileScreenState extends State<AdminProfileScreen> {
         }
       });
     } catch (e) {
-      print("Error: $e");
       Fluttertoast.showToast(
           msg: "An error occurred",
           toastLength: Toast.LENGTH_SHORT,
@@ -408,7 +402,7 @@ class ProfileMenuWidget extends StatelessWidget {
         height: 40,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(100),
-          color: Color(0xFFFF9EC9),
+          color: const Color(0xFFFF9EC9),
         ),
         child: Icon(icon, color: Colors.black),
       ),

@@ -9,8 +9,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:image_cropper/image_cropper.dart';
 
-import '../models/user.dart';
-
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({
     Key? key,
@@ -36,6 +34,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final TextEditingController addressController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
+  @override
   Widget build(BuildContext context) {
     screenHeight = MediaQuery.of(context).size.height;
     screenWidth = MediaQuery.of(context).size.width;
@@ -262,7 +261,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (content) => LoginScreen())),
+                                      builder: (content) => const LoginScreen())),
                             },
                             child: const Text("Registered?",
                                 style: TextStyle(
@@ -404,26 +403,26 @@ class _RegisterScreenState extends State<RegisterScreen> {
   }
 
   void _registerAccount() {
-    String _name = nameController.text;
-    String _email = emailController.text;
-    String _phone = phoneController.text;
-    String _address = addressController.text;
-    String _password = password1Controller.text;
-    String _roleid = "4";
-    String _origin = "NULL";
+    String name = nameController.text;
+    String email = emailController.text;
+    String phone = phoneController.text;
+    String address = addressController.text;
+    String password = password1Controller.text;
+    String roleid = "4";
+    String origin = "NULL";
     String base64Image = base64Encode(_image!.readAsBytesSync());
     FocusScope.of(context).requestFocus(FocusNode());
 
     http.post(
-        Uri.parse(CONSTANTS.server + "/enQRsure/php/registeruser.php/"),
+        Uri.parse("${CONSTANTS.server}/enQRsure/php/registeruser.php/"),
         body: {
-          "email": _email,
-          "name": _name,
-          "password": _password,
-          "phone": _phone,
-          "address": _address,
-          "roleid": _roleid,
-          "origin": _origin,
+          "email": email,
+          "name": name,
+          "password": password,
+          "phone": phone,
+          "address": address,
+          "roleid": roleid,
+          "origin": origin,
           "image": base64Image,
         }).then((response) {
       var data = jsonDecode(response.body);
@@ -435,7 +434,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
             timeInSecForIosWeb: 1,
             fontSize: 14.0);
         Navigator.push(
-            context, MaterialPageRoute(builder: (content) => LoginScreen()));
+            context, MaterialPageRoute(builder: (content) => const LoginScreen()));
       } else {
         Fluttertoast.showToast(
             msg: "Registration Failed",

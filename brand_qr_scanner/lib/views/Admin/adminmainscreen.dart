@@ -2,10 +2,6 @@ import 'package:enQRsure/views/Admin/adminaddaccountscreen.dart';
 import 'package:enQRsure/views/Admin/adminprofilescreen.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:enQRsure/views/Buyer/buyerregisterproductscreen.dart';
-import 'package:enQRsure/views/profilescreen.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import '../loginscreen.dart';
 import '../../models/user.dart';
 import 'adminhomescreen.dart';
 
@@ -39,8 +35,8 @@ class _AdminMainScreenState extends State<AdminMainScreen> {
       bottomNavigationBar: 
         CurvedNavigationBar(
           backgroundColor: Colors.white,
-          color: Color(0xFFFF9EC9),
-          animationDuration: Duration(milliseconds: 300),
+          color: const Color(0xFFFF9EC9),
+          animationDuration: const Duration(milliseconds: 300),
           onTap: onTabTapped,
           index: _currentIndex,
           items: const [

@@ -1,9 +1,7 @@
 import 'dart:convert';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:enQRsure/constants.dart';
 import 'package:enQRsure/models/counterfeitproduct.dart';
-import 'package:enQRsure/models/product.dart';
 import 'package:enQRsure/models/user.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -146,7 +144,7 @@ class _ManufacturerReportScreenState extends State<ManufacturerReportScreen> {
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (context, index) {
                     if ((curpage - 1) == index) {
-                      color = Color(0xFF90E6C3);
+                      color = const Color(0xFF90E6C3);
                     } else {
                       color = Colors.black;
                     }
@@ -167,14 +165,14 @@ class _ManufacturerReportScreenState extends State<ManufacturerReportScreen> {
     );
   }
 
-  void _loadCounterfeitReport(int pageno, String _search) {
+  void _loadCounterfeitReport(int pageno, String search) {
     curpage = pageno;
     numofpage ??= 1;
     http.post(
-      Uri.parse(CONSTANTS.server + "/enQRsure/php/loadcounterfeitproduct.php"),
+      Uri.parse("${CONSTANTS.server}/enQRsure/php/loadcounterfeitproduct.php"),
       body: {
         'pageno': pageno.toString(),
-        'search': _search,
+        'search': search,
       },
     ).timeout(
       const Duration(seconds: 5),
@@ -328,9 +326,9 @@ class _ManufacturerReportScreenState extends State<ManufacturerReportScreen> {
                           size: 200,
                           gapless: false,
                           embeddedImage:
-                              AssetImage('assets/images/enQRsure logo.png'),
+                              const AssetImage('assets/images/enQRsure logo.png'),
                           embeddedImageStyle: QrEmbeddedImageStyle(
-                            size: Size(40, 40),
+                            size: const Size(40, 40),
                           ),
                         ),
                       ),
@@ -344,7 +342,7 @@ class _ManufacturerReportScreenState extends State<ManufacturerReportScreen> {
                 child: Text(
                   "Close",
                   style: GoogleFonts.montserrat(
-                      color: Color(0xFF90E6C3),
+                      color: const Color(0xFF90E6C3),
                       fontSize: 18,
                       fontWeight: FontWeight.bold),
                 ),

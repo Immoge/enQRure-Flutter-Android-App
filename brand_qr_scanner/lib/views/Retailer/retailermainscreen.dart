@@ -1,5 +1,4 @@
 
-import 'package:enQRsure/views/Manufacturer/manufacturerregisterproductscreen.dart';
 import 'package:enQRsure/views/Retailer/retailerhomescreen.dart';
 import 'package:enQRsure/views/Retailer/retailerprofilescreen.dart';
 import 'package:enQRsure/views/Retailer/retailerregisterproductscreen.dart';
@@ -37,8 +36,8 @@ class _RetailerMainScreenState extends State<RetailerMainScreen> {
       bottomNavigationBar: 
         CurvedNavigationBar(
           backgroundColor: Colors.white,
-          color: Color(0xFFFFB747),
-          animationDuration: Duration(milliseconds: 300),
+          color: const Color(0xFFFFB747),
+          animationDuration: const Duration(milliseconds: 300),
           onTap: onTabTapped,
           index: _currentIndex,
           items: const [

@@ -24,7 +24,8 @@ class AdminEditProfileScreen extends StatefulWidget {
 class _AdminEditProfileScreenState extends State<AdminEditProfileScreen> {
   late Color? color;
   late double screenHeight, screenWidth, resWidth;
-  var _image;
+  // ignore: prefer_typing_uninitialized_variables
+  var image;
   var val = 50;
   List<String> countryList = [
     'Afghanistan',
@@ -185,11 +186,11 @@ class _AdminEditProfileScreenState extends State<AdminEditProfileScreen> {
     'Sri Lanka'
   ];
   String? selectedItem2 = 'Malaysia';
-  TextEditingController _nameController = new TextEditingController();
-  TextEditingController _emailController = new TextEditingController();
-  TextEditingController _phoneController = new TextEditingController();
-  TextEditingController _addressController = new TextEditingController();
-  TextEditingController _countryController = new TextEditingController();
+  TextEditingController nameController =  TextEditingController();
+  TextEditingController emailController =  TextEditingController();
+  TextEditingController phoneController =  TextEditingController();
+  TextEditingController addressController =  TextEditingController();
+  TextEditingController countryController =  TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
   Random random = Random();
@@ -197,18 +198,19 @@ class _AdminEditProfileScreenState extends State<AdminEditProfileScreen> {
   @override
   void initState() {
     super.initState();
-    _nameController.text = widget.user.name.toString();
-    _emailController.text = widget.user.email.toString();
-    _phoneController.text = widget.user.phone.toString();
-    _addressController.text = widget.user.address.toString();
-    _countryController.text = widget.user.origin.toString();
+    nameController.text = widget.user.name.toString();
+    emailController.text = widget.user.email.toString();
+    phoneController.text = widget.user.phone.toString();
+    addressController.text = widget.user.address.toString();
+    countryController.text = widget.user.origin.toString();
   }
 
+ @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          backgroundColor: Color(0xFFFF9EC9),
+          backgroundColor: const Color(0xFFFF9EC9),
           elevation: 1,
           title: Text("Edit Profile",
               textAlign: TextAlign.center,
@@ -242,7 +244,7 @@ class _AdminEditProfileScreenState extends State<AdminEditProfileScreen> {
                           height: 35,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(100),
-                            color: Color(0xFFFF9EC9),
+                            color: const Color(0xFFFF9EC9),
                           ),
                           child: GestureDetector(
                             onTap: () => {_updateImageDialog()},
@@ -258,7 +260,7 @@ class _AdminEditProfileScreenState extends State<AdminEditProfileScreen> {
                 Padding(
                     padding: const EdgeInsets.fromLTRB(0, 5, 0, 5),
                     child: TextFormField(
-                      controller: _nameController,
+                      controller: nameController,
                       decoration: InputDecoration(
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10.0),
@@ -283,7 +285,7 @@ class _AdminEditProfileScreenState extends State<AdminEditProfileScreen> {
                 Padding(
                     padding: const EdgeInsets.fromLTRB(0, 5, 0, 5),
                     child: TextFormField(
-                      controller: _emailController,
+                      controller: emailController,
                       decoration: InputDecoration(
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10.0),
@@ -315,7 +317,7 @@ class _AdminEditProfileScreenState extends State<AdminEditProfileScreen> {
                 Padding(
                     padding: const EdgeInsets.fromLTRB(0, 5, 0, 5),
                     child: TextFormField(
-                      controller: _phoneController,
+                      controller: phoneController,
                       decoration: InputDecoration(
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10.0),
@@ -343,7 +345,7 @@ class _AdminEditProfileScreenState extends State<AdminEditProfileScreen> {
                 Padding(
                     padding: const EdgeInsets.fromLTRB(0, 5, 0, 5),
                     child: TextFormField(
-                      controller: _addressController,
+                      controller: addressController,
                       decoration: InputDecoration(
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10.0),
@@ -370,7 +372,7 @@ class _AdminEditProfileScreenState extends State<AdminEditProfileScreen> {
                 Padding(
                     padding: const EdgeInsets.fromLTRB(0, 5, 0, 5),
                     child: TextFormField(
-                      controller: _countryController,
+                      controller: countryController,
                       decoration: InputDecoration(
                           labelText: 'Country',
                           prefixIcon: const Icon(Icons.flag_circle),
@@ -420,7 +422,7 @@ class _AdminEditProfileScreenState extends State<AdminEditProfileScreen> {
                           },
                         );
                         if (selectedCountry != null) {
-                          _countryController.text = selectedCountry;
+                          countryController.text = selectedCountry;
                         }
                       },
                       validator: (value) {
@@ -437,11 +439,12 @@ class _AdminEditProfileScreenState extends State<AdminEditProfileScreen> {
                   height: 50,
                   child: ElevatedButton(
                     onPressed: () async {
-                      if (_formKey.currentState!.validate())
-                      _updateProfile();
+                      if (_formKey.currentState!.validate()) {
+                        _updateProfile();
+                      }
                     },
                     style: ElevatedButton.styleFrom(
-                        backgroundColor: Color(0xFFFF9EC9),
+                        backgroundColor: const Color(0xFFFF9EC9),
                         side: BorderSide.none,
                         shape: const StadiumBorder()),
                     child: Text("Edit Profile",
@@ -501,7 +504,7 @@ class _AdminEditProfileScreenState extends State<AdminEditProfileScreen> {
       maxWidth: 800,
     );
     if (pickedFile != null) {
-      _image = File(pickedFile.path);
+      image = File(pickedFile.path);
       _cropImage();
     }
   }
@@ -514,14 +517,14 @@ class _AdminEditProfileScreenState extends State<AdminEditProfileScreen> {
       maxWidth: 800,
     );
     if (pickedFile != null) {
-      _image = File(pickedFile.path);
+      image = File(pickedFile.path);
       _cropImage();
     }
   }
 
   Future<void> _cropImage() async {
     CroppedFile? croppedFile = await ImageCropper().cropImage(
-      sourcePath: _image!.path,
+      sourcePath: image!.path,
       aspectRatioPresets: [
         CropAspectRatioPreset.square,
         CropAspectRatioPreset.ratio3x2,
@@ -532,8 +535,8 @@ class _AdminEditProfileScreenState extends State<AdminEditProfileScreen> {
     );
     if (croppedFile != null) {
       File imageFile = File(croppedFile.path);
-      _image = imageFile;
-      _updateProfileImage(_image);
+      image = imageFile;
+      _updateProfileImage(image);
     }
   }
 
@@ -542,7 +545,7 @@ class _AdminEditProfileScreenState extends State<AdminEditProfileScreen> {
     ProgressDialog pd = ProgressDialog(context: context);
     pd.show(msg: 'Uploading...', max: 100);
     http.post(
-        Uri.parse(CONSTANTS.server + "/enQRsure/php/updateprofilepicture.php/"),
+        Uri.parse("${CONSTANTS.server}/enQRsure/php/updateprofilepicture.php/"),
         body: {
           "userid": widget.user.id,
           "image": base64Image,
@@ -570,22 +573,22 @@ class _AdminEditProfileScreenState extends State<AdminEditProfileScreen> {
   }
 
   void _updateProfile() async {
-    String _name = _nameController.text;
-    String _email = _emailController.text;
-    String _phone = _phoneController.text;
-    String _address = _addressController.text;
-    String _origin = _countryController.text;
+    String name = nameController.text;
+    String email = emailController.text;
+    String phone = phoneController.text;
+    String address = addressController.text;
+    String origin = countryController.text;
     FocusScope.of(context).requestFocus(FocusNode());
 
     http.post(
-      Uri.parse(CONSTANTS.server + "/enQRsure/php/updateprofile.php/"),
+      Uri.parse("${CONSTANTS.server}/enQRsure/php/updateprofile.php/"),
       body: {
         "userid": widget.user.id.toString(),
-        "useremail": _email,
-        "username": _name,
-        "userphone": _phone,
-        "useraddress": _address,
-        "userorigin": _origin,
+        "useremail": email,
+        "username": name,
+        "userphone": phone,
+        "useraddress": address,
+        "userorigin": origin,
       },
     ).then((response) async {
       var data = jsonDecode(response.body);

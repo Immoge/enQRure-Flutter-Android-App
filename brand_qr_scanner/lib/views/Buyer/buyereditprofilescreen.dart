@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:math';
 import 'package:http/http.dart' as http;
-import 'package:enQRsure/views/Buyer/buyerprofilescreen.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -27,27 +26,28 @@ class _BuyerEditProfileScreenState extends State<BuyerEditProfileScreen> {
   late double screenHeight, screenWidth, resWidth;
   var _image;
   var val = 50;
-  TextEditingController _nameController = new TextEditingController();
-  TextEditingController _emailController = new TextEditingController();
-  TextEditingController _phoneController = new TextEditingController();
-  TextEditingController _addressController = new TextEditingController();
+  TextEditingController nameController =  TextEditingController();
+  TextEditingController emailController =  TextEditingController();
+  TextEditingController phoneController =  TextEditingController();
+  TextEditingController addressController =  TextEditingController();
   final _formKey = GlobalKey<FormState>();
   Random random = Random();
 
   @override
   void initState() {
     super.initState();
-    _nameController.text = widget.user.name.toString();
-    _emailController.text = widget.user.email.toString();
-    _phoneController.text = widget.user.phone.toString();
-    _addressController.text = widget.user.address.toString();
+    nameController.text = widget.user.name.toString();
+    emailController.text = widget.user.email.toString();
+    phoneController.text = widget.user.phone.toString();
+    addressController.text = widget.user.address.toString();
   }
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          backgroundColor: Color(0xFF54B5FF),
+          backgroundColor: const Color(0xFF54B5FF),
           elevation: 1,
           title: Text("Edit Profile",
               textAlign: TextAlign.center,
@@ -81,7 +81,7 @@ class _BuyerEditProfileScreenState extends State<BuyerEditProfileScreen> {
                           height: 35,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(100),
-                            color: Color(0xFF54B5FF),
+                            color: const Color(0xFF54B5FF),
                           ),
                           child: GestureDetector(
                             onTap: () => {_updateImageDialog()},
@@ -97,7 +97,7 @@ class _BuyerEditProfileScreenState extends State<BuyerEditProfileScreen> {
                     Padding(
                         padding: const EdgeInsets.fromLTRB(0, 5, 0, 5),
                         child: TextFormField(
-                          controller: _nameController,
+                          controller: nameController,
                           decoration: InputDecoration(
                               focusedBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10.0),
@@ -122,7 +122,7 @@ class _BuyerEditProfileScreenState extends State<BuyerEditProfileScreen> {
                     Padding(
                         padding: const EdgeInsets.fromLTRB(0, 5, 0, 5),
                         child: TextFormField(
-                          controller: _emailController,
+                          controller: emailController,
                           decoration: InputDecoration(
                               focusedBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10.0),
@@ -154,7 +154,7 @@ class _BuyerEditProfileScreenState extends State<BuyerEditProfileScreen> {
                     Padding(
                         padding: const EdgeInsets.fromLTRB(0, 5, 0, 5),
                         child: TextFormField(
-                          controller: _phoneController,
+                          controller: phoneController,
                           decoration: InputDecoration(
                               focusedBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10.0),
@@ -183,7 +183,7 @@ class _BuyerEditProfileScreenState extends State<BuyerEditProfileScreen> {
                     Padding(
                         padding: const EdgeInsets.fromLTRB(0, 5, 0, 5),
                         child: TextFormField(
-                          controller: _addressController,
+                          controller: addressController,
                           decoration: InputDecoration(
                               focusedBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10.0),
@@ -218,7 +218,7 @@ class _BuyerEditProfileScreenState extends State<BuyerEditProfileScreen> {
                       _updateProfile();
                     },
                     style: ElevatedButton.styleFrom(
-                        backgroundColor: Color(0xFF54B5FF),
+                        backgroundColor: const Color(0xFF54B5FF),
                         side: BorderSide.none,
                         shape: const StadiumBorder()),
                     child: Text("Edit Profile",
@@ -319,7 +319,7 @@ class _BuyerEditProfileScreenState extends State<BuyerEditProfileScreen> {
     ProgressDialog pd = ProgressDialog(context: context);
     pd.show(msg: 'Uploading...', max: 100);
     http.post(
-        Uri.parse(CONSTANTS.server + "/enQRsure/php/updateprofilepicture.php/"),
+        Uri.parse("${CONSTANTS.server}/enQRsure/php/updateprofilepicture.php/"),
         body: {
           "userid": widget.user.id,
           "image": base64Image,
@@ -347,22 +347,22 @@ class _BuyerEditProfileScreenState extends State<BuyerEditProfileScreen> {
   }
 
   void _updateProfile() async {
-    String _name = _nameController.text;
-    String _email = _emailController.text;
-    String _phone = _phoneController.text;
-    String _address = _addressController.text;
-    String _origin = "NULL";
+    String name = nameController.text;
+    String email = emailController.text;
+    String phone = phoneController.text;
+    String address = addressController.text;
+    String origin = "NULL";
     FocusScope.of(context).requestFocus(FocusNode());
 
     http.post(
-      Uri.parse(CONSTANTS.server + "/enQRsure/php/updateprofile.php/"),
+      Uri.parse("${CONSTANTS.server}/enQRsure/php/updateprofile.php/"),
       body: {
         "userid": widget.user.id.toString(),
-        "useremail": _email,
-        "username": _name,
-        "userphone": _phone,
-        "useraddress": _address,
-        "userorigin": _origin,
+        "useremail": email,
+        "username": name,
+        "userphone": phone,
+        "useraddress": address,
+        "userorigin": origin,
       },
     ).then((response) async {
       var data = jsonDecode(response.body);

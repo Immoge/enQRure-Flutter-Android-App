@@ -217,19 +217,19 @@ class _ManufacturerHomeScreenState extends State<ManufacturerHomeScreen> {
   List<Product> productList2 = <Product>[];
   final df = DateFormat('dd/MM/yyyy');
   TextEditingController searchController = TextEditingController();
-  final TextEditingController _prnameEditingController =
+  final TextEditingController prnameEditingController =
       TextEditingController();
-  final TextEditingController _prdescriptionEditingController =
+  final TextEditingController prdescriptionEditingController =
       TextEditingController();
-  final TextEditingController _prtypeEditingController =
+  final TextEditingController prtypeEditingController =
       TextEditingController();
-  final TextEditingController _prbarcodeEditingController =
+  final TextEditingController prbarcodeEditingController =
       TextEditingController();
-  final TextEditingController _prdateEditingController =
+  final TextEditingController prdateEditingController =
       TextEditingController();
-  final TextEditingController _prwarrantyEditingController =
+  final TextEditingController prwarrantyEditingController =
       TextEditingController();
-  final TextEditingController _proriginEditingController =
+  final TextEditingController proriginEditingController =
       TextEditingController();
 
   @override
@@ -251,7 +251,7 @@ class _ManufacturerHomeScreenState extends State<ManufacturerHomeScreen> {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        backgroundColor: Color(0xFF90E6C3),
+        backgroundColor: const Color(0xFF90E6C3),
         title: Text(
           "Manufacturer",
           textAlign: TextAlign.center,
@@ -279,15 +279,15 @@ class _ManufacturerHomeScreenState extends State<ManufacturerHomeScreen> {
               ),
             );
           },
-          child: Icon(Icons.add),
-          backgroundColor: Color(0xFF90E6C3),
+          backgroundColor: const Color(0xFF90E6C3),
           foregroundColor: Colors.white,
           elevation: 5,
+          child: const Icon(Icons.add),
         ),
       ),
       body: Column(
         children: [
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -296,8 +296,8 @@ class _ManufacturerHomeScreenState extends State<ManufacturerHomeScreen> {
                 child: TextButton(
                   style: ElevatedButton.styleFrom(
                     backgroundColor: _isFirstButtonSelected
-                        ? Color(0xFF888D88)
-                        : Color(0xFFCED0CE),
+                        ? const Color(0xFF888D88)
+                        : const Color(0xFFCED0CE),
                     side: BorderSide.none,
                   ),
                   child: Text(
@@ -311,7 +311,7 @@ class _ManufacturerHomeScreenState extends State<ManufacturerHomeScreen> {
                   onPressed: () async {
                     _selectFirstButton();
                     _pageController.previousPage(
-                      duration: Duration(milliseconds: 500),
+                      duration: const Duration(milliseconds: 500),
                       curve: Curves.easeInOut,
                     );
                   },
@@ -322,8 +322,8 @@ class _ManufacturerHomeScreenState extends State<ManufacturerHomeScreen> {
                 child: TextButton(
                   style: ElevatedButton.styleFrom(
                     backgroundColor: _isFirstButtonSelected
-                        ? Color(0xFFCED0CE)
-                        : Color(0xFF888D88),
+                        ? const Color(0xFFCED0CE)
+                        : const Color(0xFF888D88),
                     side: BorderSide.none,
                   ),
                   child: Text(
@@ -337,7 +337,7 @@ class _ManufacturerHomeScreenState extends State<ManufacturerHomeScreen> {
                   onPressed: () async {
                     _selectSecondButton();
                     _pageController.nextPage(
-                      duration: Duration(milliseconds: 500),
+                      duration: const Duration(milliseconds: 500),
                       curve: Curves.easeInOut,
                     );
                   },
@@ -448,7 +448,7 @@ class _ManufacturerHomeScreenState extends State<ManufacturerHomeScreen> {
                               scrollDirection: Axis.horizontal,
                               itemBuilder: (context, index) {
                                 if ((curpage - 1) == index) {
-                                  color = Color(0xFF90E6C3);
+                                  color = const Color(0xFF90E6C3);
                                 } else {
                                   color = Colors.black;
                                 }
@@ -560,7 +560,7 @@ class _ManufacturerHomeScreenState extends State<ManufacturerHomeScreen> {
                               scrollDirection: Axis.horizontal,
                               itemBuilder: (context, index) {
                                 if ((curpage - 1) == index) {
-                                  color = Color(0xFF90E6C3);
+                                  color = const Color(0xFF90E6C3);
                                 } else {
                                   color = Colors.black;
                                 }
@@ -599,16 +599,15 @@ class _ManufacturerHomeScreenState extends State<ManufacturerHomeScreen> {
     });
   }
 
-  void _loadRecordedProduct(int pageno, String _search) {
+  void _loadRecordedProduct(int pageno, String search) {
     curpage = pageno;
     numofpage ??= 1;
     String userid = widget.user.id.toString();
     http.post(
-      Uri.parse(CONSTANTS.server +
-          "/enQRsure/php/loadmanufacturerrecordedproduct.php"),
+      Uri.parse("${CONSTANTS.server}/enQRsure/php/loadmanufacturerrecordedproduct.php"),
       body: {
         'pageno': pageno.toString(),
-        'search': _search,
+        'search': search,
         'userid': userid,
       },
     ).timeout(
@@ -718,7 +717,7 @@ class _ManufacturerHomeScreenState extends State<ManufacturerHomeScreen> {
                           fontWeight: FontWeight.bold,
                           color: Colors.black)),
                   Text(
-                      productList[index].productWarranty.toString() + " Months",
+                      "${productList[index].productWarranty} Months",
                       style: GoogleFonts.montserrat(
                           fontSize: 16, color: Colors.black)),
                   const SizedBox(height: 10),
@@ -758,10 +757,10 @@ class _ManufacturerHomeScreenState extends State<ManufacturerHomeScreen> {
                                 version: QrVersions.auto,
                                 size: 200,
                                 gapless: false,
-                                embeddedImage: AssetImage(
+                                embeddedImage: const AssetImage(
                                     'assets/images/enQRsure logo.png'),
                                 embeddedImageStyle: QrEmbeddedImageStyle(
-                                  size: Size(40, 40),
+                                  size: const Size(40, 40),
                                 ),
                               ),
                             ),
@@ -779,7 +778,7 @@ class _ManufacturerHomeScreenState extends State<ManufacturerHomeScreen> {
                           _editProductDetails(index);
                         },
                         style: ElevatedButton.styleFrom(
-                            backgroundColor: Color(0xFF77CE80),
+                            backgroundColor: const Color(0xFF77CE80),
                             side: BorderSide.none,
                             shape: const StadiumBorder()),
                         child: const Text("Edit Product",
@@ -799,7 +798,7 @@ class _ManufacturerHomeScreenState extends State<ManufacturerHomeScreen> {
                           deleteProduct(index);
                         },
                         style: ElevatedButton.styleFrom(
-                            backgroundColor: Color(0xFFF5595D),
+                            backgroundColor: const Color(0xFFF5595D),
                             side: BorderSide.none,
                             shape: const StadiumBorder()),
                         child: const Text("Delete Product",
@@ -816,7 +815,7 @@ class _ManufacturerHomeScreenState extends State<ManufacturerHomeScreen> {
                 child: Text(
                   "Download QR Code",
                   style: GoogleFonts.montserrat(
-                    color: Color(0xFF90E6C3),
+                    color: const Color(0xFF90E6C3),
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
                   ),
@@ -829,7 +828,7 @@ class _ManufacturerHomeScreenState extends State<ManufacturerHomeScreen> {
                 child: Text(
                   "Close",
                   style: GoogleFonts.montserrat(
-                      color: Color(0xFF90E6C3),
+                      color: const Color(0xFF90E6C3),
                       fontSize: 18,
                       fontWeight: FontWeight.bold),
                 ),
@@ -843,16 +842,16 @@ class _ManufacturerHomeScreenState extends State<ManufacturerHomeScreen> {
   }
 
   void _editProductDetails(int index) {
-    _prnameEditingController.text = productList[index].productName.toString();
-    _prdescriptionEditingController.text =
+    prnameEditingController.text = productList[index].productName.toString();
+    prdescriptionEditingController.text =
         productList[index].productDescription.toString();
-    _prtypeEditingController.text = productList[index].productType.toString();
-    _prbarcodeEditingController.text =
+    prtypeEditingController.text = productList[index].productType.toString();
+    prbarcodeEditingController.text =
         productList[index].productWarranty.toString();
-    _prdateEditingController.text = productList[index].productDate.toString();
-    _prwarrantyEditingController.text =
+    prdateEditingController.text = productList[index].productDate.toString();
+    prwarrantyEditingController.text =
         productList[index].productWarranty.toString();
-    _proriginEditingController.text =
+    proriginEditingController.text =
         productList[index].productOrigin.toString();
     showDialog(
       context: context,
@@ -895,7 +894,7 @@ class _ManufacturerHomeScreenState extends State<ManufacturerHomeScreen> {
                 Form(
                     child: Column(children: [
                   TextFormField(
-                    controller: _prnameEditingController,
+                    controller: prnameEditingController,
                     decoration: InputDecoration(
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10.0),
@@ -918,7 +917,7 @@ class _ManufacturerHomeScreenState extends State<ManufacturerHomeScreen> {
                   ),
                   const SizedBox(height: 10),
                   TextFormField(
-                    controller: _prdescriptionEditingController,
+                    controller: prdescriptionEditingController,
                     minLines: 6,
                     keyboardType: TextInputType.multiline,
                     maxLines: 6,
@@ -944,7 +943,7 @@ class _ManufacturerHomeScreenState extends State<ManufacturerHomeScreen> {
                   ),
                   const SizedBox(height: 10),
                   TextFormField(
-                    controller: _prtypeEditingController,
+                    controller: prtypeEditingController,
                     decoration: InputDecoration(
                         labelText: 'Product Type',
                         prefixIcon: const Icon(LineAwesomeIcons.tags),
@@ -993,7 +992,7 @@ class _ManufacturerHomeScreenState extends State<ManufacturerHomeScreen> {
                         },
                       );
                       if (selectedProductType != null) {
-                        _prtypeEditingController.text = selectedProductType;
+                        prtypeEditingController.text = selectedProductType;
                       }
                     },
                     validator: (value) {
@@ -1005,7 +1004,7 @@ class _ManufacturerHomeScreenState extends State<ManufacturerHomeScreen> {
                   ),
                   const SizedBox(height: 10),
                   TextFormField(
-                    controller: _prbarcodeEditingController,
+                    controller: prbarcodeEditingController,
                     decoration: InputDecoration(
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10.0),
@@ -1024,7 +1023,7 @@ class _ManufacturerHomeScreenState extends State<ManufacturerHomeScreen> {
                                 await FlutterBarcodeScanner.scanBarcode(
                                     "#ff6666", "Back", false, ScanMode.DEFAULT);
                             setState(() {
-                              _prbarcodeEditingController.text = barcodeScanRes;
+                              prbarcodeEditingController.text = barcodeScanRes;
                             });
                           },
                         ),
@@ -1038,7 +1037,7 @@ class _ManufacturerHomeScreenState extends State<ManufacturerHomeScreen> {
                   ),
                   const SizedBox(height: 10),
                   TextFormField(
-                    controller: _prdateEditingController,
+                    controller: prdateEditingController,
                     decoration: InputDecoration(
                         labelText: 'Manufacturer Date',
                         prefixIcon: const Icon(LineAwesomeIcons.calendar),
@@ -1059,7 +1058,7 @@ class _ManufacturerHomeScreenState extends State<ManufacturerHomeScreen> {
                         String formattedDate =
                             DateFormat('yyyy-MM-dd').format(pickedDate);
                         setState(() {
-                          _prdateEditingController.text = formattedDate;
+                          prdateEditingController.text = formattedDate;
                         });
                       }
                     },
@@ -1072,7 +1071,7 @@ class _ManufacturerHomeScreenState extends State<ManufacturerHomeScreen> {
                   ),
                   const SizedBox(height: 10),
                   TextFormField(
-                    controller: _prwarrantyEditingController,
+                    controller: prwarrantyEditingController,
                     decoration: InputDecoration(
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10.0),
@@ -1095,7 +1094,7 @@ class _ManufacturerHomeScreenState extends State<ManufacturerHomeScreen> {
                   ),
                   const SizedBox(height: 10),
                   TextFormField(
-                    controller: _proriginEditingController,
+                    controller: proriginEditingController,
                     decoration: InputDecoration(
                         labelText: 'Product Origin',
                         prefixIcon: const Icon(LineAwesomeIcons.tags),
@@ -1144,7 +1143,7 @@ class _ManufacturerHomeScreenState extends State<ManufacturerHomeScreen> {
                         },
                       );
                       if (selectedProductOrigin != null) {
-                        _proriginEditingController.text = selectedProductOrigin;
+                        proriginEditingController.text = selectedProductOrigin;
                       }
                     },
                     validator: (value) {
@@ -1164,7 +1163,7 @@ class _ManufacturerHomeScreenState extends State<ManufacturerHomeScreen> {
                         updateProduct(index);
                       },
                       style: ElevatedButton.styleFrom(
-                          backgroundColor: Color(0xFF90E6C3),
+                          backgroundColor: const Color(0xFF90E6C3),
                           side: BorderSide.none,
                           shape: const StadiumBorder()),
                       child: Text("Update Product",
@@ -1183,7 +1182,7 @@ class _ManufacturerHomeScreenState extends State<ManufacturerHomeScreen> {
               child: Text(
                 "Close",
                 style: GoogleFonts.montserrat(
-                  color: Color(0xFF90E6C3),
+                  color: const Color(0xFF90E6C3),
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
                 ),
@@ -1218,26 +1217,26 @@ class _ManufacturerHomeScreenState extends State<ManufacturerHomeScreen> {
   }
 
   void updateProduct(int index) async {
-    String _prname = _prnameEditingController.text;
-    String _prdescription = _prdescriptionEditingController.text;
-    String _prtype = _prtypeEditingController.text;
-    String _prbarcode = _prbarcodeEditingController.text;
-    String _prdate = _prdateEditingController.text;
-    String _prwarranty = _prwarrantyEditingController.text;
-    String _prorigin = _proriginEditingController.text;
+    String prname = prnameEditingController.text;
+    String prdescription = prdescriptionEditingController.text;
+    String prtype = prtypeEditingController.text;
+    String prbarcode = prbarcodeEditingController.text;
+    String prdate = prdateEditingController.text;
+    String prwarranty = prwarrantyEditingController.text;
+    String prorigin = proriginEditingController.text;
     FocusScope.of(context).requestFocus(FocusNode());
 
     http.post(
-      Uri.parse(CONSTANTS.server + "/enQRsure/php/updateproduct.php/"),
+      Uri.parse("${CONSTANTS.server}/enQRsure/php/updateproduct.php/"),
       body: {
         "productid": productList[index].productId.toString(),
-        "productname": _prname,
-        "productdescription": _prdescription,
-        "producttype": _prtype,
-        "productbarcode": _prbarcode,
-        "productdate": _prdate,
-        "productwarranty": _prwarranty,
-        "productorigin": _prorigin,
+        "productname": prname,
+        "productdescription": prdescription,
+        "producttype": prtype,
+        "productbarcode": prbarcode,
+        "productdate": prdate,
+        "productwarranty": prwarranty,
+        "productorigin": prorigin,
       },
     ).then((response) async {
       var data = jsonDecode(response.body);
@@ -1270,7 +1269,7 @@ class _ManufacturerHomeScreenState extends State<ManufacturerHomeScreen> {
   }
 
   void deleteProduct(int index) {
-    http.post(Uri.parse(CONSTANTS.server + "/enQRsure/php/deleteproduct.php"),
+    http.post(Uri.parse("${CONSTANTS.server}/enQRsure/php/deleteproduct.php"),
         body: {"productid": productList[index].productId}).then((response) {
       var jsondata = jsonDecode(response.body);
       if (response.statusCode == 200 && jsondata['status'] == 'success') {
@@ -1293,16 +1292,15 @@ class _ManufacturerHomeScreenState extends State<ManufacturerHomeScreen> {
     });
   }
 
-  void _loadRegisteredProduct(int pageno, String _search) {
+  void _loadRegisteredProduct(int pageno, String search) {
     curpage = pageno;
     numofpage ??= 1;
     String userid = widget.user.id.toString();
     http.post(
-      Uri.parse(CONSTANTS.server +
-          "/enQRsure/php/loadmanufacturerregisteredproduct.php"),
+      Uri.parse("${CONSTANTS.server}/enQRsure/php/loadmanufacturerregisteredproduct.php"),
       body: {
         'pageno': pageno.toString(),
-        'search': _search,
+        'search': search,
         'userid': userid,
       },
     ).timeout(
@@ -1412,8 +1410,7 @@ class _ManufacturerHomeScreenState extends State<ManufacturerHomeScreen> {
                           fontWeight: FontWeight.bold,
                           color: Colors.black)),
                   Text(
-                      productList2[index].productWarranty.toString() +
-                          " Months",
+                      "${productList2[index].productWarranty} Months",
                       style: GoogleFonts.montserrat(
                           fontSize: 16, color: Colors.black)),
                   const SizedBox(height: 10),
@@ -1445,7 +1442,7 @@ class _ManufacturerHomeScreenState extends State<ManufacturerHomeScreen> {
                 child: Text(
                   "Close",
                   style: GoogleFonts.montserrat(
-                      color: Color(0xFF90E6C3),
+                      color: const Color(0xFF90E6C3),
                       fontSize: 18,
                       fontWeight: FontWeight.bold),
                 ),

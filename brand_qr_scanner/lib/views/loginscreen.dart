@@ -13,8 +13,6 @@ import 'package:http/http.dart' as http;
 import '../../models/user.dart';
 import '../constants.dart';
 
-import 'Buyer/buyerhomescreen.dart';
-
 class LoginScreen extends StatefulWidget {
   const LoginScreen({
     Key? key,
@@ -199,14 +197,12 @@ class _LoginScreenState extends State<LoginScreen> {
       return;
     }
 
-    String _email = _emailEditingController.text;
-    String _pass = _passEditingController.text;
-    http.post(Uri.parse(CONSTANTS.server + "/enQRsure/php/login.php/"),
-        body: {"email": _email, "password": _pass}).then((response) {
-      print(response.body);
+    String email = _emailEditingController.text;
+    String pass = _passEditingController.text;
+    http.post(Uri.parse("${CONSTANTS.server}/enQRsure/php/login.php/"),
+        body: {"email": email, "password": pass}).then((response) {
       var jsonResponse = json.decode(response.body);
       if (response.statusCode == 200 && jsonResponse['status'] == "success") {
-        print(jsonResponse);
         User user = User.fromJson(jsonResponse['data']);
         if (user.roleid == "1") {
           Navigator.push(
@@ -245,7 +241,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   void _goRegister() {
     Navigator.push(
-        context, MaterialPageRoute(builder: (content) => RegisterScreen()));
+        context, MaterialPageRoute(builder: (content) => const RegisterScreen()));
   }
 
   void saveremovepref(bool value) async {

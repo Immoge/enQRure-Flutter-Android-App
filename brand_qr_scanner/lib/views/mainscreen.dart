@@ -1,7 +1,6 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:enQRsure/views/Buyer/buyerregisterproductscreen.dart';
-import 'package:enQRsure/views/profilescreen.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import '../models/user.dart';
 import 'Buyer/buyerhistoryscreen.dart';
@@ -40,8 +39,8 @@ class _MainScreenState extends State<MainScreen> {
       bottomNavigationBar: 
         CurvedNavigationBar(
           backgroundColor: Colors.white,
-          color: Color(0xFF54B5FF),
-          animationDuration: Duration(milliseconds: 300),
+          color: const Color(0xFF54B5FF),
+          animationDuration: const Duration(milliseconds: 300),
           onTap: onTabTapped,
           index: _currentIndex,
           items: const [
@@ -76,7 +75,7 @@ class _MainScreenState extends State<MainScreen> {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => LoginScreen(),
+          builder: (context) => const LoginScreen(),
         ),
       );
     } else {

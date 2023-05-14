@@ -1,9 +1,9 @@
-import 'package:enQRsure/views/Buyer/buyerprofilescreen.dart';
+
 import 'package:enQRsure/views/mainscreen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../models/user.dart';
+import 'package:enQRsure/models/user.dart';
 
 class LandingScreen extends StatefulWidget {
   const LandingScreen({Key? key}) : super(key: key);
@@ -61,7 +61,7 @@ class _LandingScreenState extends State<LandingScreen> {
                     ...List.generate(
                         landingScreenData.length,
                         (index) => Padding(
-                              padding: EdgeInsets.all(8),
+                              padding: const EdgeInsets.all(8),
                               child:
                                   DotIndicator(isActive: index == _pageIndex),
                             )),
@@ -77,7 +77,7 @@ class _LandingScreenState extends State<LandingScreen> {
                       height: 50,
                       elevation: 10,
                       onPressed: _goHome,
-                      color: Color(0xFF54B5FF),
+                      color: const Color(0xFF54B5FF),
                       child: const Icon(
                         Icons.arrow_forward,
                         color: Colors.white,

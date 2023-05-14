@@ -219,7 +219,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (BuildContext context) => RegisterScreen()));
+                        builder: (BuildContext context) => const RegisterScreen()));
               },
             ),
             TextButton(
@@ -264,7 +264,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (BuildContext context) => LoginScreen()));
+                        builder: (BuildContext context) => const LoginScreen()));
               },
             ),
             TextButton(
@@ -377,7 +377,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     String base64Image = base64Encode(image!.readAsBytesSync());
     ProgressDialog pd = ProgressDialog(context: context);
     pd.show(msg: 'Uploading...', max: 100);
-    http.post(Uri.parse(CONSTANTS.server + "/enQRsure/php/updateprofile.php"),
+    http.post(Uri.parse("${CONSTANTS.server}/enQRsure/php/updateprofile.php"),
         body: {
           "email": widget.user.email,
           "image": base64Image,
@@ -465,7 +465,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   void _updateName(String newname) {
     ProgressDialog pd = ProgressDialog(context: context);
     pd.show(msg: 'Updating...', max: 100);
-    http.post(Uri.parse(CONSTANTS.server + "/enQRsure/php/updateprofile.php"),
+    http.post(Uri.parse("${CONSTANTS.server}/enQRsure/php/updateprofile.php"),
         body: {
           "email": widget.user.email,
           "newname": newname,
@@ -554,7 +554,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   void _updatePhone(String newphone) {
     ProgressDialog pd = ProgressDialog(context: context);
     pd.show(msg: 'Updating...', max: 100);
-    http.post(Uri.parse(CONSTANTS.server + "/enQRsure/php/updateprofile.php"),
+    http.post(Uri.parse("${CONSTANTS.server}/enQRsure/php/updateprofile.php"),
         body: {
           "email": widget.user.email,
           "newphone": newphone,
@@ -727,7 +727,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (BuildContext context) => LoginScreen()));
+                        builder: (BuildContext context) => const LoginScreen()));
               },
             ),
             TextButton(

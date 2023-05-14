@@ -74,7 +74,7 @@ class _ManufacturerRegisterProductScreenState
   }
 
   Widget buildControlButtons() => Container(
-        padding: EdgeInsets.symmetric(horizontal: 16),
+        padding: const EdgeInsets.symmetric(horizontal: 16),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10), color: Colors.white),
         child: Row(
@@ -103,7 +103,7 @@ class _ManufacturerRegisterProductScreenState
                   future: controller?.getCameraInfo(),
                   builder: (context, snapshot) {
                     if (snapshot.data != null) {
-                      return Icon(Icons.switch_camera);
+                      return const Icon(Icons.switch_camera);
                     } else {
                       return Container();
                     }
@@ -119,7 +119,7 @@ class _ManufacturerRegisterProductScreenState
       );
 
   Widget buildResult() => Container(
-        padding: EdgeInsets.all(20),
+        padding: const EdgeInsets.all(20),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           color: Colors.white,
@@ -139,7 +139,7 @@ class _ManufacturerRegisterProductScreenState
         key: qrKey,
         onQRViewCreated: onQRViewCreated,
         overlay: QrScannerOverlayShape(
-          borderColor: Color(0xFF90E6C3),
+          borderColor: const Color(0xFF90E6C3),
           borderRadius: 20,
           borderLength: 30,
           borderWidth: 10,
@@ -246,7 +246,7 @@ class _ManufacturerRegisterProductScreenState
                                 fontSize: 16,
                                 fontWeight: FontWeight.bold,
                                 color: Colors.black)),
-                        Text(product.productWarranty.toString() + " Months",
+                        Text("${product.productWarranty} Months",
                             style: GoogleFonts.montserrat(
                                 fontSize: 16, color: Colors.black)),
                         const SizedBox(height: 10),
@@ -278,7 +278,7 @@ class _ManufacturerRegisterProductScreenState
                                 registerProduct(product);
                               },
                               style: ElevatedButton.styleFrom(
-                                  backgroundColor: Color(0xFF77CE80),
+                                  backgroundColor: const Color(0xFF77CE80),
                                   side: BorderSide.none,
                                   shape: const StadiumBorder()),
                               child: const Text("Register Product",
@@ -296,7 +296,7 @@ class _ManufacturerRegisterProductScreenState
                   child: Text(
                     "Close",
                     style: GoogleFonts.montserrat(
-                        color: Color(0xFF90E6C3),
+                        color: const Color(0xFF90E6C3),
                         fontSize: 18,
                         fontWeight: FontWeight.bold),
                   ),
@@ -319,19 +319,16 @@ class _ManufacturerRegisterProductScreenState
 
   _loadProductInfo() async {
     http.post(
-      Uri.parse(CONSTANTS.server + "/enQRsure/php/loadregisterproduct.php/"),
+      Uri.parse("${CONSTANTS.server}/enQRsure/php/loadregisterproduct.php/"),
       body: {
         "encryptedcode": barcode.toString(),
       },
     ).then((response) {
-      print(response.body);
       var jsonResponse = json.decode(response.body);
       if (response.statusCode == 200 && jsonResponse['status'] == "success") {
-        print(jsonResponse);
         Product product = Product.fromJson(jsonResponse['data']);
         _loadProductDialog(product);
       } else {
-        print(jsonResponse);
         Fluttertoast.showToast(
           msg: "Invalid QR Code!",
           toastLength: Toast.LENGTH_SHORT,
@@ -408,6 +405,5 @@ class _ManufacturerRegisterProductScreenState
         ),
       );
     }
-    ;
   }
 }

@@ -8,7 +8,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
-import 'package:sn_progress_dialog/progress_dialog.dart';
 import 'package:http/http.dart' as http;
 
 class AdminHomeScreen extends StatefulWidget {
@@ -23,9 +22,8 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
   List<DisplayedUser> userList = <DisplayedUser>[];
   late double screenHeight, screenWidth, resWidth;
   final df = DateFormat('dd/MM/yyyy');
-  var _tapPosition;
-  var numofpage, curpage = 1;
-  var color;
+  dynamic numofpage, curpage = 1;
+  dynamic color;
   String search = "";
   String titleCenter = "Loading...";
   String roleType = "";
@@ -190,12 +188,12 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
   List<String> roleList = ['Admin', 'Manufacturer', 'Retailer', 'Buyer'];
   String? selectedItem1 = 'Buyer';
   String? selectedItem2 = 'Malaysia';
-  TextEditingController _nameController = new TextEditingController();
-  TextEditingController _emailController = new TextEditingController();
-  TextEditingController _phoneController = new TextEditingController();
-  TextEditingController _addressController = new TextEditingController();
-  TextEditingController _roleController = new TextEditingController();
-  TextEditingController _countryController = new TextEditingController();
+  TextEditingController nameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController phoneController = TextEditingController();
+  TextEditingController addressController = TextEditingController();
+  TextEditingController roleController = TextEditingController();
+  TextEditingController countryController = TextEditingController();
   TextEditingController searchController = TextEditingController();
 
   @override
@@ -216,7 +214,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        backgroundColor: Color(0xFFFF9EC9),
+        backgroundColor: const Color(0xFFFF9EC9),
         title: Text(
           "Account List",
           style: GoogleFonts.openSans(
@@ -252,7 +250,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                     controller: searchController,
                     decoration: InputDecoration(
                       suffixIcon: GestureDetector(
-                        child: Icon(Icons.search, color: Colors.black),
+                        child: const Icon(Icons.search, color: Colors.black),
                         onTap: () {
                           search = searchController.text;
                           _loadUsers(1, search);
@@ -306,7 +304,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (context, index) {
                     if ((curpage - 1) == index) {
-                      color = Color(0xFFFF9EC9);
+                      color = const Color(0xFFFF9EC9);
                     } else {
                       color = Colors.black;
                     }
@@ -326,14 +324,14 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
     );
   }
 
-  void _loadUsers(int pageno, String _search) {
+  void _loadUsers(int pageno, String search) {
     curpage = pageno;
     numofpage ??= 1;
     http.post(
-      Uri.parse(CONSTANTS.server + "/enQRsure/php/loaduser.php"),
+      Uri.parse("${CONSTANTS.server}/enQRsure/php/loaduser.php"),
       body: {
         'pageno': pageno.toString(),
-        'search': _search,
+        'search': search,
       },
     ).timeout(
       const Duration(seconds: 5),
@@ -421,7 +419,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
                           color: Colors.black)),
-                  Text("0" + userList[index].userPhone.toString(),
+                  Text("0${userList[index].userPhone}",
                       style: GoogleFonts.montserrat(
                           fontSize: 16, color: Colors.black)),
                   const SizedBox(height: 10),
@@ -473,7 +471,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                           _editUserDetails(index);
                         },
                         style: ElevatedButton.styleFrom(
-                            backgroundColor: Color(0xFF77CE80),
+                            backgroundColor: const Color(0xFF77CE80),
                             side: BorderSide.none,
                             shape: const StadiumBorder()),
                         child: const Text("Edit User Account",
@@ -493,7 +491,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                           _deleteUser(index);
                         },
                         style: ElevatedButton.styleFrom(
-                            backgroundColor: Color(0xFFF5595D),
+                            backgroundColor: const Color(0xFFF5595D),
                             side: BorderSide.none,
                             shape: const StadiumBorder()),
                         child: const Text("Delete User Account",
@@ -510,7 +508,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                 child: Text(
                   "Close",
                   style: GoogleFonts.montserrat(
-                      color: Color(0xFFFF9EC9),
+                      color: const Color(0xFFFF9EC9),
                       fontSize: 18,
                       fontWeight: FontWeight.bold),
                 ),
@@ -524,7 +522,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
   }
 
   void _deleteUser(int index) {
-    http.post(Uri.parse(CONSTANTS.server + "/enQRsure/php/deleteuser.php"),
+    http.post(Uri.parse("${CONSTANTS.server}/enQRsure/php/deleteuser.php"),
         body: {"userid": userList[index].userId}).then((response) {
       var jsondata = jsonDecode(response.body);
       if (response.statusCode == 200 && jsondata['status'] == 'success') {
@@ -558,12 +556,12 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
       roleType = "Buyer";
     }
 
-    _nameController.text = userList[index].userName.toString();
-    _emailController.text = userList[index].userEmail.toString();
-    _phoneController.text = userList[index].userPhone.toString();
-    _addressController.text = userList[index].userAddress.toString();
-    _roleController.text = roleType.toString();
-    _countryController.text = userList[index].userOrigin.toString();
+    nameController.text = userList[index].userName.toString();
+    emailController.text = userList[index].userEmail.toString();
+    phoneController.text = userList[index].userPhone.toString();
+    addressController.text = userList[index].userAddress.toString();
+    roleController.text = roleType.toString();
+    countryController.text = userList[index].userOrigin.toString();
 
     showDialog(
       context: context,
@@ -607,7 +605,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                     key: _formKey,
                     child: Column(children: [
                       TextFormField(
-                        controller: _nameController,
+                        controller: nameController,
                         decoration: InputDecoration(
                             focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10.0),
@@ -630,7 +628,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                       ),
                       const SizedBox(height: 10),
                       TextFormField(
-                        controller: _emailController,
+                        controller: emailController,
                         decoration: InputDecoration(
                             focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10.0),
@@ -660,7 +658,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                       ),
                       const SizedBox(height: 10),
                       TextFormField(
-                        controller: _phoneController,
+                        controller: phoneController,
                         decoration: InputDecoration(
                             focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10.0),
@@ -687,7 +685,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                       ),
                       const SizedBox(height: 10),
                       TextFormField(
-                        controller: _addressController,
+                        controller: addressController,
                         decoration: InputDecoration(
                             focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10.0),
@@ -713,7 +711,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                       ),
                       const SizedBox(height: 10),
                       TextFormField(
-                        controller: _countryController,
+                        controller: countryController,
                         decoration: InputDecoration(
                             labelText: 'Country',
                             prefixIcon: const Icon(Icons.flag_circle),
@@ -764,7 +762,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                             },
                           );
                           if (selectedCountry != null) {
-                            _countryController.text = selectedCountry;
+                            countryController.text = selectedCountry;
                           }
                         },
                         validator: (value) {
@@ -776,7 +774,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                       ),
                       const SizedBox(height: 10),
                       TextFormField(
-                        controller: _roleController,
+                        controller: roleController,
                         decoration: InputDecoration(
                             labelText: 'Role',
                             prefixIcon: const Icon(LineAwesomeIcons.user_tag),
@@ -826,7 +824,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                             },
                           );
                           if (selectedRole != null) {
-                            _roleController.text = selectedRole;
+                            roleController.text = selectedRole;
                           }
                         },
                         validator: (value) {
@@ -848,7 +846,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                         }
                       },
                       style: ElevatedButton.styleFrom(
-                          backgroundColor: Color(0xFFFF9EC9),
+                          backgroundColor: const Color(0xFFFF9EC9),
                           side: BorderSide.none,
                           shape: const StadiumBorder()),
                       child: Text("Update User Profile",
@@ -867,7 +865,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
               child: Text(
                 "Close",
                 style: GoogleFonts.montserrat(
-                  color: Color(0xFFFF9EC9),
+                  color: const Color(0xFFFF9EC9),
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
                 ),
@@ -883,34 +881,34 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
   }
 
   void _updateProfile(int index) async {
-    String _name = _nameController.text;
-    String _email = _emailController.text;
-    String _phone = _phoneController.text;
-    String _address = _addressController.text;
-    String _role = _roleController.text;
-    String _origin = _countryController.text;
+    String name = nameController.text;
+    String email = emailController.text;
+    String phone = phoneController.text;
+    String address = addressController.text;
+    String role = roleController.text;
+    String origin = countryController.text;
     String roleId = "";
     FocusScope.of(context).requestFocus(FocusNode());
-    if (_role == "Admin") {
+    if (role == "Admin") {
       roleId = "1";
-    } else if (_role == "Manufacturer") {
+    } else if (role == "Manufacturer") {
       roleId = "2";
-    } else if (_role == "Retailer") {
+    } else if (role == "Retailer") {
       roleId = "3";
-    } else if (_role == "Buyer") {
+    } else if (role == "Buyer") {
       roleId = "4";
     }
 
     http.post(
-      Uri.parse(CONSTANTS.server + "/enQRsure/php/updateprofile.php/"),
+      Uri.parse("${CONSTANTS.server}/enQRsure/php/updateprofile.php/"),
       body: {
         "userid": userList[index].userId.toString(),
-        "useremail": _email,
-        "username": _name,
-        "userphone": _phone,
-        "useraddress": _address,
+        "useremail": email,
+        "username": name,
+        "userphone": phone,
+        "useraddress": address,
         "roleid": roleId,
-        "userorigin": _origin,
+        "userorigin": origin,
       },
     ).then((response) async {
       var data = jsonDecode(response.body);

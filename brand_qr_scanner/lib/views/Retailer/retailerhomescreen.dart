@@ -45,7 +45,7 @@ class _RetailerHomeScreenState extends State<RetailerHomeScreen> {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        backgroundColor: Color(0xFFFFB747),
+        backgroundColor: const Color(0xFFFFB747),
         title: Text("Retailer",
             textAlign: TextAlign.center,
             style: GoogleFonts.openSans(
@@ -135,7 +135,7 @@ class _RetailerHomeScreenState extends State<RetailerHomeScreen> {
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (context, index) {
                     if ((curpage - 1) == index) {
-                      color = Color(0xFFFFB747);
+                      color = const Color(0xFFFFB747);
                     } else {
                       color = Colors.black;
                     }
@@ -156,16 +156,15 @@ class _RetailerHomeScreenState extends State<RetailerHomeScreen> {
     );
   }
 
-  void _loadRegisteredProduct(int pageno, String _search) {
+  void _loadRegisteredProduct(int pageno, String search) {
     curpage = pageno;
     numofpage ??= 1;
     String userid = widget.user.id.toString();
     http.post(
-      Uri.parse(CONSTANTS.server +
-          "/enQRsure/php/loadretailerregisteredproduct.php"),
+      Uri.parse("${CONSTANTS.server}/enQRsure/php/loadretailerregisteredproduct.php"),
       body: {
         'pageno': pageno.toString(),
-        'search': _search,
+        'search': search,
         'userid': userid,
       },
     ).timeout(
@@ -275,7 +274,7 @@ class _RetailerHomeScreenState extends State<RetailerHomeScreen> {
                           fontWeight: FontWeight.bold,
                           color: Colors.black)),
                   Text(
-                      productList[index].productWarranty.toString() + " Months",
+                      "${productList[index].productWarranty} Months",
                       style: GoogleFonts.montserrat(
                           fontSize: 16, color: Colors.black)),
                   const SizedBox(height: 10),
@@ -307,7 +306,7 @@ class _RetailerHomeScreenState extends State<RetailerHomeScreen> {
                 child: Text(
                   "Close",
                   style: GoogleFonts.montserrat(
-                      color: Color(0xFFFFB747),
+                      color: const Color(0xFFFFB747),
                       fontSize: 18,
                       fontWeight: FontWeight.bold),
                 ),

@@ -1,11 +1,8 @@
 import 'dart:convert';
 import 'dart:io';
-
 import 'package:enQRsure/constants.dart';
 import 'package:enQRsure/models/user.dart';
-import 'package:enQRsure/views/Admin/adminhomescreen.dart';
 import 'package:enQRsure/views/Admin/adminmainscreen.dart';
-import 'package:enQRsure/views/loginscreen.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -22,11 +19,10 @@ class AdminAddAccountScreen extends StatefulWidget {
 }
 
 class _AdminAddAccountScreenState extends State<AdminAddAccountScreen> {
-  @override
   late double screenHeight, screenWidth, ctrWidth;
   String pathAsset = 'assets/images/camera.png';
-  var _image;
   bool passVisible = true;
+  dynamic image;
   bool passVisible2 = true;
   List<String> roleList = ['Admin', 'Manufacturer', 'Retailer'];
   List<String> countryList = [
@@ -198,7 +194,7 @@ class _AdminAddAccountScreenState extends State<AdminAddAccountScreen> {
   final TextEditingController roleController = TextEditingController();
   final TextEditingController countryController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
-
+  @override
   Widget build(BuildContext context) {
     screenHeight = MediaQuery.of(context).size.height;
     screenWidth = MediaQuery.of(context).size.width;
@@ -210,7 +206,7 @@ class _AdminAddAccountScreenState extends State<AdminAddAccountScreen> {
     return Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
-          backgroundColor: Color(0xFFFF9EC9),
+          backgroundColor: const Color(0xFFFF9EC9),
           title: Text("Admin Add Account",
               textAlign: TextAlign.center,
               style: GoogleFonts.openSans(
@@ -249,10 +245,10 @@ class _AdminAddAccountScreenState extends State<AdminAddAccountScreen> {
                             child: SizedBox(
                                 height: screenHeight / 3,
                                 width: screenWidth,
-                                child: _image == null
+                                child: image == null
                                     ? Image.asset(pathAsset)
                                     : Image.file(
-                                        _image,
+                                        image,
                                       ))),
                       ),
                       const SizedBox(height: 10),
@@ -547,7 +543,7 @@ class _AdminAddAccountScreenState extends State<AdminAddAccountScreen> {
                               _insertDialog();
                             },
                             style: ElevatedButton.styleFrom(
-                                backgroundColor: Color(0xFFFF9EC9),
+                                backgroundColor: const Color(0xFFFF9EC9),
                                 side: BorderSide.none,
                                 shape: const StadiumBorder()),
                             child: const Text("Add Account",
@@ -602,7 +598,7 @@ class _AdminAddAccountScreenState extends State<AdminAddAccountScreen> {
       maxWidth: 800,
     );
     if (pickedFile != null) {
-      _image = File(pickedFile.path);
+      image = File(pickedFile.path);
       _cropImage();
     }
   }
@@ -615,14 +611,14 @@ class _AdminAddAccountScreenState extends State<AdminAddAccountScreen> {
       maxWidth: 600,
     );
     if (pickedFile != null) {
-      _image = File(pickedFile.path);
+      image = File(pickedFile.path);
       _cropImage();
     }
   }
 
   Future<void> _cropImage() async {
     CroppedFile? croppedFile = await ImageCropper().cropImage(
-      sourcePath: _image!.path,
+      sourcePath: image!.path,
       aspectRatioPresets: [
         CropAspectRatioPreset.square,
         CropAspectRatioPreset.ratio3x2,
@@ -632,13 +628,14 @@ class _AdminAddAccountScreenState extends State<AdminAddAccountScreen> {
       ],
     );
     if (croppedFile != null) {
-      File _image = File(croppedFile.path);
+      // ignore: unused_local_variable
+      File image = File(croppedFile.path);
       setState(() {});
     }
   }
 
   void _insertDialog() {
-    if (_formKey.currentState!.validate() && _image != null) {
+    if (_formKey.currentState!.validate() && image != null) {
       _formKey.currentState!.save();
       showDialog(
         context: context,
@@ -655,7 +652,7 @@ class _AdminAddAccountScreenState extends State<AdminAddAccountScreen> {
                 child: Text(
                   "No",
                   style: GoogleFonts.montserrat(
-                      color: Color(0xFFFF9EC9),
+                      color: const Color(0xFFFF9EC9),
                       fontSize: 15,
                       fontWeight: FontWeight.bold),
                 ),
@@ -667,7 +664,7 @@ class _AdminAddAccountScreenState extends State<AdminAddAccountScreen> {
                 child: Text(
                   "Confirm",
                   style: GoogleFonts.montserrat(
-                      color: Color(0xFFFF9EC9),
+                      color: const Color(0xFFFF9EC9),
                       fontSize: 15,
                       fontWeight: FontWeight.bold),
                 ),
@@ -684,34 +681,33 @@ class _AdminAddAccountScreenState extends State<AdminAddAccountScreen> {
   }
 
   void _addNewAccount() {
-    String _name = nameController.text;
-    String _email = emailController.text;
-    String _phone = phoneController.text;
-    String _address = addressController.text;
-    String _password = password1Controller.text;
-    String _roleid = "0";
-    String _origin = countryController.text;
+    String name = nameController.text;
+    String email = emailController.text;
+    String phone = phoneController.text;
+    String address = addressController.text;
+    String password = password1Controller.text;
+    String roleid = "0";
+    String origin = countryController.text;
 
     if (roleController.text == "Admin") {
-      _roleid = "1";
+      roleid = "1";
     } else if (roleController.text == "Manufacturer") {
-      _roleid = "2";
+      roleid = "2";
     } else if (roleController.text == "Retailer") {
-      _roleid = "3";
+      roleid = "3";
     }
-    String base64Image = base64Encode(_image!.readAsBytesSync());
+    String base64Image = base64Encode(image!.readAsBytesSync());
     FocusScope.of(context).requestFocus(FocusNode());
 
-    http.post(
-        Uri.parse(CONSTANTS.server + "/enQRsure/php/registeruser.php/"),
+    http.post(Uri.parse('${CONSTANTS.server}/enQRsure/php/registeruser.php/'),
         body: {
-          "email": _email,
-          "name": _name,
-          "password": _password,
-          "phone": _phone,
-          "address": _address,
-          "roleid": _roleid,
-          "origin": _origin,
+          "email": email,
+          "name": name,
+          "password": password,
+          "phone": phone,
+          "address": address,
+          "roleid": roleid,
+          "origin": origin,
           "image": base64Image,
         }).then((response) {
       var data = jsonDecode(response.body);

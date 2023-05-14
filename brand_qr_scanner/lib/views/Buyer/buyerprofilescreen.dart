@@ -1,14 +1,10 @@
 import 'dart:convert';
-
-import 'package:enQRsure/views/Buyer/buyerhomescreen.dart';
 import 'package:enQRsure/views/mainscreen.dart';
-import 'package:enQRsure/views/profilescreen.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import '../../constants.dart';
 import '../../models/user.dart';
 import '../loginscreen.dart';
@@ -49,7 +45,7 @@ class _BuyerProfileScreenState extends State<BuyerProfileScreen> {
       backgroundColor: Colors.white.withAlpha(200),
       appBar: AppBar(
         centerTitle: true,
-        backgroundColor: Color(0xFF54B5FF),
+        backgroundColor: const Color(0xFF54B5FF),
         elevation: 1,
         title: Text("Profile",
             textAlign: TextAlign.center,
@@ -94,7 +90,7 @@ class _BuyerProfileScreenState extends State<BuyerProfileScreen> {
                           builder: (context) =>
                               BuyerEditProfileScreen(user: widget.user))),
                   style: ElevatedButton.styleFrom(
-                      backgroundColor: Color(0xFF54B5FF),
+                      backgroundColor: const Color(0xFF54B5FF),
                       side: BorderSide.none,
                       shape: const StadiumBorder()),
                   child: Text("Edit Profile",
@@ -164,7 +160,7 @@ class _BuyerProfileScreenState extends State<BuyerProfileScreen> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (BuildContext context) => LoginScreen()));
+                        builder: (BuildContext context) => const LoginScreen()));
               },
             ),
             TextButton(
@@ -213,7 +209,7 @@ class _BuyerProfileScreenState extends State<BuyerProfileScreen> {
               child: Text(
                 "Yes",
                 style: GoogleFonts.montserrat(
-                    color: Color(0xFFFF9EC9),
+                    color: const Color(0xFFFF9EC9),
                     fontSize: 15,
                     fontWeight: FontWeight.bold),
               ),
@@ -230,7 +226,7 @@ class _BuyerProfileScreenState extends State<BuyerProfileScreen> {
               child: Text(
                 "No",
                 style: GoogleFonts.montserrat(
-                    color: Color(0xFFFF9EC9),
+                    color: const Color(0xFFFF9EC9),
                     fontSize: 15,
                     fontWeight: FontWeight.bold),
               ),
@@ -320,7 +316,7 @@ class _BuyerProfileScreenState extends State<BuyerProfileScreen> {
               child: Text(
                 "Yes",
                 style: GoogleFonts.montserrat(
-                    color: Color(0xFFFF9EC9),
+                    color: const Color(0xFFFF9EC9),
                     fontSize: 15,
                     fontWeight: FontWeight.bold),
               ),
@@ -333,7 +329,7 @@ class _BuyerProfileScreenState extends State<BuyerProfileScreen> {
               child: Text(
                 "No",
                 style: GoogleFonts.montserrat(
-                    color: Color(0xFFFF9EC9),
+                    color: const Color(0xFFFF9EC9),
                     fontSize: 15,
                     fontWeight: FontWeight.bold),
               ),
@@ -351,7 +347,7 @@ class _BuyerProfileScreenState extends State<BuyerProfileScreen> {
     try {
       http.post(
           Uri.parse(
-              CONSTANTS.server + "/enQRsure/php/updateprofilepicture.php/"),
+              "${CONSTANTS.server}/enQRsure/php/updateprofilepicture.php/"),
           body: {
             "userid": widget.user.id,
             "oldpass": _oldpasswordController.text,
@@ -376,7 +372,6 @@ class _BuyerProfileScreenState extends State<BuyerProfileScreen> {
         }
       });
     } catch (e) {
-      print("Error: $e");
       Fluttertoast.showToast(
           msg: "An error occurred",
           toastLength: Toast.LENGTH_SHORT,
@@ -412,7 +407,7 @@ class ProfileMenuWidget extends StatelessWidget {
         height: 40,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(100),
-          color: Color(0xFF54B5FF),
+          color: const Color(0xFF54B5FF),
         ),
         child: Icon(icon, color: Colors.black),
       ),

@@ -72,7 +72,7 @@ class _RetailerRegisterProductScreenState extends State<RetailerRegisterProductS
   }
 
   Widget buildControlButtons() => Container(
-        padding: EdgeInsets.symmetric(horizontal: 16),
+        padding: const EdgeInsets.symmetric(horizontal: 16),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10), color: Colors.white),
         child: Row(
@@ -101,7 +101,7 @@ class _RetailerRegisterProductScreenState extends State<RetailerRegisterProductS
                   future: controller?.getCameraInfo(),
                   builder: (context, snapshot) {
                     if (snapshot.data != null) {
-                      return Icon(Icons.switch_camera);
+                      return const Icon(Icons.switch_camera);
                     } else {
                       return Container();
                     }
@@ -117,7 +117,7 @@ class _RetailerRegisterProductScreenState extends State<RetailerRegisterProductS
       );
 
   Widget buildResult() => Container(
-        padding: EdgeInsets.all(20),
+        padding: const EdgeInsets.all(20),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           color: Colors.white,
@@ -137,7 +137,7 @@ class _RetailerRegisterProductScreenState extends State<RetailerRegisterProductS
         key: qrKey,
         onQRViewCreated: onQRViewCreated,
         overlay: QrScannerOverlayShape(
-          borderColor: Color(0xFFFFB747),
+          borderColor: const Color(0xFFFFB747),
           borderRadius: 20,
           borderLength: 30,
           borderWidth: 10,
@@ -244,7 +244,7 @@ class _RetailerRegisterProductScreenState extends State<RetailerRegisterProductS
                                 fontSize: 16,
                                 fontWeight: FontWeight.bold,
                                 color: Colors.black)),
-                        Text(product.productWarranty.toString() + " Months",
+                        Text("${product.productWarranty} Months",
                             style: GoogleFonts.montserrat(
                                 fontSize: 16, color: Colors.black)),
                         const SizedBox(height: 10),
@@ -285,7 +285,7 @@ class _RetailerRegisterProductScreenState extends State<RetailerRegisterProductS
                                 registerProduct(product);
                               },
                               style: ElevatedButton.styleFrom(
-                                  backgroundColor: Color(0xFFFFB747),
+                                  backgroundColor: const Color(0xFFFFB747),
                                   side: BorderSide.none,
                                   shape: const StadiumBorder()),
                               child: const Text("Register Product",
@@ -303,7 +303,7 @@ class _RetailerRegisterProductScreenState extends State<RetailerRegisterProductS
                   child: Text(
                     "Close",
                     style: GoogleFonts.montserrat(
-                        color: Color(0xFFFFB747),
+                        color: const Color(0xFFFFB747),
                         fontSize: 18,
                         fontWeight: FontWeight.bold),
                   ),
@@ -326,19 +326,16 @@ class _RetailerRegisterProductScreenState extends State<RetailerRegisterProductS
 
   _loadProductInfo() async {
     http.post(
-      Uri.parse(CONSTANTS.server + "/enQRsure/php/loadregisterproduct.php/"),
+      Uri.parse("${CONSTANTS.server}/enQRsure/php/loadregisterproduct.php/"),
       body: {
         "encryptedcode": barcode.toString(),
       },
     ).then((response) {
-      print(response.body);
       var jsonResponse = json.decode(response.body);
       if (response.statusCode == 200 && jsonResponse['status'] == "success") {
-        print(jsonResponse);
         Product product = Product.fromJson(jsonResponse['data']);
         _loadProductDialog(product);
       } else {
-        print(jsonResponse);
         Fluttertoast.showToast(
           msg: "Invalid QR Code!",
           toastLength: Toast.LENGTH_SHORT,
@@ -357,8 +354,7 @@ class _RetailerRegisterProductScreenState extends State<RetailerRegisterProductS
           df.format(DateTime.parse(datetime.toString()));
       FocusScope.of(context).requestFocus(FocusNode());
       http.post(
-        Uri.parse(CONSTANTS.server +
-            "/enQRsure/php/retailerregisterproduct.php/"),
+        Uri.parse("${CONSTANTS.server}/enQRsure/php/retailerregisterproduct.php/"),
         body: {
           "userid": widget.user.id.toString(),
           "retailerregdate": retailerregdate,
@@ -415,6 +411,5 @@ class _RetailerRegisterProductScreenState extends State<RetailerRegisterProductS
         ),
       );
     }
-    ;
   }
 }

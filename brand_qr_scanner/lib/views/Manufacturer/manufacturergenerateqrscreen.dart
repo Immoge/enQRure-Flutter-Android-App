@@ -1,14 +1,7 @@
 import 'dart:io';
-import 'dart:typed_data';
-import 'dart:ui' as ui;
 import 'dart:convert';
 import 'package:enQRsure/views/Manufacturer/manufacturermainscreen.dart';
-import 'package:flutter/rendering.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:screenshot/screenshot.dart';
-import 'package:share_plus/share_plus.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'dart:math';
@@ -20,7 +13,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
-import 'package:sn_progress_dialog/progress_dialog.dart';
 import 'package:http/http.dart' as http;
 import '../../models/user.dart';
 import '../../constants.dart';
@@ -262,7 +254,7 @@ class _ManufacturerGenerateQRScreenState
     }
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: Color(0xFF90E6C3),
+          backgroundColor: const Color(0xFF90E6C3),
           title: Text("Add Product",
               textAlign: TextAlign.center,
               style: GoogleFonts.openSans(
@@ -309,7 +301,7 @@ class _ManufacturerGenerateQRScreenState
                             return null;
                           },
                         ),
-                        SizedBox(height: 10.0),
+                        const SizedBox(height: 10.0),
                         TextFormField(
                           controller: _prdescriptionEditingController,
                           minLines: 6,
@@ -337,7 +329,7 @@ class _ManufacturerGenerateQRScreenState
                               controller: _prtypeEditingController,
                               decoration: InputDecoration(
                                 labelText: 'Product Type',
-                                prefixIcon: Icon(LineAwesomeIcons.tags),
+                                prefixIcon: const Icon(LineAwesomeIcons.tags),
                                 border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(5.0)),
                               ),
@@ -450,7 +442,7 @@ class _ManufacturerGenerateQRScreenState
                                 child: TextFormField(
                                   controller: _prdateEditingController,
                                   decoration: InputDecoration(
-                                    prefixIcon: Icon(LineAwesomeIcons.calendar),
+                                    prefixIcon: const Icon(LineAwesomeIcons.calendar),
                                     border: OutlineInputBorder(
                                         borderRadius:
                                             BorderRadius.circular(5.0)),
@@ -492,7 +484,7 @@ class _ManufacturerGenerateQRScreenState
                               decimal: false),
                           decoration: InputDecoration(
                               labelText: 'Warranty Period (Months)',
-                              prefixIcon: Icon(LineAwesomeIcons.check_circle),
+                              prefixIcon: const Icon(LineAwesomeIcons.check_circle),
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(5.0))),
                           validator: (value) {
@@ -509,7 +501,7 @@ class _ManufacturerGenerateQRScreenState
                               controller: _proriginEditingController,
                               decoration: InputDecoration(
                                 labelText: 'Origin',
-                                prefixIcon: Icon(LineAwesomeIcons.globe),
+                                prefixIcon: const Icon(LineAwesomeIcons.globe),
                                 border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(5.0)),
                               ),
@@ -575,10 +567,10 @@ class _ManufacturerGenerateQRScreenState
                           height: 50,
                           child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                                backgroundColor: Color(0xFF90E6C3),
+                                backgroundColor: const Color(0xFF90E6C3),
                                 side: BorderSide.none,
                                 shape: const StadiumBorder()),
-                            child: Text("Add Product",
+                            child: const Text("Add Product",
                                 style: TextStyle(
                                     fontSize: 20, fontWeight: FontWeight.bold)),
                             onPressed: () {
@@ -699,7 +691,7 @@ class _ManufacturerGenerateQRScreenState
                 child: Text(
                   "No",
                   style: GoogleFonts.montserrat(
-                    color: Color(0xFF90E6C3),
+                    color: const Color(0xFF90E6C3),
                     fontSize: 15,
                     fontWeight: FontWeight.bold,
                   ),
@@ -712,7 +704,7 @@ class _ManufacturerGenerateQRScreenState
                 child: Text(
                   "Confirm",
                   style: GoogleFonts.montserrat(
-                    color: Color(0xFF90E6C3),
+                    color: const Color(0xFF90E6C3),
                     fontSize: 15,
                     fontWeight: FontWeight.bold,
                   ),
@@ -741,7 +733,7 @@ class _ManufacturerGenerateQRScreenState
     String prencryptedcode = encryptedCode;
     String manufacturerid = widget.user.id.toString();
     String base64Image = base64Encode(_image!.readAsBytesSync());
-    http.post(Uri.parse(CONSTANTS.server + "/enQRsure/php/addproduct.php/"),
+    http.post(Uri.parse("${CONSTANTS.server}/enQRsure/php/addproduct.php/"),
         body: {
           "prname": prname,
           "prdescription": prdescription,
@@ -754,7 +746,6 @@ class _ManufacturerGenerateQRScreenState
           "manufacturerid": manufacturerid,
           "image": base64Image,
         }).then((response) {
-      print(response.body);
       var data = jsonDecode(response.body);
       if (response.statusCode == 200 && data['status'] == 'success') {
         Fluttertoast.showToast(
@@ -775,19 +766,19 @@ class _ManufacturerGenerateQRScreenState
   }
 
   Future<void> _generateEncryptedCode() async {
-    String _prname = _prnameEditingController.text;
-    String _prdescription = _prdescriptionEditingController.text;
-    String _prtype = _prtypeEditingController.text;
-    String _prbarcode = _prbarcodeEditingController.text;
-    String _prdate = _prdateEditingController.text;
-    String _prorigin = _proriginEditingController.text;
+    String prname = _prnameEditingController.text;
+    String prdescription = _prdescriptionEditingController.text;
+    String prtype = _prtypeEditingController.text;
+    String prbarcode = _prbarcodeEditingController.text;
+    String prdate = _prdateEditingController.text;
+    String prorigin = _proriginEditingController.text;
     String securityCode = generateRandomNumber();
-    String randomizationCode = _prname +
-        _prdescription +
-        _prtype +
-        _prbarcode +
-        _prdate +
-        _prorigin +
+    String randomizationCode = prname +
+        prdescription +
+        prtype +
+        prbarcode +
+        prdate +
+        prorigin +
         securityCode;
     encryptedCode = encryptWithSHA256(randomizationCode);
   }
@@ -821,9 +812,9 @@ class _ManufacturerGenerateQRScreenState
                       size: 200,
                       gapless: false,
                       embeddedImage:
-                          AssetImage('assets/images/enQRsure logo.png'),
+                          const AssetImage('assets/images/enQRsure logo.png'),
                       embeddedImageStyle: QrEmbeddedImageStyle(
-                        size: Size(40, 40),
+                        size: const Size(40, 40),
                       ),
                     ),
                   ),
@@ -836,7 +827,7 @@ class _ManufacturerGenerateQRScreenState
               child: Text(
                 "Download",
                 style: GoogleFonts.montserrat(
-                  color: Color(0xFF90E6C3),
+                  color: const Color(0xFF90E6C3),
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
                 ),
@@ -849,7 +840,7 @@ class _ManufacturerGenerateQRScreenState
               child: Text(
                 "Close",
                 style: GoogleFonts.montserrat(
-                  color: Color(0xFF90E6C3),
+                  color: const Color(0xFF90E6C3),
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
                 ),

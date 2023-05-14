@@ -187,11 +187,11 @@ class _ManufacturerEditProfileScreenState
     'Sri Lanka'
   ];
   String? selectedItem2 = 'Malaysia';
-  TextEditingController _nameController = new TextEditingController();
-  TextEditingController _emailController = new TextEditingController();
-  TextEditingController _phoneController = new TextEditingController();
-  TextEditingController _addressController = new TextEditingController();
-  TextEditingController _countryController = new TextEditingController();
+  TextEditingController nameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController phoneController = TextEditingController();
+  TextEditingController addressController = TextEditingController();
+  TextEditingController countryController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
   Random random = Random();
@@ -199,18 +199,19 @@ class _ManufacturerEditProfileScreenState
   @override
   void initState() {
     super.initState();
-    _nameController.text = widget.user.name.toString();
-    _emailController.text = widget.user.email.toString();
-    _phoneController.text = widget.user.phone.toString();
-    _addressController.text = widget.user.address.toString();
-    _countryController.text = widget.user.origin.toString();
+    nameController.text = widget.user.name.toString();
+    emailController.text = widget.user.email.toString();
+    phoneController.text = widget.user.phone.toString();
+    addressController.text = widget.user.address.toString();
+    countryController.text = widget.user.origin.toString();
   }
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          backgroundColor: Color(0xFFFFB747),
+          backgroundColor: const Color(0xFFFFB747),
           elevation: 1,
           title: Text("Edit Profile",
               textAlign: TextAlign.center,
@@ -244,7 +245,7 @@ class _ManufacturerEditProfileScreenState
                           height: 35,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(100),
-                            color: Color(0xFFFFB747),
+                            color: const Color(0xFFFFB747),
                           ),
                           child: GestureDetector(
                             onTap: () => {_updateImageDialog()},
@@ -260,7 +261,7 @@ class _ManufacturerEditProfileScreenState
                     Padding(
                         padding: const EdgeInsets.fromLTRB(0, 5, 0, 5),
                         child: TextFormField(
-                          controller: _nameController,
+                          controller: nameController,
                           decoration: InputDecoration(
                               focusedBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10.0),
@@ -285,7 +286,7 @@ class _ManufacturerEditProfileScreenState
                     Padding(
                         padding: const EdgeInsets.fromLTRB(0, 5, 0, 5),
                         child: TextFormField(
-                          controller: _emailController,
+                          controller: emailController,
                           decoration: InputDecoration(
                               focusedBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10.0),
@@ -317,7 +318,7 @@ class _ManufacturerEditProfileScreenState
                     Padding(
                         padding: const EdgeInsets.fromLTRB(0, 5, 0, 5),
                         child: TextFormField(
-                          controller: _phoneController,
+                          controller: phoneController,
                           decoration: InputDecoration(
                               focusedBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10.0),
@@ -346,7 +347,7 @@ class _ManufacturerEditProfileScreenState
                     Padding(
                         padding: const EdgeInsets.fromLTRB(0, 5, 0, 5),
                         child: TextFormField(
-                          controller: _addressController,
+                          controller: addressController,
                           decoration: InputDecoration(
                               focusedBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10.0),
@@ -374,7 +375,7 @@ class _ManufacturerEditProfileScreenState
                     Padding(
                         padding: const EdgeInsets.fromLTRB(0, 5, 0, 5),
                         child: TextFormField(
-                          controller: _countryController,
+                          controller: countryController,
                           decoration: InputDecoration(
                               labelText: 'Country',
                               prefixIcon: const Icon(Icons.flag_circle),
@@ -425,7 +426,7 @@ class _ManufacturerEditProfileScreenState
                               },
                             );
                             if (selectedCountry != null) {
-                              _countryController.text = selectedCountry;
+                              countryController.text = selectedCountry;
                             }
                           },
                           validator: (value) {
@@ -447,7 +448,7 @@ class _ManufacturerEditProfileScreenState
                       }
                     },
                     style: ElevatedButton.styleFrom(
-                        backgroundColor: Color(0xFFFFB747),
+                        backgroundColor: const Color(0xFFFFB747),
                         side: BorderSide.none,
                         shape: const StadiumBorder()),
                     child: Text("Edit Profile",
@@ -548,7 +549,7 @@ class _ManufacturerEditProfileScreenState
     ProgressDialog pd = ProgressDialog(context: context);
     pd.show(msg: 'Uploading...', max: 100);
     http.post(
-        Uri.parse(CONSTANTS.server + "/enQRsure/php/updateprofilepicture.php/"),
+        Uri.parse("${CONSTANTS.server}/enQRsure/php/updateprofilepicture.php/"),
         body: {
           "userid": widget.user.id,
           "image": base64Image,
@@ -576,22 +577,22 @@ class _ManufacturerEditProfileScreenState
   }
 
   void _updateProfile() async {
-    String _name = _nameController.text;
-    String _email = _emailController.text;
-    String _phone = _phoneController.text;
-    String _address = _addressController.text;
-    String _origin = _countryController.text;
+    String name = nameController.text;
+    String email = emailController.text;
+    String phone = phoneController.text;
+    String address = addressController.text;
+    String origin = countryController.text;
     FocusScope.of(context).requestFocus(FocusNode());
 
     http.post(
-      Uri.parse(CONSTANTS.server + "/enQRsure/php/updateprofile.php/"),
+      Uri.parse("${CONSTANTS.server}/enQRsure/php/updateprofile.php/"),
       body: {
         "userid": widget.user.id.toString(),
-        "useremail": _email,
-        "username": _name,
-        "userphone": _phone,
-        "useraddress": _address,
-        "userorigin": _origin,
+        "useremail": email,
+        "username": name,
+        "userphone": phone,
+        "useraddress": address,
+        "userorigin": origin,
       },
     ).then((response) async {
       var data = jsonDecode(response.body);

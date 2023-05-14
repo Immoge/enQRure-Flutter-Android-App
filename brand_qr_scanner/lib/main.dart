@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:enQRsure/views/Buyer/buyerhomescreen.dart';
 import 'package:enQRsure/views/landingscreen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -16,7 +15,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'enQRure',
       theme: ThemeData(
-        primaryColor: Color(0xFF54B5FF),
+        primaryColor: const Color(0xFF54B5FF),
         textTheme: GoogleFonts.montserratTextTheme(
           Theme.of(context).textTheme,
         ),

@@ -1,28 +1,14 @@
 import 'dart:io';
-import 'dart:typed_data';
-import 'dart:ui' as ui;
 import 'dart:convert';
 import 'package:enQRsure/models/product.dart';
-import 'package:enQRsure/views/Manufacturer/manufacturermainscreen.dart';
 import 'package:enQRsure/views/mainscreen.dart';
-import 'package:flutter/rendering.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:flutter_downloader/flutter_downloader.dart';
-import 'package:permission_handler/permission_handler.dart';
-import 'package:screenshot/screenshot.dart';
-import 'package:share_plus/share_plus.dart';
-import 'package:qr_flutter/qr_flutter.dart';
 import 'package:image_cropper/image_cropper.dart';
-import 'dart:math';
-import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
-import 'package:sn_progress_dialog/progress_dialog.dart';
 import 'package:http/http.dart' as http;
 import '../../models/user.dart';
 import '../../constants.dart';
@@ -250,7 +236,7 @@ class _BuyerCounterfeitProductScreenState
     }
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: Color(0xFF54B5FF),
+          backgroundColor: const Color(0xFF54B5FF),
           title: Text("Counterfeit Product Report",
               textAlign: TextAlign.center,
               style: GoogleFonts.openSans(
@@ -297,7 +283,7 @@ class _BuyerCounterfeitProductScreenState
                             return null;
                           },
                         ),
-                        SizedBox(height: 10.0),
+                        const SizedBox(height: 10.0),
                         TextFormField(
                           controller: _cprdescriptionEditingController,
                           minLines: 6,
@@ -396,7 +382,7 @@ class _BuyerCounterfeitProductScreenState
                               controller: _cproriginEditingController,
                               decoration: InputDecoration(
                                 labelText: 'Origin',
-                                prefixIcon: Icon(LineAwesomeIcons.globe),
+                                prefixIcon: const Icon(LineAwesomeIcons.globe),
                                 border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(5.0)),
                               ),
@@ -494,7 +480,7 @@ class _BuyerCounterfeitProductScreenState
                           child: TextFormField(
                             controller: _cprpurchsedateEditingController,
                             decoration: InputDecoration(
-                              prefixIcon: Icon(LineAwesomeIcons.calendar),
+                              prefixIcon: const Icon(LineAwesomeIcons.calendar),
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(5.0)),
                               labelText: 'Purchase Date',
@@ -530,10 +516,10 @@ class _BuyerCounterfeitProductScreenState
                           height: 50,
                           child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                                backgroundColor: Color(0xFF54B5FF),
+                                backgroundColor: const Color(0xFF54B5FF),
                                 side: BorderSide.none,
                                 shape: const StadiumBorder()),
-                            child: Text("Submit Report",
+                            child: const Text("Submit Report",
                                 style: TextStyle(
                                     fontSize: 20, fontWeight: FontWeight.bold)),
                             onPressed: () {
@@ -653,7 +639,7 @@ class _BuyerCounterfeitProductScreenState
                 child: Text(
                   "No",
                   style: GoogleFonts.montserrat(
-                    color: Color(0xFF54B5FF),
+                    color: const Color(0xFF54B5FF),
                     fontSize: 15,
                     fontWeight: FontWeight.bold,
                   ),
@@ -666,7 +652,7 @@ class _BuyerCounterfeitProductScreenState
                 child: Text(
                   "Confirm",
                   style: GoogleFonts.montserrat(
-                    color: Color(0xFF54B5FF),
+                    color: const Color(0xFF54B5FF),
                     fontSize: 15,
                     fontWeight: FontWeight.bold,
                   ),
@@ -695,7 +681,7 @@ class _BuyerCounterfeitProductScreenState
     String base64Image = base64Encode(_image!.readAsBytesSync());
     http.post(
         Uri.parse(
-            CONSTANTS.server + "/enQRsure/php/submitcounterfeitreport.php/"),
+            "${CONSTANTS.server}/enQRsure/php/submitcounterfeitreport.php/"),
         body: {
           "cprname": cprname,
           "cprdescription": cprdescription,
@@ -708,7 +694,6 @@ class _BuyerCounterfeitProductScreenState
           "cprbuyerid": cprbuyerid,
           "image": base64Image,
         }).then((response) {
-      print(response.body);
       var data = jsonDecode(response.body);
       if (response.statusCode == 200 && data['status'] == 'success') {
         Fluttertoast.showToast(

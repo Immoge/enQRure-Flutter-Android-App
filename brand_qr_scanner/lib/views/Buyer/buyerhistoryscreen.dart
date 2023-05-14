@@ -17,7 +17,7 @@ class BuyerHistoryScreen extends StatefulWidget {
 }
 
 class _BuyerHistoryScreenState extends State<BuyerHistoryScreen> {
-  var _tapPosition;
+  var tapPosition;
   var color;
   var numofpage, curpage = 1;
   String titleCenter = "Loading...";
@@ -45,7 +45,7 @@ class _BuyerHistoryScreenState extends State<BuyerHistoryScreen> {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        backgroundColor: Color(0xFF54B5FF),
+        backgroundColor: const Color(0xFF54B5FF),
         title: Text("History",
             textAlign: TextAlign.center,
             style: GoogleFonts.openSans(
@@ -104,7 +104,7 @@ class _BuyerHistoryScreenState extends State<BuyerHistoryScreen> {
                           child: Card(
                               elevation: 5,
                               shape: RoundedRectangleBorder(
-                                side: BorderSide(color: Colors.black, width: 2),
+                                side: const BorderSide(color: Colors.black, width: 2),
                                 borderRadius: BorderRadius.circular(10),
                               ),
                               child: Column(
@@ -203,7 +203,7 @@ class _BuyerHistoryScreenState extends State<BuyerHistoryScreen> {
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (context, index) {
                     if ((curpage - 1) == index) {
-                      color = Color(0xFF54B5FF);
+                      color = const Color(0xFF54B5FF);
                     } else {
                       color = Colors.black;
                     }
@@ -224,16 +224,16 @@ class _BuyerHistoryScreenState extends State<BuyerHistoryScreen> {
     );
   }
 
-  void _loadRegisteredProduct(int pageno, String _search) {
+  void _loadRegisteredProduct(int pageno, String search) {
     curpage = pageno;
     numofpage ??= 1;
     String userid = widget.user.id.toString();
     http.post(
       Uri.parse(
-          CONSTANTS.server + "/enQRsure/php/loadbuyerregisteredproduct.php"),
+          "${CONSTANTS.server}/enQRsure/php/loadbuyerregisteredproduct.php"),
       body: {
         'pageno': pageno.toString(),
-        'search': _search,
+        'search': search,
         'userid': userid,
       },
     ).timeout(
@@ -343,7 +343,7 @@ class _BuyerHistoryScreenState extends State<BuyerHistoryScreen> {
                           fontWeight: FontWeight.bold,
                           color: Colors.black)),
                   Text(
-                      productList[index].productWarranty.toString() + " Months",
+                      "${productList[index].productWarranty} Months",
                       style: GoogleFonts.montserrat(
                           fontSize: 16, color: Colors.black)),
                   const SizedBox(height: 10),
@@ -375,7 +375,7 @@ class _BuyerHistoryScreenState extends State<BuyerHistoryScreen> {
                 child: Text(
                   "Close",
                   style: GoogleFonts.montserrat(
-                      color: Color(0xFF54B5FF),
+                      color: const Color(0xFF54B5FF),
                       fontSize: 18,
                       fontWeight: FontWeight.bold),
                 ),
@@ -389,6 +389,6 @@ class _BuyerHistoryScreenState extends State<BuyerHistoryScreen> {
   }
 
   void _storePosition(TapDownDetails details) {
-    _tapPosition = details.globalPosition;
+    tapPosition = details.globalPosition;
   }
 }

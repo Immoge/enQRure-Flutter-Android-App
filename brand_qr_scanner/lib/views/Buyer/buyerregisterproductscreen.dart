@@ -75,7 +75,7 @@ class _BuyerRegisterProductScreenState
   }
 
   Widget buildControlButtons() => Container(
-        padding: EdgeInsets.symmetric(horizontal: 16),
+        padding: const EdgeInsets.symmetric(horizontal: 16),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10), color: Colors.white),
         child: Row(
@@ -104,7 +104,7 @@ class _BuyerRegisterProductScreenState
                   future: controller?.getCameraInfo(),
                   builder: (context, snapshot) {
                     if (snapshot.data != null) {
-                      return Icon(Icons.switch_camera);
+                      return const Icon(Icons.switch_camera);
                     } else {
                       return Container();
                     }
@@ -120,7 +120,7 @@ class _BuyerRegisterProductScreenState
       );
 
   Widget buildResult() => Container(
-        padding: EdgeInsets.all(20),
+        padding: const EdgeInsets.all(20),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           color: Colors.white,
@@ -140,7 +140,7 @@ class _BuyerRegisterProductScreenState
         key: qrKey,
         onQRViewCreated: onQRViewCreated,
         overlay: QrScannerOverlayShape(
-          borderColor: Color(0xFF54B5FF),
+          borderColor: const Color(0xFF54B5FF),
           borderRadius: 20,
           borderLength: 30,
           borderWidth: 10,
@@ -249,7 +249,7 @@ class _BuyerRegisterProductScreenState
                                 fontSize: 16,
                                 fontWeight: FontWeight.bold,
                                 color: Colors.black)),
-                        Text(product.productWarranty.toString() + " Months",
+                        Text("${product.productWarranty} Months",
                             style: GoogleFonts.montserrat(
                                 fontSize: 16, color: Colors.black)),
                         const SizedBox(height: 10),
@@ -299,7 +299,7 @@ class _BuyerRegisterProductScreenState
                                 registerProduct(product);
                               },
                               style: ElevatedButton.styleFrom(
-                                  backgroundColor: Color(0xFF54B5FF),
+                                  backgroundColor: const Color(0xFF54B5FF),
                                   side: BorderSide.none,
                                   shape: const StadiumBorder()),
                               child: const Text("Register Product",
@@ -317,7 +317,7 @@ class _BuyerRegisterProductScreenState
                   child: Text(
                     "Close",
                     style: GoogleFonts.montserrat(
-                        color: Color(0xFF54B5FF),
+                        color: const Color(0xFF54B5FF),
                         fontSize: 18,
                         fontWeight: FontWeight.bold),
                   ),
@@ -340,19 +340,16 @@ class _BuyerRegisterProductScreenState
 
   _loadProductInfo() async {
     http.post(
-      Uri.parse(CONSTANTS.server + "/enQRsure/php/loadregisterproduct.php/"),
+      Uri.parse("${CONSTANTS.server}/enQRsure/php/loadregisterproduct.php/"),
       body: {
         "encryptedcode": barcode.toString(),
       },
     ).then((response) {
-      print(response.body);
       var jsonResponse = json.decode(response.body);
       if (response.statusCode == 200 && jsonResponse['status'] == "success") {
-        print(jsonResponse);
         Product product = Product.fromJson(jsonResponse['data']);
         _loadProductDialog(product);
       } else {
-        print(jsonResponse);
         Fluttertoast.showToast(
           msg: "Invalid QR Code!",
           toastLength: Toast.LENGTH_SHORT,
@@ -371,7 +368,7 @@ class _BuyerRegisterProductScreenState
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => LoginScreen(),
+          builder: (context) => const LoginScreen(),
         ),
       );
     } else {
@@ -380,7 +377,7 @@ class _BuyerRegisterProductScreenState
         FocusScope.of(context).requestFocus(FocusNode());
         http.post(
           Uri.parse(
-              CONSTANTS.server + "/enQRsure/php/buyerregisterproduct.php/"),
+              "${CONSTANTS.server}/enQRsure/php/buyerregisterproduct.php/"),
           body: {
             "userid": widget.user.id.toString(),
             "buyerregdate": buyerregdate,
