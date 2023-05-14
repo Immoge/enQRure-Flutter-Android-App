@@ -12,18 +12,18 @@ import 'package:sn_progress_dialog/progress_dialog.dart';
 import '../../constants.dart';
 import '../../models/user.dart';
 
-class ManufacturerEditProfileScreen extends StatefulWidget {
+class RetailerEditProfileScreen extends StatefulWidget {
   final User user;
-  const ManufacturerEditProfileScreen({Key? key, required this.user})
+  const RetailerEditProfileScreen({Key? key, required this.user})
       : super(key: key);
 
   @override
-  State<ManufacturerEditProfileScreen> createState() =>
-      _ManufacturerEditProfileScreenState();
+  State<RetailerEditProfileScreen> createState() =>
+      _RetailerEditProfileScreenState();
 }
 
-class _ManufacturerEditProfileScreenState
-    extends State<ManufacturerEditProfileScreen> {
+class _RetailerEditProfileScreenState
+    extends State<RetailerEditProfileScreen> {
   late Color? color;
   late double screenHeight, screenWidth, resWidth;
   var _image;

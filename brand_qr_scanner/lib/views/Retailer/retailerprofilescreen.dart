@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:enQRsure/views/Manufacturer/manufacturereditprofilescreen.dart';
+import 'package:enQRsure/views/Retailer/retailereditprofilescreen.dart';
 import 'package:enQRsure/views/mainscreen.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
@@ -87,7 +87,7 @@ class _RetailerProfileScreenState extends State<RetailerProfileScreen> {
                   onPressed: () => Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => ManufacturerEditProfileScreen(
+                          builder: (context) => RetailerEditProfileScreen(
                               user: widget.user))),
                   style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xFFFFB747),

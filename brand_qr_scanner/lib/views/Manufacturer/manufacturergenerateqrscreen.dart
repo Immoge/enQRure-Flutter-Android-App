@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:convert';
 import 'package:enQRsure/views/Manufacturer/manufacturermainscreen.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:image_cropper/image_cropper.dart';
@@ -442,7 +443,8 @@ class _ManufacturerGenerateQRScreenState
                                 child: TextFormField(
                                   controller: _prdateEditingController,
                                   decoration: InputDecoration(
-                                    prefixIcon: const Icon(LineAwesomeIcons.calendar),
+                                    prefixIcon:
+                                        const Icon(LineAwesomeIcons.calendar),
                                     border: OutlineInputBorder(
                                         borderRadius:
                                             BorderRadius.circular(5.0)),
@@ -484,7 +486,8 @@ class _ManufacturerGenerateQRScreenState
                               decimal: false),
                           decoration: InputDecoration(
                               labelText: 'Warranty Period (Months)',
-                              prefixIcon: const Icon(LineAwesomeIcons.check_circle),
+                              prefixIcon:
+                                  const Icon(LineAwesomeIcons.check_circle),
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(5.0))),
                           validator: (value) {
@@ -875,19 +878,22 @@ class _ManufacturerGenerateQRScreenState
 
   Future<void> _downloadQRCode() async {
     var status = await Permission.storage.request();
-    if (status == PermissionStatus.granted) {
-      var image2 = await widgetcontroller.capture();
-      if (image2 != null) {
-        var file =
-            await File("/storage/emulated/0/Download/${DateTime.now()}.png")
-                .create(recursive: true);
-        await file.writeAsBytes(image2);
-        Fluttertoast.showToast(
+    if (await Permission.manageExternalStorage.request().isGranted) {
+      if (status == PermissionStatus.granted) {
+        var image2 = await widgetcontroller.capture();
+        if (image2 != null) {
+          var directory = await getExternalStorageDirectory();
+          var path = '${directory!.path}/${DateTime.now()}.png';
+          var file = await File(path).create(recursive: true);
+          await file.writeAsBytes(image2);
+          Fluttertoast.showToast(
             msg: "Download Success",
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
-            fontSize: 16.0);
+            fontSize: 16.0,
+          );
+        }
       }
     }
   }

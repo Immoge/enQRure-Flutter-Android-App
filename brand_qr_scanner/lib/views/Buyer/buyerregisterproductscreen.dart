@@ -302,7 +302,7 @@ class _BuyerRegisterProductScreenState
                                   backgroundColor: const Color(0xFF54B5FF),
                                   side: BorderSide.none,
                                   shape: const StadiumBorder()),
-                              child: const Text("Register Product",
+                              child: const Text("Authenticate Product",
                                   style: TextStyle(
                                       fontSize: 20,
                                       fontWeight: FontWeight.bold)),
