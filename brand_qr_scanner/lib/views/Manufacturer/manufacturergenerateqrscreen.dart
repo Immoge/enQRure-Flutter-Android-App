@@ -736,6 +736,15 @@ class _ManufacturerGenerateQRScreenState
     String prencryptedcode = encryptedCode;
     String manufacturerid = widget.user.id.toString();
     String base64Image = base64Encode(_image!.readAsBytesSync());
+    print(prname +
+          prdescription +
+          prtype +
+          prbarcode +
+          prdate +
+          prwarranty +
+          prorigin +
+          prencryptedcode +
+          manufacturerid);
     http.post(Uri.parse("${CONSTANTS.server}/enQRsure/php/addproduct.php/"),
         body: {
           "prname": prname,
@@ -752,14 +761,14 @@ class _ManufacturerGenerateQRScreenState
       var data = jsonDecode(response.body);
       if (response.statusCode == 200 && data['status'] == 'success') {
         Fluttertoast.showToast(
-            msg: "Success",
+            msg: "Add Product Success",
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
             fontSize: 16.0);
       } else {
         Fluttertoast.showToast(
-            msg: data['status'],
+            msg: "Add Product Failed",
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,

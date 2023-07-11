@@ -204,7 +204,7 @@ class _ManufacturerProfileScreenState extends State<ManufacturerProfileScreen> {
               child: Text(
                 "Yes",
                 style: GoogleFonts.montserrat(
-                    color: const Color(0xFFFF9EC9),
+                    color: const Color(0xFF90E6C3),
                     fontSize: 15,
                     fontWeight: FontWeight.bold),
               ),
@@ -221,7 +221,7 @@ class _ManufacturerProfileScreenState extends State<ManufacturerProfileScreen> {
               child: Text(
                 "No",
                 style: GoogleFonts.montserrat(
-                    color: const Color(0xFFFF9EC9),
+                    color: const Color(0xFF90E6C3),
                     fontSize: 15,
                     fontWeight: FontWeight.bold),
               ),
