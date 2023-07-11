@@ -160,7 +160,8 @@ class _BuyerProfileScreenState extends State<BuyerProfileScreen> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (BuildContext context) => const LoginScreen()));
+                        builder: (BuildContext context) =>
+                            const LoginScreen()));
               },
             ),
             TextButton(
@@ -344,41 +345,32 @@ class _BuyerProfileScreenState extends State<BuyerProfileScreen> {
   }
 
   void changePass() {
-    try {
-      http.post(
-          Uri.parse(
-              "${CONSTANTS.server}/enQRsure/php/updateprofilepicture.php/"),
-          body: {
-            "userid": widget.user.id,
-            "oldpass": _oldpasswordController.text,
-            "newpass": _newpasswordController.text,
-          }).then((response) {
-        var jsondata = jsonDecode(response.body);
-        if (response.statusCode == 200 && jsondata['status'] == 'success') {
-          Fluttertoast.showToast(
-              msg: "Success",
-              toastLength: Toast.LENGTH_SHORT,
-              gravity: ToastGravity.BOTTOM,
-              timeInSecForIosWeb: 1,
-              fontSize: 16.0);
-          setState(() {});
-        } else {
-          Fluttertoast.showToast(
-              msg: "Failed",
-              toastLength: Toast.LENGTH_SHORT,
-              gravity: ToastGravity.BOTTOM,
-              timeInSecForIosWeb: 1,
-              fontSize: 16.0);
-        }
-      });
-    } catch (e) {
-      Fluttertoast.showToast(
-          msg: "An error occurred",
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.BOTTOM,
-          timeInSecForIosWeb: 1,
-          fontSize: 16.0);
-    }
+    http.post(Uri.parse("${CONSTANTS.server}/enQRsure/php/updatepassword.php"),
+        body: {
+          "oldpass": _oldpasswordController.text,
+          "newpass": _newpasswordController.text,
+          "userid": widget.user.id,
+        }).then((response) {
+      var jsondata = jsonDecode(response.body);
+      if (response.statusCode == 200 && jsondata['status'] == 'success') {
+        Fluttertoast.showToast(
+            msg: "Update Password Success",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            fontSize: 16.0);
+        setState(() {});
+      } else {
+        Fluttertoast.showToast(
+            msg: "Incorrect Password",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            fontSize: 16.0);
+      }
+    });
+    _oldpasswordController.clear();
+    _newpasswordController.clear();
   }
 }
 
