@@ -62,9 +62,9 @@ Password: enqrsure123 <br>
 You may register the new **_Buyer Account_** using the **Registration Screen** and register **_Admin, Retailer and Buyer Account_** through the **Add Account Screen** through the **Admin Screen**
 
 ## Screenshot
-![photo_2023-07-17_17-18-33](https://github.com/Immoge/enQRure-Flutter-Android-App/assets/96851943/ba6ea04d-c7f2-495a-acb4-3f661080ddcb)
-![photo_2023-07-17_17-17-02](https://github.com/Immoge/enQRure-Flutter-Android-App/assets/96851943/5fc06987-6aaa-410d-acc9-6315de8a93f9)
 ![photo_2023-07-17_17-14-24](https://github.com/Immoge/enQRure-Flutter-Android-App/assets/96851943/3d303c8b-a385-4e5e-bc01-64503ba3d193)
+![photo_2023-07-17_17-17-02](https://github.com/Immoge/enQRure-Flutter-Android-App/assets/96851943/5fc06987-6aaa-410d-acc9-6315de8a93f9)
+![photo_2023-07-17_17-18-33](https://github.com/Immoge/enQRure-Flutter-Android-App/assets/96851943/ba6ea04d-c7f2-495a-acb4-3f661080ddcb)
 ![photo_2023-07-17_17-13-35](https://github.com/Immoge/enQRure-Flutter-Android-App/assets/96851943/e6b5b487-9d0e-490a-ae91-3a27eb398bed)
 ![photo_2023-07-17_17-13-34](https://github.com/Immoge/enQRure-Flutter-Android-App/assets/96851943/12d8a812-5a8b-4d1f-998b-eec7040d8de5)
 
