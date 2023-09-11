@@ -28,9 +28,14 @@ Before you begin, ensure you have met the following requirements:
 
 ## Getting Started
 
-Follow these steps to get your development environment set up and run the application:
+Follow these steps to download the latest version from Github
+In Github, Go to enq-flutter-app releases, choose the version (latest is recommanded) and download the .apk file.
 
-1. Clone the repository:
 
-   ```bash
-   git clone https://github.com/yourusername/your-flutter-android-app.git
+On your Android phone:
+
+1. Go to Settings > security > install unknown apps.
+2. Go to files and enable Allow from this source. Don't forget to disable it when you have finished
+3. Exit Settings and go to files.
+4. Go to Downloads, select the .apk and click install.
+5. The app is now installed on your phone.
