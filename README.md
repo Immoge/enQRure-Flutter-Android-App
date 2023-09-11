@@ -5,15 +5,12 @@ Welcome to the README for My Flutter Android Application. This document provides
 - [Introduction](#introduction)
 - [Prerequisites](#prerequisites)
 - [Getting Started](#getting-started)
-- [Usage](#usage)
-- [Development](#development)
-- [Testing](#testing)
 - [Deployment](#deployment)
-- [Contributing](#contributing)
-- [License](#license)
+- [Usage](#usage)
+- [Screenshot](#screenshot)
+- [Author](#author)
 
 ## Introduction
-
 This app is an encrypted QR code scanner application for brand authentication are designed and developed to eliminate counterfeit products. A unique identity of product is built by several information likes unique id, digital watermark, and distribution information. This identity is encrypted and stored in a QR code. This android application is used to scan the QR code to authenticate the product purchased and information of the verified product will be stored in database to avoid second time verification within a same QR code.<br>
 * __Programming Language:__ Dart, PHP<br>
 * __Database:__ MYSQL<br>
@@ -26,8 +23,18 @@ Before you begin, ensure you have met the following requirements:
 - [Android Studio](https://developer.android.com/studio) or [Visual Studio Code](https://code.visualstudio.com/) with Flutter extensions for development.
 - An Android emulator or a physical Android device for testing.
 
-## Getting Started
 
+## Getting Started
+Follow these steps to get your development environment set up and run the application:
+
+1. Clone the repository:
+   `git clone https://github.com/Immoge/enQRure-Flutter-Android-App.git`
+2. Navigate to the project directory.
+3. Install dependencies: `flutter pub get`
+4. Launch your Android emulator or connect your physical Android device.
+5. Run the application: `flutter run`
+
+## Deployment
 Follow these steps to download the latest version from Github
 In Github, Go to [enQRure-flutter-app releases](https://github.com/Immoge/enQRure-Flutter-Android-App/releases), choose the version (latest is recommanded) and download the .apk file.
 
@@ -68,3 +75,5 @@ You may register the new **_Buyer Account_** using the **Registration Screen** a
 ![photo_2023-07-17_17-13-35](https://github.com/Immoge/enQRure-Flutter-Android-App/assets/96851943/e6b5b487-9d0e-490a-ae91-3a27eb398bed)
 ![photo_2023-07-17_17-13-34](https://github.com/Immoge/enQRure-Flutter-Android-App/assets/96851943/12d8a812-5a8b-4d1f-998b-eec7040d8de5)
 
+## Author
+* [Immoge](https://github.com/Immoge)
