@@ -18,4 +18,19 @@ This app is an encrypted QR code scanner application for brand authentication ar
 * __Programming Language:__ Dart, PHP<br>
 * __Database:__ MYSQL<br>
 
+## Prerequisites
 
+Before you begin, ensure you have met the following requirements:
+
+- [Flutter SDK](https://flutter.dev/docs/get-started/install) installed on your system.
+- [Android Studio](https://developer.android.com/studio) or [Visual Studio Code](https://code.visualstudio.com/) with Flutter extensions for development.
+- An Android emulator or a physical Android device for testing.
+
+## Getting Started
+
+Follow these steps to get your development environment set up and run the application:
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/yourusername/your-flutter-android-app.git
