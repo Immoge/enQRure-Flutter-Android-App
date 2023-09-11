@@ -29,11 +29,10 @@ Before you begin, ensure you have met the following requirements:
 ## Getting Started
 
 Follow these steps to download the latest version from Github
-In Github, Go to enq-flutter-app releases, choose the version (latest is recommanded) and download the .apk file.
+In Github, Go to [en-flutter-app releases](https://github.com/Immoge/enQRure-Flutter-Android-App/releases), choose the version (latest is recommanded) and download the .apk file.
 
 
 On your Android phone:
-
 1. Go to Settings > security > install unknown apps.
 2. Go to files and enable Allow from this source. Don't forget to disable it when you have finished
 3. Exit Settings and go to files.
