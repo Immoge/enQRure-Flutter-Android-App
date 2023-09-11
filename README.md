@@ -12,3 +12,7 @@ This app is an encrypted QR code scanner application for brand authentication ar
 - [Deployment](#deployment)
 - [Contributing](#contributing)
 - [License](#license)
+
+## Introduction
+
+This is a Flutter Android application that [briefly describe your application's purpose or key features]. It's designed to run on Android devices and was developed using the Flutter framework.
