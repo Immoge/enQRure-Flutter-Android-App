@@ -5,7 +5,7 @@ Welcome to the README for My Flutter Android Application. This document provides
 - [Introduction](#introduction)
 - [Prerequisites](#prerequisites)
 - [Getting Started](#getting-started)
-- [Project Structure](#project-structure)
+- [Usage](#usage)
 - [Development](#development)
 - [Testing](#testing)
 - [Deployment](#deployment)
@@ -29,8 +29,7 @@ Before you begin, ensure you have met the following requirements:
 ## Getting Started
 
 Follow these steps to download the latest version from Github
-In Github, Go to [en-flutter-app releases](https://github.com/Immoge/enQRure-Flutter-Android-App/releases), choose the version (latest is recommanded) and download the .apk file.
-
+In Github, Go to [enQRure-flutter-app releases](https://github.com/Immoge/enQRure-Flutter-Android-App/releases), choose the version (latest is recommanded) and download the .apk file.
 
 On your Android phone:
 1. Go to Settings > security > install unknown apps.
@@ -38,3 +37,26 @@ On your Android phone:
 3. Exit Settings and go to files.
 4. Go to Downloads, select the .apk and click install.
 5. The app is now installed on your phone.
+
+## Usage
+### Demostration Video
+Watch the [demostation video](https://youtu.be/JvV6uuvtSjM).
+
+Please use the information provided below to login to different role screen:
+* Admin
+Email: enqrsure@admin.com<br>
+Password: enqrsure123<br>
+
+* Manufacturer
+Email: enqrsure@manufacturer.com<br>
+Password: enqrsure123<br>
+
+* Retailer
+Email: enqrsure@retailer.com<br>
+Password: enqrsure123<br>
+
+* Buyer
+Email: enqrsure@buyer.com<br>
+Password: enqrsure123 <br>
+
+You may register the new **_Buyer Account_** using the **Registration Screen** and register **_Admin, Retailer and Buyer Account_** through the **Add Account Screen** through the **Admin Screen**
